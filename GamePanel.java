@@ -12,6 +12,10 @@ public class GamePanel extends JPanel implements Runnable{
     //instance variables
     private Thread gameThread;
     private KeyHandler keyH;
+    private Sprite player;
+    private Sprite background;
+    private Sprite target;
+    private Sprite projectile;
     
     //constructors, getters, setters
     public GamePanel() {
