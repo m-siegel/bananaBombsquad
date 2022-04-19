@@ -6,6 +6,8 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int SCREEN_WIDTH = 1536;
     public static final int SCREEN_HEIGHT = 1152;
     public static final int FPS = 60;
+    
+    private Thread gameThread;
 
     public void loadSprites();
 
@@ -25,6 +27,11 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
         // TODO Auto-generated method stub
+        
+        //Game loop goes here
+        
+        update();
+        repaint();
         
     }
     
