@@ -1,4 +1,4 @@
-interface KeyHandlerInterface {
+class KeyHandler {
 
   /** Returns value of each instance variable indicating whether
     * the keys for each action are pressed.
