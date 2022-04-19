@@ -9,6 +9,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void loadSprites();
 
+    
+    /* requires KeyHandler */
     public void adjustAngleAndPower();
 
 
