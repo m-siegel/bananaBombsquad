@@ -1,4 +1,4 @@
-interface SpriteInterface {
+class Sprite {
 
   // no argument constructor
   // contructor(String filepate) -- constructs with this one image
