@@ -8,6 +8,8 @@ interface SpriteInterface {
   public int getY();
   public int getSpeed();
 
+  public boolean isActive(); // to determine if the Sprite should be removed (eg is off the screen or is killed)
+  
   // Idk if we want public setters
   public boolean setX();
   public boolean setY();
