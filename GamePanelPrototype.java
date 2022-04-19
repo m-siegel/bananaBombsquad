@@ -3,12 +3,13 @@ import java.awt.Dimension;
 
 
 //IMAGES WE NEED:
-// Strawberry lives: 0.5, 1, 1.5, 2, 2.5, 3
+// Strawberry lives: 0(outline of a strawberry), 0.5, 1, 1.5, 2, 2.5, 3
 // Fruit projectiles: Banana, Banana2(for animation), Strawberry, Strawberry 2, Pineapple, Pineapple 2
 // Splattered fruit projectiles: Splattered banana, Splattered strawberry, Splattered pineapple
 // Cannon
 // Powerbar: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 // Blender: Empty, One-third filled, Two-thirds filled, Completely filled
+// Wall
 //
 //
 //
