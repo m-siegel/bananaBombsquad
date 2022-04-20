@@ -44,4 +44,8 @@ public class Target extends Sprite {
         return randomInt;
      }
 
+     public void update() {}
+
+     public void draw() {}
+
 }
