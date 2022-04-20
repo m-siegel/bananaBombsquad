@@ -1,4 +1,5 @@
 package sprites;
+
 public class Sprite {
 
   // no argument constructor

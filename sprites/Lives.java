@@ -1,4 +1,5 @@
 package sprites;
-public class Lives {
+
+public class Lives extends Sprite {
     
 }

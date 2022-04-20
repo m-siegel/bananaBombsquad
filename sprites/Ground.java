@@ -1,4 +1,5 @@
 package sprites;
-public class Ground {
+
+public class Ground extends Sprite {
     
 }

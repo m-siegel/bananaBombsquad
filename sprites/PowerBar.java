@@ -1,4 +1,5 @@
 package sprites;
-public class PowerBar {
+
+public class PowerBar extends Sprite {
     
 }
