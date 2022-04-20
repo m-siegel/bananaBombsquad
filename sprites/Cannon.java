@@ -1,3 +1,4 @@
+package sprites;
 class Cannon {
   
   // return coordinates of the tip of the launcher (where the projectile should appear)

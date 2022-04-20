@@ -1,3 +1,4 @@
+package sprites;
 class Target {
     /**
      * Should extend sprite class and incorporate

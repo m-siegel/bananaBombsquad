@@ -1,1 +1,2 @@
+package sprites;
 class Projectile {}

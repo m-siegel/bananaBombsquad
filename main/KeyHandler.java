@@ -1,3 +1,4 @@
+package main;
 class KeyHandler {
 
   /** Returns value of each instance variable indicating whether

@@ -1,4 +1,6 @@
+package main;
 import javax.swing.JPanel;
+import sprites.Sprite;
 
 public class GamePanel extends JPanel implements Runnable{
     

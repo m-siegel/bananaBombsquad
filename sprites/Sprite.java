@@ -1,3 +1,4 @@
+package sprites;
 class Sprite {
 
   // no argument constructor

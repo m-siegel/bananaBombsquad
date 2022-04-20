@@ -1,0 +1,4 @@
+package sprites;
+class PowerBar {
+    
+}
