@@ -71,7 +71,7 @@ public class Sprite {
    *
    * @param g2
    */
-  public void draw(Graphics2d g2) {
+  public void draw(Graphics2D g2) {
     g2.drawImage(images.get(0));
   }
 
