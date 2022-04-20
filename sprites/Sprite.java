@@ -36,20 +36,26 @@ public class Sprite {
 
   /**
    * Creates a new Sprite at the given x and y coordinates, with the given speed,
-   * ArrayList of images, and KeyHandler.
+   * ArrayList of images, and KeyHandler. If the given images ArrayList is null or empty,
+   * creates a new ArrayList with an invisible image.
    * 
    * @param x Sprite's x coordinate.
    * @param y Sprite's y coordinate.
    * @param speed Sprite's speed.
    * @param images Images for this sprite.
+   * @param keyH KeyHandler to control this Sprite.
    */
   public Sprite(int x, int y, int speed, ArrayList<BufferedImage> images, KeyHandler keyH) {
     this.x = x;
     this.y = y;
     this.speed = speed;
     if (images == null || images.size() < 1) {
-      this.images = 
+      this.images = new ArrayList<BufferedImage>();
+      this.images.add(new BufferedImage(0, 0));
+    } else {
+      this.images = copyBufferedImages(images);
     }
+    this.keyHandler = keyH;
   }
 
   /**
@@ -61,7 +67,9 @@ public class Sprite {
    * @param speed Sprite's speed.
    * @param images Images for this sprite.
    */
-  public Sprite(int x, int y, int speed, ArrayList<BufferedImage> images) {}
+  public Sprite(int x, int y, int speed, ArrayList<BufferedImage> images) {
+    this(x, y, speed, images, null);
+  }
 
    /**
    * Creates a new Sprite at the given x and y coordinates,
@@ -70,14 +78,84 @@ public class Sprite {
    * @param x Sprite's x coordinate.
    * @param y Sprite's y coordinate.
    * @param images Images for this sprite.
+   * @param keyH KeyHandler to control this Sprite.
    */
   public Sprite(int x, int y, ArrayList<BufferedImage> images, KeyHandler keyH) {
+    this(x, y, 0, images, keyH);
   }
 
+   /**
+   * Creates a new Sprite at the given x and y coordinates, and a BufferedImage images.
+   * 
+   * @param x Sprite's x coordinate.
+   * @param y Sprite's y coordinate.
+   * @param image BufferedImage for this sprite.
+   */
+  public Sprite(int x, int y, BufferedImage image) {
+    this(x, y, 0, (new ArrayList<BufferedImage>()).add(image), null);
+  }
 
-  public Sprite(int x, int y, int speed, BufferedImage image) {}
+    /**
+   * Creates a new Sprite at the given x and y coordinates, with the given speed,
+   * ArrayList of images, and KeyHandler. If the given images ArrayList is null or empty,
+   * creates a new ArrayList with an invisible image.
+   * 
+   * @param x Sprite's x coordinate.
+   * @param y Sprite's y coordinate.
+   * @param speed Sprite's speed.
+   * @param images Images for this sprite.
+   * @param keyH KeyHandler to control this Sprite.
+   */
+  public Sprite(int x, int y, int speed, ArrayList<BufferedImage> images, KeyHandler keyH) {
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+    if (images == null || images.size() < 1) {
+      this.images = new ArrayList<BufferedImage>();
+      this.images.add(new BufferedImage(0, 0));
+    } else {
+      this.images = copyBufferedImages(images);
+    }
+    this.keyHandler = keyH;
+  }
 
-  public Sprite(int x, int y, int speed, BufferedImage image, KeyHandler keyH) {}
+  /**
+   * Creates a new Sprite at the given x and y coordinates, with the given speed,
+   * ArrayList of images.
+   * 
+   * @param x Sprite's x coordinate.
+   * @param y Sprite's y coordinate.
+   * @param speed Sprite's speed.
+   * @param images Images for this sprite.
+   */
+  public Sprite(int x, int y, int speed, ArrayList<BufferedImage> images) {
+    this(x, y, speed, images, null);
+  }
+
+   /**
+   * Creates a new Sprite at the given x and y coordinates,
+   * ArrayList of images, and KeyHandler.
+   * 
+   * @param x Sprite's x coordinate.
+   * @param y Sprite's y coordinate.
+   * @param images Images for this sprite.
+   * @param keyH KeyHandler to control this Sprite.
+   */
+  public Sprite(int x, int y, ArrayList<BufferedImage> images, KeyHandler keyH) {
+    this(x, y, 0, images, keyH);
+  }
+
+   /**
+   * Creates a new Sprite at the given x and y coordinates, and ArrayList of images.
+   * 
+   * @param x Sprite's x coordinate.
+   * @param y Sprite's y coordinate.
+   * @param images Images for this sprite.
+   */
+  public Sprite(int x, int y, ArrayList<BufferedImage> images) {
+    this(x, y, 0, images, null);
+  }
+
 
   public int getX() {
     return this.x;
