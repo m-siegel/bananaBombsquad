@@ -41,6 +41,12 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void initiateLaunch();
 
+    public void startGameThread() {
+        
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
 
 
     @Override
