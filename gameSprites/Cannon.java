@@ -1,4 +1,4 @@
-package sprites;
+package gameSprites;
 
 public class Cannon extends Sprite {
   

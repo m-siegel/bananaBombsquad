@@ -1,4 +1,4 @@
-package sprites;
+package gameSprites;
 
 import java.util.ArrayList;
 
