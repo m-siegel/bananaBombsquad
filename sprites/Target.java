@@ -4,11 +4,6 @@ import java.util.Random;
 import main.GamePanel;
 
 public class Target extends Sprite {
-    /**
-     * Should extend sprite class and incorporate
-     * GamePanel as one of its instance variables
-     */
-
      // instance variables
      private int numberOfHits;
 
@@ -17,7 +12,7 @@ public class Target extends Sprite {
          this.y = getRandomYCoordinate();
          this.speed = 0;
          this.keyHandler = null;
-         this.solid = false;
+         this.solid = true;
          this.numberOfHits = 0;
          this.images = new ArrayList<>();
      }
