@@ -18,10 +18,10 @@ public class KeyHandler implements KeyListener{
   private boolean shootButtonPressed;
 
   //getters
-  public boolean getAngleCounterClockwise() {return this.angleCounterClockwisePressed;}
-  public boolean getAngleClockwise() {return this.angleClockwisePressed;}
-  public boolean getPowerUp() {return this.powerUpPressed;}
-  public boolean getPowerDown() {return this.powerDownPressed;}
+  public boolean getAngleCounterClockwisePressed() {return this.angleCounterClockwisePressed;}
+  public boolean getAngleClockwisePressed() {return this.angleClockwisePressed;}
+  public boolean getPowerUpPressed() {return this.powerUpPressed;}
+  public boolean getPowerDownPressed() {return this.powerDownPressed;}
   public boolean getShootButtonPressed() {return this.shootButtonPressed;}
 
   @Override
