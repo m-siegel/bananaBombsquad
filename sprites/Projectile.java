@@ -1,2 +1,2 @@
 package sprites;
-class Projectile {}
+public class Projectile {}

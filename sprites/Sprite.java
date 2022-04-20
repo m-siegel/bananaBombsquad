@@ -1,5 +1,5 @@
 package sprites;
-class Sprite {
+public class Sprite {
 
   // no argument constructor
   // contructor(String filepate) -- constructs with this one image

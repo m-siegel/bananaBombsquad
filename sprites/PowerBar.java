@@ -1,4 +1,4 @@
 package sprites;
-class PowerBar {
+public class PowerBar {
     
 }

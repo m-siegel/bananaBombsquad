@@ -1,4 +1,4 @@
 package sprites;
-class Ground {
+public class Ground {
     
 }

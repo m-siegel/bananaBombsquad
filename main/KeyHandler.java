@@ -1,5 +1,5 @@
 package main;
-class KeyHandler {
+public class KeyHandler {
 
   /** Returns value of each instance variable indicating whether
     * the keys for each action are pressed.

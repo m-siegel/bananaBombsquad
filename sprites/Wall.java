@@ -1,4 +1,4 @@
 package sprites;
-class Wall {
+public class Wall {
     
 }
