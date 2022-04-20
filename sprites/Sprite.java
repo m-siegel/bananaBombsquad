@@ -1,27 +1,96 @@
 package sprites;
 
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import java.awt.Graphics2D;
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.Rectangle;
+
+import main.KeyHandler;
+import utilities.HitBox;
+
 public class Sprite {
+
+  // coordinates on the screen
+  protected int x;
+  protected int y;
+
+  protected int speed;
+
+  protected boolean solid; // Whether the Sprite can collide;
+
+  protected ArrayList<BufferedImage> images; // Store one or more frames for animation.
+
+  protected KeyHandler keyHandler; // So Sprite can update in response to keyboard input
 
   // no argument constructor
   // contructor(String filepate) -- constructs with this one image
   // constructor(int x, int y) -- sets with x and y, maybe one with speed
 
-  public int getX();
-  public int getY();
-  public int getSpeed();
+  protected Sprite() {}
 
-  public boolean isActive(); // to determine if the Sprite should be removed (eg is off the screen or is killed)
+  public Sprite(int x, int y, int speed, ArrayList<BufferedImage> images) {}
   
-  // Idk if we want public setters
-  public boolean setX();
-  public boolean setY();
-  public boolean setSpeed();
+  public Sprite(int x, int y, int speed, ArrayList<BufferedImage> images, KeyHandler keyH) {}
 
-  public void update(); // we might want this to be a boolean
-  // maybe updateLocation() and updateImage() (for animating image)
+  public int getX() {
+    return this.x;
+  }
 
-  public void draw(Graphics2d g2);
+  public int getY() {
+    return this.y;
+  }
 
-  public HitBox hitBox(); // returns the hit box (like the rectangle in the video) for collisions
-  public boolean collidesWith(Sprite other); // returns true if this Sprite collides with the other
+  public int getSpeed() {
+    return this.speed;
+  }
+
+  /**
+   * Returns whether or not this Sprite is solid (whether it can collide with another Sprite).
+   * 
+   * @return
+   */
+  public boolean isSolid() {
+    return this.solid;
+  }
+
+  /**
+   * Decendent classes should override this to implement movement or animation.
+   */
+  public void update() {}
+
+  /**
+   * Draw this Sprite to the screen as a static image.
+   * This Sprite's x and y coordinates represent the top left pixel where this image is drawn.
+   *
+   * @param g2
+   */
+  public void draw(Graphics2d g2) {
+    g2.drawImage(images.get(0));
+  }
+
+  /**
+   * Returns the hit box for this sprite's current location if this sprite is solid. Returns null
+   * if this Sprite is not solid.
+   * 
+   * Defaults to the coordinates this Sprite's first image.
+   * 
+   * @return this Sprite's hit box; null if this Sprite is not solid.
+   */
+  public HitBox getHitBox();
+
+  /**
+   * Returns whether or not this Sprite collides with the other Sprite. Both Sprites must be solid
+   * in order to collide.
+   * 
+   * @param other
+   * @return
+   */
+  public boolean collidesWith(Sprite other) {}
 }
