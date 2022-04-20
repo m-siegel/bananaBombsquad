@@ -2,6 +2,7 @@ package sprites;
 import java.util.ArrayList;
 import java.util.Random;
 import main.GamePanel;
+import java.awt.Graphics2D;
 
 public class Target extends Sprite {
      // instance variables
@@ -44,8 +45,27 @@ public class Target extends Sprite {
         return randomInt;
      }
 
-     public void update() {}
+     public void update() {
 
-     public void draw() {}
+     }
+
+     public void draw(Graphics2D g2) {
+         switch (this.numberOfHits) {
+             case 0:
+                g2.drawImage(images.get(0), this.x, this.y, null);
+                break;
+
+             case 1:
+                g2.drawImage(images.get(1), this.x, this.y, null);
+
+             case 2:
+                g2.drawImage(images.get(2), this.x, this.y, null);
+
+             case 3:
+                g2.drawImage(images.get(3), this.x, this.y, null);
+
+
+         }
+     }
 
 }
