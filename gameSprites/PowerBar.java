@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import main.KeyHandler;
 import java.awt.Graphics2D;
+import spriteEssentials.*;
 
 public class PowerBar extends Sprite {
     private int maxPower;

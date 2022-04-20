@@ -2,6 +2,7 @@ package gameSprites;
 import java.util.ArrayList;
 import java.util.Random;
 import main.GamePanel;
+import spriteEssentials.*;
 
 public class Target extends Sprite {
      // instance variables
