@@ -4,6 +4,7 @@ import sprites.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -19,12 +20,14 @@ public class GamePanel extends JPanel implements Runnable{
     //instance variables
     private Thread gameThread;
     private KeyHandler keyH;
-    private Cannon cannon;
     private Background background;
-    private Target target;
-    private Projectile projectile;
     private Wall wall;
     private Ground ground;
+    // private ArrayList<Projectile> projectiles; turn into spriteList
+    private Cannon cannon;
+    private Target target;
+    private PowerBar powerBar;
+    private Lives lives;
     
     //constructors, getters, setters
     public GamePanel() {
@@ -53,7 +56,9 @@ public class GamePanel extends JPanel implements Runnable{
         initiateLaunch();
     }
 
-    public void initiateLaunch();
+    public void initiateLaunch() {
+
+    };
 
     public void startGameThread() {
         
@@ -89,11 +94,25 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2D = (Graphics2D)g;
 
         // draw the different elements
-        //cannon.draw(g2);
+        background.draw(g2D);
+        wall.draw(g2D);
+        ground.draw(g2D);
+        // for (Sprite x : projectiles) {
+        //     x.draw(g2D);
+        // }
+        cannon.draw(g2D);
+        target.draw(g2D);
+        powerBar.draw(g2D);
+        lives.draw(g2D);
         
+        
+        
+
+        
+
 
     }
 }
