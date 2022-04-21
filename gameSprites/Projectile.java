@@ -1,6 +1,7 @@
-package sprites;
+package gameSprites;
 
 import java.util.ArrayList;
+import spriteEssentials.*;
 
 public class Projectile extends Sprite {
 

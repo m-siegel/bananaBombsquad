@@ -1,10 +1,10 @@
 package main;
 import javax.swing.JPanel;
+import spriteEssentials.SpriteList;
 import sprites.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Background background;
     private Wall wall;
     private Ground ground;
-    // private ArrayList<Projectile> projectiles; turn into spriteList
+    private SpriteList projectiles;
     private Cannon cannon;
     private Target target;
     private PowerBar powerBar;
@@ -51,8 +51,27 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
 
+    // potential method: roundReset()
+    //      - reset the angle of the cannon
+    //      - reposition the target
+    //      - initialize next projectile
+    //      - take life away or fill blender
+    //      - if isDead -> print: Efforts were fruitless
+    //      - if target.isFull() -> print: Winning message
+    //          -either case: go back to loading screen
+    public void roundReset() {
+
+    }
+
+    public void gameReset() {
+
+    }
+
 
     public void update() {
+        // create a playRound that depends on current projectile's splattered boolean value
+        // call all update methods for all objects currently in use 
+        // loop that keeps going
         initiateLaunch();
     }
 
@@ -100,9 +119,7 @@ public class GamePanel extends JPanel implements Runnable{
         background.draw(g2D);
         wall.draw(g2D);
         ground.draw(g2D);
-        // for (Sprite x : projectiles) {
-        //     x.draw(g2D);
-        // }
+        projectiles.draw(g2D);
         cannon.draw(g2D);
         target.draw(g2D);
         powerBar.draw(g2D);

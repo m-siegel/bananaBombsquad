@@ -1,9 +1,10 @@
-package sprites;
+package gameSprites;
 
 import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import main.KeyHandler;
 import java.awt.Graphics2D;
+import spriteEssentials.*;
 
 public class Lives extends Sprite {
     static final int TOTAL_LIVES = 7;

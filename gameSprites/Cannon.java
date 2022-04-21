@@ -1,4 +1,5 @@
-package sprites;
+package gameSprites;
+import spriteEssentials.*;
 
 public class Cannon extends Sprite {
   
