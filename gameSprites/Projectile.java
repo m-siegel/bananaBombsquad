@@ -2,10 +2,17 @@ package gameSprites;
 
 import java.util.ArrayList;
 import spriteEssentials.*;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 public class Projectile extends Sprite {
 
-    public Projectile(double angle, int x, int y, int velocity) {
+    public Projectile(double angle, int x, int y, int velocity, ArrayList<BufferedImage> images) {
+        if (images == null) {
+            throw new NullPointerException("Cannot instantiate null images.");
+        }
+
+        this.images = Sprite.copyBufferedImages(images);
         this.splattered = false;
         this.angle = angle;
         this.x = x;
@@ -15,7 +22,6 @@ public class Projectile extends Sprite {
         this.xDisplacement = this.x - this.internalX;
         this.yDisplacement = this.y - this.internalY;
         this.velocity = velocity;
-        this.images = new ArrayList<>();
         this.solid = true;
         this.keyHandler = null;
         this.speed = 5;
@@ -54,9 +60,10 @@ public class Projectile extends Sprite {
         
     }
 
-    public void draw() {
+    public void draw(Graphics2D g2) {
         //x-coordinate: x = internalX + xDisplacement
         //y-coordinate: 
+        g2.drawImage(images.get(0), this.x, this.y, null); //
     }
 
 }

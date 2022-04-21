@@ -11,6 +11,10 @@ public class Main {
         window.setTitle("Banana Cannon");
         window.setResizable(false);
 
+        //InstructionPanel titleScreen = new InstructionPanel();
+        //window.add(titleScreen);
+
+
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
 
@@ -20,7 +24,6 @@ public class Main {
         window.setVisible(true); //allows us to see the window
 
         gamePanel.startGameThread();
-
 
 
 

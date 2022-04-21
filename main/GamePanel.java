@@ -51,6 +51,19 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
 
+
+    //Components of a round:
+
+    //Beginning of game
+    // Loading phase - draw all sprites in their initial state
+
+
+
+    // 1: Launch preparation - user enters key input for angle and power
+    // 2: Launch initiation - user presses "shoot" key, projectile's trajectory is calculated and drawn accordingly
+    // 3: Evaluation phase - determine result (was target hit? is game over?) and update accordingly (roundReset)
+
+
     // potential method: roundReset()
     //      - reset the angle of the cannon
     //      - reposition the target
@@ -72,12 +85,14 @@ public class GamePanel extends JPanel implements Runnable{
         // create a playRound that depends on current projectile's splattered boolean value
         // call all update methods for all objects currently in use 
         // loop that keeps going
-        initiateLaunch();
+        //initiateLaunch();
+
+
     }
 
     public void initiateLaunch() {
 
-    };
+    }
 
     public void startGameThread() {
         
