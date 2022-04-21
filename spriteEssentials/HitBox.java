@@ -18,6 +18,7 @@ public class HitBox {
    * @param yMax upper y boundary (top of the rectangle).
    */
   public HitBox(int xMin, int xMax, int yMin, int yMax) {
+    // TODO -- check mins are less than maxes
     this.xMin = xMin;
     this.xMax = xMax;
     this.yMin = yMin;

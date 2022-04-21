@@ -197,11 +197,11 @@ public class Sprite {
    * @return this Sprite's hit box; null if this Sprite is not solid.
    */
   public HitBox getHitBox() {
-    if (!this.solid) {
+    if (!this.solid) { // TODO -- document for descendents
       return null;
     }
     return new HitBox(this.x, this.x + this.images.get(imagesIndex).getWidth(), this.y,
-        this.y + this.images.get(imagesIndex).getHeight());
+        this.y + this.images.get(imagesIndex).getHeight()); // TODO -- document: should be relative to curr location
   }
 
   /**
