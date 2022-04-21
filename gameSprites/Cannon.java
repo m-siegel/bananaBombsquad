@@ -91,7 +91,7 @@ public class Cannon extends Sprite {
     wheelOffsetY = this.barrel.getHeight() - this.wheel.getHeight();
     wheelOffsetX = (this.barrel.getWidth() - this.wheel.getWidth()) / 2;
     barrelPivotX = this.barrel.getWidth() / 2;
-    barrelPivotY = (this.barrel.getWidth() / 2) - 1; // Extra pixel for border buffer
+    barrelPivotY = this.barrel.getHeight() - (this.barrel.getWidth() / 2) - 1; // Extra pixel for border buffer
     // wheelPivotX = this.wheelOffsetX + (this.wheel.getWidth() / 2);
     // wheelPivotY = this.wheelOffsetY + (this.wheel.getHeight() / 2);
 
@@ -156,8 +156,9 @@ public class Cannon extends Sprite {
    * Copies a rotated version of the barrel into barrelAnimationFrame to match current angle.
    */
   private void matchBarrelFrameToAngle() {
+    // AffienTransform rotates clockwise
     AffineTransform rotation = AffineTransform.getRotateInstance(
-        Math.toRadians(cartesianAngle - ANGLE_OFFSET), barrelPivotX, barrelPivotY);
+        Math.toRadians(-(cartesianAngle - ANGLE_OFFSET)), barrelPivotX, barrelPivotY);
     AffineTransformOp rotationOp =
         new AffineTransformOp(rotation, AffineTransformOp.TYPE_BILINEAR);
     rotationOp.filter(barrel, barrelAnimationFrame);
