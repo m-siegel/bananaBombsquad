@@ -1,4 +1,4 @@
-package utilities;
+package spriteEssentials;
 
 /**
  * Represents a Sprite's hitbox with the min and max x and y boundaries of the Sprite's solid area.
