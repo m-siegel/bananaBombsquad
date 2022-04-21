@@ -24,9 +24,19 @@ public class Sprite {
   protected KeyHandler keyHandler; // So Sprite can update in response to keyboard input
 
   /**
-   * Default constructor so descendents can create whichever constructors they'd like.
+   * Default constructor creates Sprite at (0, 0) with speed 0, not solid, one invisible
+   * image and a null keyHandler. This is so descendants can create any constructor they'd like.
    */
-  protected Sprite() {}
+  protected Sprite() {
+    x = 0;
+    y = 0;
+    speed = 0;
+    solid = false;
+    images = new ArrayList<BufferedImage>();
+    images.add(new BufferedImage(0, 0, BufferedImage.TYPE_INT_RGB));
+    imagesIndex = 0;
+    keyHandler = null;
+  }
 
   /**
    * Creates a new Sprite at the given x and y coordinates, with the given speed, ArrayList of
