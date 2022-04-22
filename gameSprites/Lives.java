@@ -24,6 +24,10 @@ public class Lives extends Sprite {
         }
     }
 
+    public void livesReset() {
+        this.lives = TOTAL_LIVES;
+    }
+
     // accessed through GamePanel
     public boolean isDead() {
         if (lives <= 0) {
