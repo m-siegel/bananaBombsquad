@@ -1,7 +1,7 @@
 package main;
 import javax.swing.JPanel;
 import spriteEssentials.SpriteList;
-import sprites.*;
+import gameSprites.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,9 +11,9 @@ public class GamePanel extends JPanel implements Runnable{
     
     //settings
     public static final int TILE_SIZE = 48;
-    public static final int SCALE = 4;
-    public static final int SCREEN_WIDTH = TILE_SIZE * SCALE * 4;
-    public static final int SCREEN_HEIGHT = TILE_SIZE * SCALE * 3;
+    public static final int SCALE = 1; // can change window size while maintaining aspect ratio
+    public static final int SCREEN_WIDTH = TILE_SIZE * SCALE * 16;
+    public static final int SCREEN_HEIGHT = TILE_SIZE * SCALE * 12;
     public static final int FPS = 60;
     
     
@@ -22,7 +22,6 @@ public class GamePanel extends JPanel implements Runnable{
     private KeyHandler keyH;
     private Background background;
     private Wall wall;
-    private Ground ground;
     private SpriteList projectiles;
     private Cannon cannon;
     private Target target;
@@ -133,7 +132,6 @@ public class GamePanel extends JPanel implements Runnable{
         // draw the different elements
         background.draw(g2D);
         wall.draw(g2D);
-        ground.draw(g2D);
         projectiles.draw(g2D);
         cannon.draw(g2D);
         target.draw(g2D);
