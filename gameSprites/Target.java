@@ -66,4 +66,12 @@ public class Target extends Sprite {
         this.x = getRandomXCoordinate();
         this.y = getRandomYCoordinate();
     }
+    public void resetHits() {
+        this.numberOfHits = 0;
+        this.imagesIndex = 0;
+    }
+    public void reset() {
+        resetPosition();
+        resetHits();
+    }
 }
