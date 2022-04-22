@@ -18,37 +18,47 @@ public class GamePanel extends JPanel implements Runnable{
     
     
     //instance variables
-    private Thread gameThread;
+    private boolean isRunning;
     private KeyHandler keyH;
     private Background background;
     private Wall wall;
-    private SpriteList projectiles;
     private Cannon cannon;
     private Target target;
     private PowerBar powerBar;
     private Lives lives;
+    private SpriteList projectiles;
+    private String endMessage = "";
+    private boolean launchedProjectile;
+
     
     //constructors, getters, setters
     public GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.keyH = new KeyHandler();
         this.addKeyListener(keyH);
         this.setDoubleBuffered(true);
         this.setFocusable(true);
-
+        this.isRunning = false;
+        this.loadSprites();
+        launchedProjectile = false;
         
     }
     
     
     //methods
     public void loadSprites() {
+        // load in all sprites & instantiate lives, powerbar, cannon, background
+        // projectiles - set to empty arraylist
+        // create hashmap<String, ArrayList<Buffered Images>> - projectile images
+
 
     }
 
     
-    /* requires KeyHandler */
-    public void adjustAngleAndPower() {
+    // /* requires KeyHandler */
+    // public void adjustAngleAndPower() {
 
-    }
+    // }
 
 
     //Components of a round:
@@ -75,31 +85,19 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
 
-    public void gameReset() {
+    public void gameSetup() {
+        projectiles.clear();
+        // TODO -- create reset methods for target and lives
+        target.reset();
+        lives.reset();
 
     }
 
-
-    public void update() {
-        // create a playRound that depends on current projectile's splattered boolean value
-        // call all update methods for all objects currently in use 
-        // loop that keeps going
-        //initiateLaunch();
-
-
+    public void startGame() {
+        this.isRunning = true;
+        this.gameSetup();
+        this.run();
     }
-
-    public void initiateLaunch() {
-
-    }
-
-    public void startGameThread() {
-        
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
-
-
 
     @Override
     public void run() {
@@ -110,7 +108,7 @@ public class GamePanel extends JPanel implements Runnable{
         long lastTime = System.nanoTime();
         long currentTime;
 
-        while (gameThread != null) {
+        while (isRunning) {
 
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
@@ -122,6 +120,58 @@ public class GamePanel extends JPanel implements Runnable{
                 delta--;
             }
         }
+    }
+    
+    public void update() {
+        // create a playRound that depends on current projectile's splattered boolean value
+        // call all update methods for all objects currently in use 
+        // loop that keeps going
+        //initiateLaunch();
+
+        // Checking for the end of game
+        if (lives.isDead()) {
+            endMessage = "Your efforts were fruitless.";
+            return;
+        }
+        if (target.isFull()) {
+            endMessage = "Your efforts were fruitful.";
+            return;
+        }
+
+        // if flying projectile, check for collisions
+        if (projectiles.size() > 0 && launchedProjectile) {
+            if (projectiles.get(projectiles.size()-1).collidesWith(target)) {
+                // TODO -- create a splat() method
+                projectiles.remove(projectiles.size()-1);
+                target.incrementNumberOfHits();
+                target.resetPosition();
+                launchedProjectile = false;
+            } else if (projectiles.get(projectiles.size()-1).collidesWith(wall) 
+                    || projectiles.get(projectiles.size()-1).collidesWith(background)) {
+                projectiles.get(projectiles.size()-1).splat();
+                lives.loseLife();
+                target.resetPosition();
+                launchedProjectile = false;
+
+            }
+            
+        // if not a flying projectile, we check to see if player wants to shoot    
+        } else {
+            if (keyH.getShootButtonPressed()) {
+                // TODO -- get random name of fruit
+                int i = Math.random(projectileFlyingImages.size());
+                String fruit = projectileFlyingImages.getKeys(i);
+                projectiles.add(new Projectile(cannon.getLaunchX(), cannon.getLaunchY(), cannon.getAngle(), powerBar.getPower(), projectileFlyingImages.get(fruit), projectile.splatteredImages.get(fruit), updatesPerSec));
+                launchedProjectile = true;
+            }
+            cannon.update();
+            powerBar.update();
+            target.update();
+            lives.update();
+
+        }
+        projectiles.update();
+
     }
     
     public void paintComponent(Graphics g) {
