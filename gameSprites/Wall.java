@@ -1,5 +1,5 @@
 package gameSprites;
-import main.GamePanel;
+//import main.GamePanel;
 import spriteEssentials.*;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
@@ -10,13 +10,16 @@ public class Wall extends Sprite {
         super(x, y, image);
     }
 
-    @Override
+    // @Override
+    // public void draw(Graphics2D g2) {
+    //     int tempX = GamePanel.SCREEN_WIDTH - images.get(0).getWidth();
+    //     int tempY = 0;
+    //     while (tempY < GamePanel.SCREEN_HEIGHT) {
+    //         g2.drawImage(images.get(0), null, tempX, tempY);
+    //         tempY += images.get(0).getHeight(); 
+    //     }
+    // }
     public void draw(Graphics2D g2) {
-        int tempX = GamePanel.SCREEN_WIDTH - images.get(0).getWidth();
-        int tempY = 0;
-        while (tempY < GamePanel.SCREEN_HEIGHT) {
-            g2.drawImage(images.get(0), null, tempX, tempY);
-            tempY += images.get(0).getHeight(); 
-        }
+        g2.drawImage(images.get(0), null, this.getX(), this.getY());
     }
 }
