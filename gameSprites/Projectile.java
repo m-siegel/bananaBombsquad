@@ -45,6 +45,7 @@ public class Projectile extends Sprite {
     private int internalY;
     private int xDisplacement;
     private int yDisplacement;
+    private BufferedImage splatteredImage;
 
     private int updatesSinceFrameChange;
     private int updatesPerFrame;
@@ -52,6 +53,9 @@ public class Projectile extends Sprite {
     //getters
     public boolean isSplattered() {
         return this.splattered;
+    }
+    public void splat() {
+        this.splattered = true;
     }
 
     public double getAngle() {return this.angle;}
@@ -62,8 +66,10 @@ public class Projectile extends Sprite {
     public int getYDisplacement() {return this.yDisplacement;}
 
     public void update() {
-        updatePosition();
-        rotateImage();
+        if (! this.isSplattered()) {
+            updatePosition();
+            rotateImage();
+        }
     }
 
     private void updatePosition() {
@@ -97,6 +103,10 @@ public class Projectile extends Sprite {
 
     public void draw(Graphics2D g2) {
         g2.drawImage(images.get(imagesIndex), this.x, this.y, null);
+    }
+
+    public void drawSplat(Graphics2D g2) {
+        g2.drawImage(splatteredImage, this.x, this.y, null);
     }
 
     @Override
