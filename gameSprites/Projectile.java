@@ -7,15 +7,20 @@ import java.awt.image.BufferedImage;
 
 public class Projectile extends Sprite {
 
-    public Projectile(int x, int y, double angle, int velocity, ArrayList<BufferedImage> images, int updatesPerSec) {
+    public Projectile(int x, int y, double angle, int velocity, ArrayList<BufferedImage> images,
+            BufferedImage splatteredImage, int updatesPerSec) {
         if (images == null) {
-            throw new NullPointerException("Cannot instantiate null images.");
+            throw new NullPointerException("Cannot instantiate with null images.");
         }
         if (images.size() < 1) {
             throw new IllegalArgumentException(
                     "Cannot instantiate with an empty images ArrayList");
         }
+        if (splatteredImage == null) {
+            throw new NullPointerException("Cannot instantiate with null splatteredImage.");
+        }
         this.images = Sprite.copyBufferedImages(images);
+        this.splatteredImage = splatteredImage;
         this.splattered = false;
         this.x = x;
         this.y = y;
@@ -102,11 +107,11 @@ public class Projectile extends Sprite {
     }
 
     public void draw(Graphics2D g2) {
-        g2.drawImage(images.get(imagesIndex), this.x, this.y, null);
-    }
-
-    public void drawSplat(Graphics2D g2) {
-        g2.drawImage(splatteredImage, this.x, this.y, null);
+        if (splattered) {
+            g2.drawImage(splatteredImage, this.x, this.y, null);
+        } else {
+            g2.drawImage(images.get(imagesIndex), this.x, this.y, null);
+        }
     }
 
     @Override
