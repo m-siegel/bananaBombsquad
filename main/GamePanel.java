@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -29,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
     private PowerBar powerBar;
     private Lives lives;
     private SpriteList projectiles;
-    private HashMap<String, HashMap> projectileImages;
+    private HashMap<String, HashMap<String, ArrayList<BufferedImage>>> projectileImages;
     private String endMessage = "";
     private boolean launchedProjectile;
 
