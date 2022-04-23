@@ -55,7 +55,7 @@ public class Cannon extends Sprite {
    * @throws IllegalArgumentException if the wheel image is not square, or the wheel's width is
    *         less than the cannon's width.
    */
-  public Cannon(BufferedImage wheel, BufferedImage barrel, KeyHandler keyHandler) {
+  public Cannon(int x, int y, BufferedImage wheel, BufferedImage barrel, KeyHandler keyHandler) {
     if (keyHandler == null) {
       throw new NullPointerException("keyHandler parameter cannot be null.");
     }
@@ -73,8 +73,8 @@ public class Cannon extends Sprite {
     }
 
     // TODO -- decide where we want cannon placed. Currently 50px buffer from edge of screen
-    this.x = 50;
-    this.y = GamePanel.SCREEN_HEIGHT - (Math.max(barrel.getWidth(), barrel.getHeight()) + 50);
+    this.x = x;
+    this.y = y;
     this.speed = 1; // 1 deg per update (== 60 deg per sec)
     this.solid = true;
     this.keyHandler = keyHandler;
