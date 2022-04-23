@@ -1,27 +1,33 @@
 package gameSprites;
 
 import java.util.ArrayList;
+
 import spriteEssentials.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Projectile extends Sprite {
 
-    public Projectile(int x, int y, double angle, int velocity, ArrayList<BufferedImage> images,
-            BufferedImage splatteredImage, int updatesPerSec) {
-        if (images == null) {
-            throw new NullPointerException("Cannot instantiate with null images.");
+    public Projectile(int x, int y, double angle, int velocity, ArrayList<BufferedImage> flyingImages,
+            ArrayList<BufferedImage> splatteredImages, int updatesPerSec) {
+        if (flyingImages == null) {
+            throw new NullPointerException("Cannot instantiate with null flyingImages.");
         }
-        if (images.size() < 1) {
+        if (flyingImages.size() < 1) {
             throw new IllegalArgumentException(
-                    "Cannot instantiate with an empty images ArrayList");
+                    "Cannot instantiate with an empty flyingImages ArrayList");
         }
-        if (splatteredImage == null) {
+        if (splatteredImages == null) {
             throw new NullPointerException("Cannot instantiate with null splatteredImage.");
         }
-        this.images = Sprite.copyBufferedImages(images);
-        this.splatteredImage = splatteredImage;
+        if (splatteredImages.size() < 1) {
+            throw new IllegalArgumentException(
+                    "Cannot instantiate with an empty splatteredImages ArrayList");
+        }
+        this.flyingImages = Sprite.copyBufferedImages(flyingImages);
+        this.splatteredImages = Sprite.copyBufferedImages(splatteredImages);
         this.splattered = false;
+        this.images = this.flyingImages;
         this.x = x;
         this.y = y;
         this.angle = angle;
@@ -50,7 +56,8 @@ public class Projectile extends Sprite {
     private int internalY;
     private int xDisplacement;
     private int yDisplacement;
-    private BufferedImage splatteredImage;
+    private ArrayList<BufferedImage> splatteredImages;
+    private ArrayList<BufferedImage> flyingImages;
 
     private int updatesSinceFrameChange;
     private int updatesPerFrame;
@@ -61,6 +68,8 @@ public class Projectile extends Sprite {
     }
     public void splat() {
         this.splattered = true;
+        this.imagesIndex = 0;
+        this.images = splatteredImages;
     }
 
     public double getAngle() {return this.angle;}
@@ -73,8 +82,8 @@ public class Projectile extends Sprite {
     public void update() {
         if (! this.isSplattered()) {
             updatePosition();
-            rotateImage();
         }
+        animateImage();
     }
 
     private void updatePosition() {
@@ -97,7 +106,7 @@ public class Projectile extends Sprite {
         this.y = internalY + yDisplacement;
     }
 
-    private void rotateImage() {
+    private void animateImage() {
         updatesSinceFrameChange++;
         if (updatesSinceFrameChange >= updatesPerFrame) {
             // update frame
@@ -107,11 +116,7 @@ public class Projectile extends Sprite {
     }
 
     public void draw(Graphics2D g2) {
-        if (splattered) {
-            g2.drawImage(splatteredImage, this.x, this.y, null);
-        } else {
-            g2.drawImage(images.get(imagesIndex), this.x, this.y, null);
-        }
+        g2.drawImage(images.get(imagesIndex), this.x, this.y, null);
     }
 
     @Override
