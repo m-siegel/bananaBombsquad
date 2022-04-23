@@ -5,6 +5,8 @@ import gameSprites.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.HashMap;
+import java.awt.image.BufferedImage;
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -27,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable{
     private PowerBar powerBar;
     private Lives lives;
     private SpriteList projectiles;
+    private HashMap<String, HashMap> projectileImages;
     private String endMessage = "";
     private boolean launchedProjectile;
 
@@ -50,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
         // load in all sprites & instantiate lives, powerbar, cannon, background
         // projectiles - set to empty arraylist
         // create hashmap<String, ArrayList<Buffered Images>> - projectile images
+
 
 
     }
@@ -89,7 +93,7 @@ public class GamePanel extends JPanel implements Runnable{
         projectiles.clear();
         // TODO -- create reset methods for target and lives
         target.reset();
-        lives.reset();
+        lives.livesReset();
 
     }
 
