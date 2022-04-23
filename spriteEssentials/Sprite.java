@@ -173,6 +173,14 @@ public class Sprite {
     return this.speed;
   }
 
+  public int getWidth() {
+    return this.images.get(imagesIndex).getWidth();
+  }
+
+  public int getHeight() {
+    return this.images.get(imagesIndex).getHeight();
+  }
+
   /**
    * Returns whether or not this Sprite has a solid region.
    * 
