@@ -5,8 +5,8 @@ import java.awt.Graphics2D;
 
 public class Background extends Sprite {
 
-    public Background(int x, int y, BufferedImage image) {
-        super(x, y, image);
+    public Background(BufferedImage image) {
+        super(0, 0, image);
     }
 
     @Override

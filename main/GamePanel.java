@@ -1,4 +1,5 @@
 package main;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import spriteEssentials.SpriteList;
 import gameSprites.*;
@@ -7,7 +8,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.awt.image.BufferedImage;
+import java.io.IOError;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -43,20 +48,127 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.setFocusable(true);
         this.isRunning = false;
-        this.loadSprites();
         launchedProjectile = false;
+        this.projectileImages = new HashMap<String, HashMap<String, ArrayList<BufferedImage>>>();
+        this.loadSprites();
         
     }
     
     
     //methods
     public void loadSprites() {
-        // load in all sprites & instantiate lives, powerbar, cannon, background
-        // projectiles - set to empty arraylist
-        // create hashmap<String, ArrayList<Buffered Images>> - projectile images
+        // do something with scale here
+        AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
+        AffineTransformOp scaleOp = new AffineTransformOp(imageScale, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        ArrayList<BufferedImage> tempImages = new ArrayList<>();
 
+        // create lives
+        try {
+            for (int i = 1; i < 8; i++) {
+                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/lives/lives-%d.png", i)));
+                tempImages.add(scaleOp.filter(temp, null));
+            }
+        } catch (IOException e) {
+            System.out.println("Couldn't find lives image file.");
+            e.printStackTrace();
+        }
 
+        this.lives = new Lives((TILE_SIZE * SCALE / 2), (TILE_SIZE * SCALE / 2), tempImages, this.keyH);
+        tempImages.clear();
 
+        // create powerbar
+        try {
+            for (int i = 0; i < 21; i++) {
+                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/powerbar/powerbar-%d.png", i)));
+                tempImages.add(scaleOp.filter(temp, null));
+            }
+        } catch (IOException e) {
+            System.out.println("Couldn't find power bar image file.");
+            e.printStackTrace();
+        }
+
+        try {
+            this.powerBar = new PowerBar((TILE_SIZE * SCALE / 2), SCREEN_HEIGHT - (TILE_SIZE * SCALE / 2 + tempImages.get(0).getHeight()), tempImages, this.keyH);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Couldn't find power bar image file.");
+            e.printStackTrace();
+            this.powerBar = new PowerBar((TILE_SIZE * SCALE / 2), SCREEN_HEIGHT - (TILE_SIZE * SCALE / 2), tempImages, this.keyH);      
+        }
+
+        tempImages.clear();
+
+        // create cannon
+        try {
+            BufferedImage tempCannon = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/cannon/main-cannon.png")));
+            tempCannon = scaleOp.filter(tempCannon, null);
+            BufferedImage tempWheel = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/cannon/wheel-size-2.png")));
+            tempWheel = scaleOp.filter(tempWheel, null);
+            this.cannon = new Cannon((TILE_SIZE * SCALE / 2 + this.powerBar.getWidth()), SCREEN_HEIGHT - (TILE_SIZE * SCALE / 2 + tempCannon.getHeight()), tempCannon, tempWheel, this.keyH);
+        } catch (IOException e) {
+            System.out.println("Couldn't find cannon or wheel image files.");
+            e.printStackTrace();
+        } 
+
+        // create target
+        try {
+            for (int i = 1; i < 5; i++) {
+                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/blender/blender-%d.png", i)));
+                tempImages.add(scaleOp.filter(temp, null));
+            }
+        } catch (IOException e) {
+            System.out.println("Couldn't find target image files.");
+            e.printStackTrace();
+        }
+
+        this.target = new Target(tempImages);
+        tempImages.clear();
+
+        // create background
+        try {
+            BufferedImage tempBackground = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/background/background.png")));
+            tempBackground = scaleOp.filter(tempBackground, null);
+            this.background = new Background(tempBackground);
+        } catch (IOException e) {
+            System.out.println("Couldn't find background image file.");
+            e.printStackTrace();
+        } 
+
+        // create wall
+        try {
+            BufferedImage tempWall = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/wall/wall.png")));
+            tempWall = scaleOp.filter(tempWall, null);
+            this.wall = new Wall(tempWall);
+        } catch (IOException e) {
+            System.out.println("Couldn't find wall image file.");
+            e.printStackTrace();
+        } 
+
+        // load projectile images
+        String[] fruitNames = {"banana", "orange", "strawberry"};       // can add or change fruits
+
+        for (String fruit : fruitNames) {
+            ArrayList<BufferedImage> tempFlying = new ArrayList<BufferedImage>();
+            ArrayList<BufferedImage> tempSplattered = new ArrayList<BufferedImage>();
+
+            try {
+                for (int i = 1; i < 5; i++) {
+                    BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/%s/flying/%s-%d.png", fruit, fruit, i)));
+                    tempFlying.add(scaleOp.filter(temp, null));
+                }
+                for (int i = 1; i < 2; i++) {
+                    BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/%s/splattered/%s-splat-%d.png", fruit, fruit, i)));
+                    tempSplattered.add(scaleOp.filter(temp, null));
+                }
+            } catch (IOException e) {
+                System.out.printf("Couldn't find %s image files.\n", fruit);
+                e.printStackTrace();
+            }
+
+            projectileImages.put(fruit, new HashMap<String, ArrayList<BufferedImage>>());
+            projectileImages.get(fruit).put("flying", tempFlying);
+            projectileImages.get(fruit).put("splattered", tempSplattered);
+
+        }
     }
 
     
@@ -166,7 +278,9 @@ public class GamePanel extends JPanel implements Runnable{
                 // TODO -- get random name of fruit
                 int i = Math.random(projectileFlyingImages.size());
                 String fruit = projectileFlyingImages.getKeys(i);
-                projectiles.add(new Projectile(cannon.getLaunchX(), cannon.getLaunchY(), cannon.getAngle(), powerBar.getPower(), projectileFlyingImages.get(fruit), projectile.splatteredImages.get(fruit), updatesPerSec));
+                projectiles.add(new Projectile(cannon.getLaunchX(), cannon.getLaunchY(), 
+                    cannon.getAngle(), powerBar.getPower(), projectileFlyingImages.get(fruit), 
+                    projectile.splatteredImages.get(fruit), updatesPerSec));
                 launchedProjectile = true;
             }
             cannon.update();

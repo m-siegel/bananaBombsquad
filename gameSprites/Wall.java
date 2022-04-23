@@ -1,13 +1,14 @@
 package gameSprites;
-//import main.GamePanel;
+import main.GamePanel;
 import spriteEssentials.*;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 
 public class Wall extends Sprite {
     
-    public Wall(int x, int y, BufferedImage image) {
-        super(x, y, image);
+    public Wall(BufferedImage image) {
+        super(GamePanel.SCREEN_WIDTH, 0, image);
+        this.x -= this.images.get(0).getWidth();
     }
 
     // @Override
