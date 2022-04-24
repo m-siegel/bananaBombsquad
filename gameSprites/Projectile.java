@@ -66,7 +66,7 @@ public class Projectile extends Sprite {
     public boolean isSplattered() {
         return this.splattered;
     }
-    public void splat() {
+    public void splat() { // TODO -- v2: rotate images if splattered against a wall (so they make more sense)
         this.splattered = true;
         this.imagesIndex = 0;
         this.images = splatteredImages;
