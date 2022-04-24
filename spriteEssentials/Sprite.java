@@ -57,10 +57,7 @@ public class Sprite {
       this.images = new ArrayList<BufferedImage>();
       this.images.add(new BufferedImage(0, 0, BufferedImage.TYPE_INT_RGB));
     } else {
-      System.out.printf("%s Height: %d, Width: %d\n",getClass().toString(), images.get(0).getHeight(), images.get(0).getWidth());
       this.images = copyBufferedImages(images);
-      System.out.printf("%s Out Height: %d, Out Width: %d\n", getClass().toString(), this.images.get(0).getHeight(), this.images.get(0).getWidth());
-
     }
     this.keyHandler = keyH;
     imagesIndex = 0;
@@ -233,11 +230,18 @@ public class Sprite {
    * @return
    */
   public boolean collidesWith(Sprite other) {
+
+    //System.out.printf("Checking collision %s-%s\n", this.getClass().toString(), other.getClass().toString());
+
     if (other == null) {
       return false;
     }
     HitBox thisHitBox = this.getHitBox();
     HitBox otherHitBox = other.getHitBox();
+    //System.out.printf("This hitbox: %d, %d, %d, %d\n", thisHitBox.getXMin(), 
+        //thisHitBox.getXMax(), thisHitBox.getYMin(), thisHitBox.getYMax());
+    //System.out.printf("Other hitbox: %d, %d, %d, %d\n", otherHitBox.getXMin(), 
+        //otherHitBox.getXMax(), otherHitBox.getYMin(), otherHitBox.getYMax());
     if (thisHitBox == null || otherHitBox == null) {
       return false;
     }
@@ -246,7 +250,7 @@ public class Sprite {
       return false;
     }
     if (thisHitBox.getYMin() > otherHitBox.getYMax()
-        || thisHitBox.getYMin() < otherHitBox.getYMax()) {
+        || thisHitBox.getYMax() < otherHitBox.getYMin()) {
       return false;
     }
     return true;

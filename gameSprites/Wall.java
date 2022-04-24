@@ -9,6 +9,7 @@ public class Wall extends Sprite {
     public Wall(BufferedImage image) {
         super(GamePanel.SCREEN_WIDTH, 0, image);
         this.x -= this.images.get(0).getWidth();
+        this.solid = true;
     }
 
     // @Override
@@ -20,6 +21,14 @@ public class Wall extends Sprite {
     //         tempY += images.get(0).getHeight(); 
     //     }
     // }
+
+    public HitBox getHitBox() {
+        if (!isSolid()) {
+            return null;
+        }
+        return new HitBox(this.x, GamePanel.SCREEN_WIDTH, this.y, GamePanel.SCREEN_HEIGHT);
+    }
+
     public void draw(Graphics2D g2) {
         g2.drawImage(images.get(0), null, this.getX(), this.getY());
     }

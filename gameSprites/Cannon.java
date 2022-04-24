@@ -76,7 +76,7 @@ public class Cannon extends Sprite {
     this.x = x;
     this.y = y;
     this.speed = 1; // 1 deg per update (== 60 deg per sec)
-    this.solid = true;
+    this.solid = false;
     this.keyHandler = keyHandler;
 
     // Barrel image should start facing North
