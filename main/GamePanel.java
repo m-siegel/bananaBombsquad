@@ -83,7 +83,6 @@ public class GamePanel extends JPanel implements Runnable{
             for (int i = 0; i < 21; i++) {
                 BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/powerbar/powerbar-%d.png", i)));
                 tempImages.add(scaleOp.filter(temp, null));
-                System.out.printf("Height: %d, Width: %d\n", temp.getHeight(), temp.getWidth());
             }
         } catch (IOException e) {
             System.out.println("Couldn't find power bar image file.");
@@ -106,7 +105,7 @@ public class GamePanel extends JPanel implements Runnable{
             tempCannon = scaleOp.filter(tempCannon, null);
             BufferedImage tempWheel = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/cannon/wheel-size-2.png")));
             tempWheel = scaleOp.filter(tempWheel, null);
-            this.cannon = new Cannon((TILE_SIZE * SCALE / 2 + this.powerBar.getWidth()), SCREEN_HEIGHT - (TILE_SIZE * SCALE / 2 + tempCannon.getHeight()), tempCannon, tempWheel, this.keyH);
+            this.cannon = new Cannon((TILE_SIZE * SCALE / 2 + this.powerBar.getWidth()), SCREEN_HEIGHT - (TILE_SIZE * SCALE + tempCannon.getHeight()), tempCannon, tempWheel, this.keyH);
         } catch (IOException e) {
             System.out.println("Couldn't find cannon or wheel image files.");
             e.printStackTrace();
@@ -259,18 +258,24 @@ public class GamePanel extends JPanel implements Runnable{
         // if flying projectile, check for collisions
         if (projectiles.size() > 0 && launchedProjectile) {
             if (projectiles.get(projectiles.size()-1).collidesWith(target)) {
-
+                System.out.println("Collision with target");
                 projectiles.remove(projectiles.size()-1);
                 target.incrementNumberOfHits();
                 target.resetPosition();
                 launchedProjectile = false;
-            } else if (projectiles.get(projectiles.size()-1).collidesWith(wall) 
-                    || projectiles.get(projectiles.size()-1).collidesWith(background)) {
+            } else if (projectiles.get(projectiles.size()-1).collidesWith(wall)) {
+                System.out.println("Collision with wall");
                 ((Projectile)projectiles.get(projectiles.size()-1)).splat();
                 lives.loseLife();
                 target.resetPosition();
                 launchedProjectile = false;
 
+            } else if (projectiles.get(projectiles.size()-1).collidesWith(background)) {
+                System.out.println("Collision with background");
+                ((Projectile)projectiles.get(projectiles.size()-1)).splat();
+                lives.loseLife();
+                target.resetPosition();
+                launchedProjectile = false;
             } else if (projectiles.get(projectiles.size() - 1).getX() >= SCREEN_WIDTH) {
                 projectiles.remove(projectiles.size() - 1);
                 lives.loseLife();
