@@ -14,7 +14,6 @@ public class Main {
         //InstructionPanel titleScreen = new InstructionPanel();
         //window.add(titleScreen);
 
-
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
 

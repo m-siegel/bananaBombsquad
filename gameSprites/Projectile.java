@@ -31,7 +31,7 @@ public class Projectile extends Sprite {
         this.x = x;
         this.y = y;
         this.angle = angle;
-        this.velocity = velocity / 100; // divide by 100 to slow it down a bit
+        this.velocity = velocity * 5; // divide by 100 to slow it down a bit
 
         // TODO -- comment why this is
         this.internalX = 0;
@@ -106,7 +106,7 @@ public class Projectile extends Sprite {
 
         // Find actual position
         this.x = internalX + xDisplacement;
-        this.y = internalY + yDisplacement;
+        this.y = yDisplacement - internalY;
     }
 
     private void animateImage() {
