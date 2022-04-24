@@ -16,8 +16,10 @@ public class Background extends Sprite {
         if (!isSolid()) {
             return null;
         } else {
+            // return new HitBox(0, GamePanel.SCREEN_WIDTH, 
+            //     GamePanel.SCREEN_HEIGHT - (GamePanel.TILE_SIZE * GamePanel.SCALE) / 12, GamePanel.SCREEN_HEIGHT);
             return new HitBox(0, GamePanel.SCREEN_WIDTH, 
-                GamePanel.SCREEN_HEIGHT - (GamePanel.TILE_SIZE * GamePanel.SCALE) / 12, GamePanel.SCREEN_HEIGHT);
+            GamePanel.SCREEN_HEIGHT - 5, GamePanel.SCREEN_HEIGHT);
         }        
     }
 
