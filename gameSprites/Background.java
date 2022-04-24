@@ -8,7 +8,7 @@ public class Background extends Sprite {
 
     public Background(BufferedImage image) {
         super(0, 0, image);
-        this.solid = false;
+        this.solid = true;
     }
 
     @Override

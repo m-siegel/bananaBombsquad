@@ -138,7 +138,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         // create wall
         try {
-            BufferedImage tempWall = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/wall/wall-new.png")));
+            BufferedImage tempWall = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/wall/wall.png")));
             tempWall = scaleOp.filter(tempWall, null);
             this.wall = new Wall(tempWall);
         } catch (IOException e) {
@@ -324,7 +324,7 @@ public class GamePanel extends JPanel implements Runnable{
         powerBar.draw(g2D);
         lives.draw(g2D);
 
-        //g2D.drawString(endMessage, 100, 100); //TODO - figure out x and y and font and color
+        g2D.drawString(endMessage, 100, 100); //TODO - figure out x and y and font and color
         
         
         
