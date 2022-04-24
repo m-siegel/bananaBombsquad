@@ -1,6 +1,7 @@
 package main;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import spriteEssentials.HitBox;
 import spriteEssentials.SpriteList;
 import gameSprites.*;
 import java.awt.Dimension;
@@ -264,7 +265,12 @@ public class GamePanel extends JPanel implements Runnable{
                 target.resetPosition();
                 launchedProjectile = false;
             } else if (projectiles.get(projectiles.size()-1).collidesWith(wall)) {
+                // Debugging
                 System.out.println("Collision with wall");
+                HitBox pH = projectiles.get(projectiles.size()-1).getHitBox();
+                HitBox wH = wall.getHitBox();
+                System.out.printf("projectile HB: %d, %d, %d, %d\n", pH.getXMin(), pH.getXMax(), pH.getYMin(), pH.getYMax());
+                System.out.printf("wall HB: %d, %d, %d, %d\n", wH.getXMin(), wH.getXMax(), wH.getYMin(), wH.getYMax());
                 ((Projectile)projectiles.get(projectiles.size()-1)).splat();
                 lives.loseLife();
                 target.resetPosition();
