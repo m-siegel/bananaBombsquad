@@ -104,9 +104,11 @@ public class Cannon extends Sprite {
    * @return the x-coordinate of the center of the barrel's belly.
    */
   public int getLaunchX() {
-    // TODO -- trig with barrel angle and length from pivot point to almost end unless we start
-    // shooting from pivot point
-    return x + barrelPivotX; // Shooting from belly.
+    int bellyX = x + barrelPivotX;
+    int spoutX = (int) ((barrelPivotY - GamePanel.TILE_SIZE) * Math.cos(Math.toRadians(cartesianAngle)));
+    // Since (x, y) coords for projectile are in the upper left, shift this left a bit when facing Nort
+    int offsetX = (int) (((GamePanel.TILE_SIZE / 2) * GamePanel.SCALE) * Math.sin(Math.toRadians(cartesianAngle)));
+    return bellyX + spoutX - offsetX;
   }
 
   /**
@@ -115,9 +117,11 @@ public class Cannon extends Sprite {
    * @return the y-coordinate of the center of the barrel's belly.
    */
   public int getLaunchY() {
-    // TODO -- trig with barrel angle and length from pivot point to almost end unless we start
-    // shooting from pivot point
-    return y + barrelPivotY; // Shooting from belly.
+    int bellyY = y + barrelPivotY;
+    int spoutY = (int) ((barrelPivotY) * Math.sin(Math.toRadians(cartesianAngle)));
+    // Since (x, y) coords for projectile are in the upper left, shift this up a bit when facing East
+    int offsetY = (int) (((GamePanel.TILE_SIZE / 2) * GamePanel.SCALE) * Math.cos(Math.toRadians(cartesianAngle)));
+    return bellyY - spoutY - offsetY;
   }
 
   /**
