@@ -19,7 +19,7 @@ public class Background extends Sprite {
             // return new HitBox(0, GamePanel.SCREEN_WIDTH, 
             //     GamePanel.SCREEN_HEIGHT - (GamePanel.TILE_SIZE * GamePanel.SCALE) / 12, GamePanel.SCREEN_HEIGHT);
             return new HitBox(0, GamePanel.SCREEN_WIDTH, 
-            GamePanel.SCREEN_HEIGHT - 5, GamePanel.SCREEN_HEIGHT);
+            GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE, GamePanel.SCREEN_HEIGHT); // TODO -- v3: randomize yMin between screenHeight-tileSize and screenHeight?
         }        
     }
 
