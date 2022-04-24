@@ -247,7 +247,7 @@ public class GamePanel extends JPanel implements Runnable{
         //initiateLaunch();
 
         // Checking for the end of game
-        if (lives.isDead()) {
+        if (lives.isDead()) { // TODO -- this isn't working
             endMessage = "Your efforts were fruitless.";
             return;
         }
