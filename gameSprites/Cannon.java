@@ -55,7 +55,7 @@ public class Cannon extends Sprite {
    * @throws IllegalArgumentException if the wheel image is not square, or the wheel's width is
    *         less than the cannon's width.
    */
-  public Cannon(int x, int y, BufferedImage wheel, BufferedImage barrel, KeyHandler keyHandler) {
+  public Cannon(int x, int y, BufferedImage barrel, BufferedImage wheel, KeyHandler keyHandler) {
     if (keyHandler == null) {
       throw new IllegalArgumentException("keyHandler parameter cannot be null.");
     }

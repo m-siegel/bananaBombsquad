@@ -8,11 +8,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.awt.image.BufferedImage;
-import java.io.IOError;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.util.Random;
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int SCREEN_WIDTH = TILE_SIZE * SCALE * 16;
     public static final int SCREEN_HEIGHT = TILE_SIZE * SCALE * 12;
     public static final int FPS = 60;
+    public static final String[] FRUIT_NAMES = {"banana", "strawberry", "orange"};
     
     
     //instance variables
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
         this.isRunning = false;
         launchedProjectile = false;
+        this.projectiles = new SpriteList();
         this.projectileImages = new HashMap<String, HashMap<String, ArrayList<BufferedImage>>>();
         this.loadSprites();
         
@@ -64,8 +66,8 @@ public class GamePanel extends JPanel implements Runnable{
 
         // create lives
         try {
-            for (int i = 1; i < 8; i++) {
-                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/lives/lives-%d.png", i)));
+            for (int i = 0; i < 7; i++) {
+                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/lives/lives-%d.png", i)));
                 tempImages.add(scaleOp.filter(temp, null));
             }
         } catch (IOException e) {
@@ -79,8 +81,9 @@ public class GamePanel extends JPanel implements Runnable{
         // create powerbar
         try {
             for (int i = 0; i < 21; i++) {
-                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/powerbar/powerbar-%d.png", i)));
+                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/powerbar/powerbar-%d.png", i)));
                 tempImages.add(scaleOp.filter(temp, null));
+                System.out.printf("Height: %d, Width: %d\n", temp.getHeight(), temp.getWidth());
             }
         } catch (IOException e) {
             System.out.println("Couldn't find power bar image file.");
@@ -99,9 +102,9 @@ public class GamePanel extends JPanel implements Runnable{
 
         // create cannon
         try {
-            BufferedImage tempCannon = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/cannon/main-cannon.png")));
+            BufferedImage tempCannon = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/cannon/main-cannon.png")));
             tempCannon = scaleOp.filter(tempCannon, null);
-            BufferedImage tempWheel = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/cannon/wheel-size-2.png")));
+            BufferedImage tempWheel = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/cannon/wheel-size-2.png")));
             tempWheel = scaleOp.filter(tempWheel, null);
             this.cannon = new Cannon((TILE_SIZE * SCALE / 2 + this.powerBar.getWidth()), SCREEN_HEIGHT - (TILE_SIZE * SCALE / 2 + tempCannon.getHeight()), tempCannon, tempWheel, this.keyH);
         } catch (IOException e) {
@@ -112,7 +115,7 @@ public class GamePanel extends JPanel implements Runnable{
         // create target
         try {
             for (int i = 1; i < 5; i++) {
-                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/blender/blender-%d.png", i)));
+                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/blender/blender-%d.png", i)));
                 tempImages.add(scaleOp.filter(temp, null));
             }
         } catch (IOException e) {
@@ -125,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         // create background
         try {
-            BufferedImage tempBackground = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/background/background.png")));
+            BufferedImage tempBackground = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/background/background.png")));
             tempBackground = scaleOp.filter(tempBackground, null);
             this.background = new Background(tempBackground);
         } catch (IOException e) {
@@ -135,7 +138,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         // create wall
         try {
-            BufferedImage tempWall = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/wall/wall.png")));
+            BufferedImage tempWall = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/wall/wall.png")));
             tempWall = scaleOp.filter(tempWall, null);
             this.wall = new Wall(tempWall);
         } catch (IOException e) {
@@ -144,19 +147,19 @@ public class GamePanel extends JPanel implements Runnable{
         } 
 
         // load projectile images
-        String[] fruitNames = {"banana", "orange", "strawberry"};       // can add or change fruits
 
-        for (String fruit : fruitNames) {
+
+        for (String fruit : FRUIT_NAMES) {
             ArrayList<BufferedImage> tempFlying = new ArrayList<BufferedImage>();
             ArrayList<BufferedImage> tempSplattered = new ArrayList<BufferedImage>();
 
             try {
                 for (int i = 1; i < 5; i++) {
-                    BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/%s/flying/%s-%d.png", fruit, fruit, i)));
+                    BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/projectiles/%s/flying/%s-%d.png", fruit, fruit, i)));
                     tempFlying.add(scaleOp.filter(temp, null));
                 }
                 for (int i = 1; i < 2; i++) {
-                    BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/bananaBombsquad/media/images/%s/splattered/%s-splat-%d.png", fruit, fruit, i)));
+                    BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format("/media/images/projectiles/%s/splattered/%s-splat-%d.png", fruit, fruit, i)));
                     tempSplattered.add(scaleOp.filter(temp, null));
                 }
             } catch (IOException e) {
@@ -198,13 +201,11 @@ public class GamePanel extends JPanel implements Runnable{
     //      - if isDead -> print: Efforts were fruitless
     //      - if target.isFull() -> print: Winning message
     //          -either case: go back to loading screen
-    public void roundReset() {
 
-    }
 
     public void gameSetup() {
         projectiles.clear();
-        // TODO -- create reset methods for target and lives
+
         target.reset();
         lives.livesReset();
 
@@ -258,29 +259,34 @@ public class GamePanel extends JPanel implements Runnable{
         // if flying projectile, check for collisions
         if (projectiles.size() > 0 && launchedProjectile) {
             if (projectiles.get(projectiles.size()-1).collidesWith(target)) {
-                // TODO -- create a splat() method
+
                 projectiles.remove(projectiles.size()-1);
                 target.incrementNumberOfHits();
                 target.resetPosition();
                 launchedProjectile = false;
             } else if (projectiles.get(projectiles.size()-1).collidesWith(wall) 
                     || projectiles.get(projectiles.size()-1).collidesWith(background)) {
-                projectiles.get(projectiles.size()-1).splat();
+                ((Projectile)projectiles.get(projectiles.size()-1)).splat();
                 lives.loseLife();
                 target.resetPosition();
                 launchedProjectile = false;
 
+            } else if (projectiles.get(projectiles.size() - 1).getX() >= SCREEN_WIDTH) {
+                projectiles.remove(projectiles.size() - 1);
+                lives.loseLife();
+                target.reset();
+                launchedProjectile = false;
             }
             
         // if not a flying projectile, we check to see if player wants to shoot    
         } else {
             if (keyH.getShootButtonPressed()) {
-                // TODO -- get random name of fruit
-                int i = Math.random(projectileFlyingImages.size());
-                String fruit = projectileFlyingImages.getKeys(i);
+                Random randomizer = new Random();
+                int i = randomizer.nextInt(FRUIT_NAMES.length);
+                String fruit = FRUIT_NAMES[i];
                 projectiles.add(new Projectile(cannon.getLaunchX(), cannon.getLaunchY(), 
-                    cannon.getAngle(), powerBar.getPower(), projectileFlyingImages.get(fruit), 
-                    projectile.splatteredImages.get(fruit), updatesPerSec));
+                    cannon.getAngle(), powerBar.getPower(), projectileImages.get(fruit).get("flying"), 
+                    projectileImages.get(fruit).get("splattered"), 1));
                 launchedProjectile = true;
             }
             cannon.update();
@@ -306,6 +312,8 @@ public class GamePanel extends JPanel implements Runnable{
         target.draw(g2D);
         powerBar.draw(g2D);
         lives.draw(g2D);
+
+        //g2D.drawString(endMessage, 100, 100); //TODO - figure out x and y and font and color
         
         
         

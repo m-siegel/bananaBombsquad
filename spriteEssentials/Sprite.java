@@ -57,7 +57,10 @@ public class Sprite {
       this.images = new ArrayList<BufferedImage>();
       this.images.add(new BufferedImage(0, 0, BufferedImage.TYPE_INT_RGB));
     } else {
+      System.out.printf("%s Height: %d, Width: %d\n",getClass().toString(), images.get(0).getHeight(), images.get(0).getWidth());
       this.images = copyBufferedImages(images);
+      System.out.printf("%s Out Height: %d, Out Width: %d\n", getClass().toString(), this.images.get(0).getHeight(), this.images.get(0).getWidth());
+
     }
     this.keyHandler = keyH;
     imagesIndex = 0;
@@ -277,7 +280,7 @@ public class Sprite {
       throw new NullPointerException("Cannot copy a null BufferedImage");
     }
     BufferedImage copy =
-        new BufferedImage(original.getWidth(), original.getWidth(), original.getType());
+        new BufferedImage(original.getWidth(), original.getHeight(), original.getType());
     AffineTransform trans = AffineTransform.getScaleInstance(1, 1);
     AffineTransformOp transOp =
         new AffineTransformOp(trans, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);

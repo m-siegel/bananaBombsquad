@@ -8,7 +8,7 @@ public class Main {
 
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setTitle("Banana Cannon");
+        window.setTitle("Smoothie Operator");
         window.setResizable(false);
 
         //InstructionPanel titleScreen = new InstructionPanel();
@@ -23,8 +23,7 @@ public class Main {
         window.setLocationRelativeTo(null); //sets window to appear at center of screen
         window.setVisible(true); //allows us to see the window
 
-        gamePanel.startGameThread();
-
+        gamePanel.startGame();
 
 
     }

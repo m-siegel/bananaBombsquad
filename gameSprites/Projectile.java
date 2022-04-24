@@ -31,7 +31,7 @@ public class Projectile extends Sprite {
         this.x = x;
         this.y = y;
         this.angle = angle;
-        this.velocity = velocity;
+        this.velocity = velocity / 100; // divide by 100 to slow it down a bit
 
         // TODO -- comment why this is
         this.internalX = 0;
@@ -41,10 +41,10 @@ public class Projectile extends Sprite {
 
         this.solid = true;
         this.keyHandler = null;
-        this.speed = 5;
+        this.speed = 3;
         this.imagesIndex = 0;
         this.updatesSinceFrameChange = 0;
-        this.updatesPerFrame = updatesPerSec / FPS;
+        this.updatesPerFrame = FPS / updatesPerSec;
     }
     //instance variables
     public static final int FPS = 30;
@@ -92,6 +92,9 @@ public class Projectile extends Sprite {
         // find y in terms of x
         // don't bother with height because coerced starting point to be (0, 0), height == 0
         // 9.8 for gravity -- TODO -- static var
+
+        //this.internalY -= this.speed;
+
         this.internalY = (int) ((internalX * Math.tan(Math.toRadians(angle))) - (9.8 * Math.pow(internalX, 2) /
                 (2 * Math.pow(velocity, 2) * Math.pow(Math.cos(Math.toRadians(angle)), 2))));
 
