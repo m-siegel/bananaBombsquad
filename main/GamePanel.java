@@ -193,6 +193,7 @@ public class GamePanel extends JPanel {
     }
 
     public void gameSetup() {
+        this.endMessage = "";
         projectiles.clear();
         target.reset();
         lives.livesReset();
@@ -220,6 +221,11 @@ public class GamePanel extends JPanel {
     }
 
     public void update() {
+        // Checking for restart of the game
+        if (keyH.getResetTyped()) {
+            startGame();
+        }
+
         // Checking for the end of game
         if (lives.isDead()) {
             endMessage = "Your efforts were fruitless.";
@@ -228,11 +234,6 @@ public class GamePanel extends JPanel {
         if (target.isFull()) {
             endMessage = "Your efforts were fruitful.";
             return;
-        }
-
-        // Checking for restart of the game
-        if (keyH.getResetTyped()) {
-            startGame();
         }
 
         // if flying projectile, check for collisions
