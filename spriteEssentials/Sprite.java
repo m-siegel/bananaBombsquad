@@ -7,6 +7,7 @@ import java.awt.image.AffineTransformOp;
 import java.util.ArrayList;
 
 import main.KeyHandler;
+import gameSprites.Target;
 
 /**
  * Represents a "sprite" on-screen and in game logic.
@@ -241,6 +242,10 @@ public class Sprite {
   public HitBox getHitBox() {
     if (!this.solid) {
       return null;
+    }
+    if (this instanceof Target) {
+      return new HitBox(this.x, this.x + this.images.get(imagesIndex).getWidth(), this.y,
+      this.y + this.images.get(imagesIndex).getHeight() / 2);
     }
     return new HitBox(this.x, this.x + this.images.get(imagesIndex).getWidth(), this.y,
         this.y + this.images.get(imagesIndex).getHeight());
