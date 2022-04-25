@@ -18,7 +18,7 @@ public class Cannon extends Sprite {
   // Angle in degrees
   public static final double MAX_CARTESIAN_ANGLE = 90;
   public static final double MIN_CARTESIAN_ANGLE = 0;
-  // Image starts facing North, so rotation angle = cartesianAngle - ANGLE_OFFSET
+  // Image starts facing North, so the angle to rotate the image = cartesianAngle - ANGLE_OFFSET
   public static final double ANGLE_OFFSET = 90;
   private double cartesianAngle; // East is 0, North is 90
 
@@ -47,9 +47,8 @@ public class Cannon extends Sprite {
    * @param wheel the image to draw for the wheel at the base of the cannon
    * @param barrel the barrel of the cannon to draw and rotate
    * @param keyHandler the keyHandler for the relevant JPanel to control cannon rotation
-   * @throws NullPointerException if any of the parameters are null
    * @throws IllegalArgumentException if the wheel image is not square, or the wheel's width is
-   *         less than the cannon's width
+   *         less than the cannon's width, or if any of the reference type parameters are null.
    */
   public Cannon(int x, int y, BufferedImage barrel, BufferedImage wheel, KeyHandler keyHandler) {
     if (keyHandler == null) {
@@ -70,7 +69,7 @@ public class Cannon extends Sprite {
 
     this.x = x;
     this.y = y;
-    this.speed = 1; // 1 deg per update (equals 60 deg per sec)
+    this.speed = 1; // number of degrees per call to update()
     this.solid = false;
     this.keyHandler = keyHandler;
 
@@ -80,6 +79,7 @@ public class Cannon extends Sprite {
     this.barrel = barrel;
     this.wheel = wheel;
     int maxDim = Math.max(this.barrel.getWidth(), this.barrel.getHeight());
+    // Make large enough to not cut off any of the rotated image
     this.barrelAnimationFrame = new BufferedImage(maxDim, maxDim, this.barrel.getType());
   
     // calculate wheel offset and pivot points for wheel and barrel
@@ -93,9 +93,10 @@ public class Cannon extends Sprite {
   }
 
   /**
-   * Returns the x-coordinate of the center of the barrel's belly.
+   * Returns an x-coordinate near the tip of the barrel's spout. The coordinate is
+   * offset a little to the left of center as the barrel faces Northward.
    * 
-   * @return the x-coordinate of the center of the barrel's belly.
+   * @return an x-coordinate near the tip of the barrel's spout.
    */
   public int getLaunchX() {
     int bellyX = x + barrelPivotX;
@@ -109,9 +110,10 @@ public class Cannon extends Sprite {
   }
 
   /**
-   * Returns the y-coordinate of the center of the barrel's belly.
+   * Returns a y-coordinate near the tip of the barrel's spout. The coordinate is
+   * offest a bit North of center as the barrel faces Eastward.
    * 
-   * @return the y-coordinate of the center of the barrel's belly.
+   * @return a y-coordinate near the tip of the barrel's spout.
    */
   public int getLaunchY() {
     int bellyY = y + barrelPivotY;
@@ -129,7 +131,7 @@ public class Cannon extends Sprite {
    * 
    * @return the angle that the barrel is pointing.
    */
-  public double getAngle() { // getLaunchAngle()?
+  public double getAngle() {
     return cartesianAngle;
   }
 
@@ -168,7 +170,7 @@ public class Cannon extends Sprite {
   }
 
   /**
-   * Draws the barrel and wheel, with the wheel in front of the barrel.
+   * Draws the cannon, with the wheel in front of the barrel.
    */
   @Override
   public void draw(Graphics2D g2) {
