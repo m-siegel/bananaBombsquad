@@ -1,10 +1,10 @@
 package spriteEssentials;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.util.ArrayList;
 
 import main.KeyHandler;
 
@@ -16,7 +16,7 @@ public class Sprite {
 
   protected int speed;
 
-  protected boolean solid; // Whether the Sprite can collide;
+  protected boolean solid; // Whether the Sprite can collide
 
   protected ArrayList<BufferedImage> images; // Store one or more frames for animation.
   protected int imagesIndex; // Index in images of the current image to display for this Sprite.
@@ -173,10 +173,20 @@ public class Sprite {
     return this.speed;
   }
 
+  /**
+   * Returns the width of the current image.
+   * 
+   * @return the width of the current image.
+   */
   public int getWidth() {
     return this.images.get(imagesIndex).getWidth();
   }
 
+  /**
+   * Returns the height of the current image.
+   * 
+   * @return the height of the current image.
+   */
   public int getHeight() {
     return this.images.get(imagesIndex).getHeight();
   }
@@ -190,9 +200,8 @@ public class Sprite {
     return this.solid;
   }
 
-  // TODO -- make abstract?
   /**
-   * Decendent classes should override this to implement movement or animation.
+   * Decendent classes should override this to implement spacial movement or animation.
    */
   public void update() {}
 
@@ -200,7 +209,7 @@ public class Sprite {
    * Draw this Sprite to the screen as a static image. This Sprite's x and y coordinates represent
    * the top left pixel where this image is drawn.
    *
-   * @param g2 // TODO -- fill in
+   * @param g2 a copy of the graphics object belonging to the calling JPanel.
    */
   public void draw(Graphics2D g2) {
     g2.drawImage(images.get(imagesIndex), x, y, null);
@@ -215,11 +224,11 @@ public class Sprite {
    * @return this Sprite's hit box; null if this Sprite is not solid.
    */
   public HitBox getHitBox() {
-    if (!this.solid) { // TODO -- document for descendents
+    if (!this.solid) {
       return null;
     }
     return new HitBox(this.x, this.x + this.images.get(imagesIndex).getWidth(), this.y,
-        this.y + this.images.get(imagesIndex).getHeight()); // TODO -- document: should be relative to curr location
+        this.y + this.images.get(imagesIndex).getHeight());
   }
 
   /**
@@ -230,18 +239,11 @@ public class Sprite {
    * @return
    */
   public boolean collidesWith(Sprite other) {
-
-    //System.out.printf("Checking collision %s-%s\n", this.getClass().toString(), other.getClass().toString());
-
     if (other == null) {
       return false;
     }
     HitBox thisHitBox = this.getHitBox();
     HitBox otherHitBox = other.getHitBox();
-    //System.out.printf("This hitbox: %d, %d, %d, %d\n", thisHitBox.getXMin(), 
-        //thisHitBox.getXMax(), thisHitBox.getYMin(), thisHitBox.getYMax());
-    //System.out.printf("Other hitbox: %d, %d, %d, %d\n", otherHitBox.getXMin(), 
-        //otherHitBox.getXMax(), otherHitBox.getYMin(), otherHitBox.getYMax());
     if (thisHitBox == null || otherHitBox == null) {
       return false;
     }
