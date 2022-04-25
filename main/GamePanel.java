@@ -312,7 +312,7 @@ public class GamePanel extends JPanel {
                 projectiles.add(
                         new Projectile(cannon.getLaunchX(), cannon.getLaunchY(), cannon.getAngle(),
                                 powerBar.getPower(), projectileImages.get(fruit).get("flying"),
-                                projectileImages.get(fruit).get("splattered"), 1));
+                                projectileImages.get(fruit).get("splattered"), 5));
                 launchedProjectile = true;
             }
             cannon.update();
