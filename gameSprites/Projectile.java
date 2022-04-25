@@ -69,14 +69,14 @@ public class Projectile extends Sprite {
         this.updatesPerFrame = FPS / updatesPerSec;
     }
 
-    public boolean isSplattered() {
-        return this.splattered;
-    }
-
     public void splat() { // case when image is splattered on the ground
         this.splat(0);
     }
 
+    /**
+     * 
+     * @param rotation
+     */
     public void splat(int rotation) {
         if (rotation != 0) {
             ArrayList<BufferedImage> tempArrayList =
@@ -100,6 +100,10 @@ public class Projectile extends Sprite {
         this.splattered = true;
         this.imagesIndex = 0;
         this.images = splatteredImages;
+    }
+
+    public boolean isSplattered() {
+        return this.splattered;
     }
 
     public double getAngle() {
@@ -126,6 +130,9 @@ public class Projectile extends Sprite {
         return this.yDisplacement;
     }
 
+    /**
+     * Implements animation by updating projectile's position and image.
+     */
     public void update() {
         if (!this.isSplattered()) {
             updatePosition();
@@ -133,6 +140,10 @@ public class Projectile extends Sprite {
         animateImage();
     }
 
+    /**
+     * Updates the position of projectile by changing its x and y coordinates.
+     * Uses mathematical formula to calculate projectile's trajectory.
+     */
     private void updatePosition() {
         // Find projectile position relative to start at cartesian (0, 0) internally (draw arc)
         this.internalX += this.speed; // update x over time
@@ -148,6 +159,9 @@ public class Projectile extends Sprite {
         this.y = yDisplacement - internalY;
     }
 
+    /**
+     * Updates current imagesIndex to facilitate animation.
+     */
     private void animateImage() {
         updatesSinceFrameChange++;
         if (updatesSinceFrameChange >= updatesPerFrame) {
@@ -157,6 +171,7 @@ public class Projectile extends Sprite {
         }
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         g2.drawImage(images.get(imagesIndex), this.x, this.y, null);
     }
