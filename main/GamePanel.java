@@ -295,7 +295,8 @@ public class GamePanel extends JPanel {
                 lives.loseLife();
                 target.resetPosition();
                 launchedProjectile = false;
-            } else if (projectiles.get(projectiles.size() - 1).getX() >= SCREEN_WIDTH) {
+            } else if (projectiles.get(projectiles.size() - 1).getX() >= SCREEN_WIDTH
+                    || projectiles.get(projectiles.size() - 1).getY() > SCREEN_HEIGHT) {
                 projectiles.remove(projectiles.size() - 1);
                 lives.loseLife();
                 target.reset();
