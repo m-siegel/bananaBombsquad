@@ -4,6 +4,15 @@ import javax.swing.JFrame;
 
 public class Main {
 
+    /**
+     * Sets up a new JFrame and loads the GamePanel onto it.
+     * Sets the JFrame's default close operation to exit.
+     * Sets the JFrame's title to the name of the game.
+     * Disables resizing the JFrame window.
+     * Sizes the JFrame's window to the dimensions of the GamePanel.
+     * Sets the JFrame window to be visible.
+     * Starts the game.
+     */
     public static void main(String[] args) {
 
         JFrame window = new JFrame();
