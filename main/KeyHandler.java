@@ -17,6 +17,8 @@ public class KeyHandler implements KeyListener {
   private boolean powerDownPressed; // down arrow key, or S key
 
   private boolean shootButtonPressed;
+  
+  private boolean resetTyped;
 
   // getters
   public boolean getAngleCounterClockwisePressed() {
@@ -39,9 +41,16 @@ public class KeyHandler implements KeyListener {
     return this.shootButtonPressed;
   }
 
+  public boolean getResetTyped() {
+    return this.resetTyped;
+  }
+
   @Override
   public void keyTyped(KeyEvent e) {
-
+    char keyChar = e.getKeyChar();
+    if (keyChar == 'r' || keyChar == 'R') {
+      resetTyped = true;
+    }
   }
 
   @Override
@@ -81,6 +90,9 @@ public class KeyHandler implements KeyListener {
     }
     if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
       shootButtonPressed = false;
+    }
+    if (code == KeyEvent.VK_R) {
+      resetTyped = false;
     }
   }
 }
