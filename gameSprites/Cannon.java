@@ -15,22 +15,18 @@ import main.*;
  */
 public class Cannon extends Sprite {
 
-  // TODO -- not usng images or imagesIndex. are other sprites using this?
-
-  // Angle in degrees -- TODO -- could be ints
+  // Angle in degrees
   public static final double MAX_CARTESIAN_ANGLE = 90;
   public static final double MIN_CARTESIAN_ANGLE = 0;
-  // Image starts facing north, so rotation angle = cartesianAngle - ANGLE_OFFSET
+  // Image starts facing North, so rotation angle = cartesianAngle - ANGLE_OFFSET
   public static final double ANGLE_OFFSET = 90;
   private double cartesianAngle; // East is 0, North is 90
 
   private BufferedImage wheel;
-  private BufferedImage barrel; // Original barrel image.
-  private BufferedImage barrelAnimationFrame; // Rotated image for current animation frame.
+  private BufferedImage barrel; // Original barrel image
+  private BufferedImage barrelAnimationFrame; // Rotated image for current animation frame
 
   // Pivot points relative to upper left corner of the image
-  // private int wheelPivotX;
-  // private int wheelPivotY;
   private int barrelPivotX;
   private int barrelPivotY;
   // Offset of wheel's top left from barrel's
@@ -42,18 +38,18 @@ public class Cannon extends Sprite {
    * to the given KeyHandler. The cannon's barrel can rotate 90 degrees, but its pivot
    * point cannon move in any direction.
    * 
-   * <p>The cannon image should be facing northward. The cannon's pivot point is calculated
-   * to be on the vertical centerline, 1/2 the image's width from the bottom of the image.
+   * The cannon image should be facing northward. The cannon's pivot point is calculated
+   * to be on the vertical center line, 1/2 the image's width from the bottom of the image.
    * 
-   * <p>The wheel image should have equal width and height,
+   * The wheel image should have equal width and height,
    * and be at least as wide as the barrel's width.
    * 
-   * @param wheel the image to draw for the wheel at the base of the cannon.
-   * @param barrel the barrel of the cannon to draw and rotate.
-   * @param keyHandler the keyHandler for the relevant JPanel to control cannon rotation.
-   * @throws NullPointerException if any of the parameters are null.
+   * @param wheel the image to draw for the wheel at the base of the cannon
+   * @param barrel the barrel of the cannon to draw and rotate
+   * @param keyHandler the keyHandler for the relevant JPanel to control cannon rotation
+   * @throws NullPointerException if any of the parameters are null
    * @throws IllegalArgumentException if the wheel image is not square, or the wheel's width is
-   *         less than the cannon's width.
+   *         less than the cannon's width
    */
   public Cannon(int x, int y, BufferedImage barrel, BufferedImage wheel, KeyHandler keyHandler) {
     if (keyHandler == null) {
@@ -71,15 +67,13 @@ public class Cannon extends Sprite {
     if (wheel.getWidth() < Math.min(barrel.getWidth(), barrel.getHeight())) {
       throw new IllegalArgumentException("The wheel must be at least as wide as the barrel.");
     }
-
-    // TODO -- decide where we want cannon placed. Currently 50px buffer from edge of screen
     this.x = x;
     this.y = y;
-    this.speed = 1; // 1 deg per update (== 60 deg per sec)
+    this.speed = 1; // 1 deg per update (equals 60 deg per sec)
     this.solid = false;
     this.keyHandler = keyHandler;
 
-    // Barrel image should start facing North
+    // barrel image should start facing North
     this.cartesianAngle = 90;
 
     this.barrel = barrel;
@@ -87,13 +81,12 @@ public class Cannon extends Sprite {
     int maxDim = Math.max(this.barrel.getWidth(), this.barrel.getHeight());
     this.barrelAnimationFrame = new BufferedImage(maxDim, maxDim, this.barrel.getType());
   
-    // Calculate wheel offset and pivot points for wheel and barrel
+    // calculate wheel offset and pivot points for wheel and barrel
     wheelOffsetY = this.barrel.getHeight() - this.wheel.getHeight();
     wheelOffsetX = (this.barrel.getWidth() - this.wheel.getWidth()) / 2;
     barrelPivotX = this.barrel.getWidth() / 2;
-    barrelPivotY = this.barrel.getHeight() - (this.barrel.getWidth() / 2) - 1; // Extra pixel for border buffer
-    // wheelPivotX = this.wheelOffsetX + (this.wheel.getWidth() / 2);
-    // wheelPivotY = this.wheelOffsetY + (this.wheel.getHeight() / 2);
+    // extra pixel for border buffer
+    barrelPivotY = this.barrel.getHeight() - (this.barrel.getWidth() / 2) - 1;
 
     matchBarrelFrameToAngle(); // Must happen after barrel pivot point is calculated
   }
@@ -105,9 +98,12 @@ public class Cannon extends Sprite {
    */
   public int getLaunchX() {
     int bellyX = x + barrelPivotX;
-    int spoutX = (int) ((barrelPivotY - GamePanel.TILE_SIZE) * Math.cos(Math.toRadians(cartesianAngle)));
-    // Since (x, y) coords for projectile are in the upper left, shift this left a bit when facing Nort
-    int offsetX = (int) (((GamePanel.TILE_SIZE / 2) * GamePanel.SCALE) * Math.sin(Math.toRadians(cartesianAngle)));
+    int spoutX = (int) ((barrelPivotY - GamePanel.TILE_SIZE) * Math.cos(
+        Math.toRadians(cartesianAngle)));
+    // Since (x, y) coords for projectile are in the upper left, 
+    // shift this left a bit when facing North.
+    int offsetX = (int) (((GamePanel.TILE_SIZE / 2) * GamePanel.SCALE) * Math.sin(
+        Math.toRadians(cartesianAngle)));
     return bellyX + spoutX - offsetX;
   }
 
@@ -119,8 +115,10 @@ public class Cannon extends Sprite {
   public int getLaunchY() {
     int bellyY = y + barrelPivotY;
     int spoutY = (int) ((barrelPivotY) * Math.sin(Math.toRadians(cartesianAngle)));
-    // Since (x, y) coords for projectile are in the upper left, shift this up a bit when facing East
-    int offsetY = (int) (((GamePanel.TILE_SIZE / 2) * GamePanel.SCALE) * Math.cos(Math.toRadians(cartesianAngle)));
+    // Since (x, y) coords for projectile are in the upper left, 
+    // shift this up a bit when facing East.
+    int offsetY = (int) (((GamePanel.TILE_SIZE / 2) * GamePanel.SCALE) * Math.cos(
+        Math.toRadians(cartesianAngle)));
     return bellyY - spoutY - offsetY;
   }
 
@@ -139,7 +137,7 @@ public class Cannon extends Sprite {
    */
   @Override
   public void update() {
-    // If position were to be updated, then barrelPivots would need to be updated, too.
+    // if position is updated, then barrelPivots also needs to be updated
     updateAngle();
     matchBarrelFrameToAngle();
   }
@@ -160,7 +158,7 @@ public class Cannon extends Sprite {
    * Copies a rotated version of the barrel into barrelAnimationFrame to match current angle.
    */
   private void matchBarrelFrameToAngle() {
-    // AffienTransform rotates clockwise
+    // AffineTransform rotates clockwise
     AffineTransform rotation = AffineTransform.getRotateInstance(
         Math.toRadians(-(cartesianAngle - ANGLE_OFFSET)), barrelPivotX, barrelPivotY);
     AffineTransformOp rotationOp =
