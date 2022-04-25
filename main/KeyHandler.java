@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 
 /**
  * Processes keyboard input into boolean instance variables for use by JComponents.
+ * The keyboard inputs will control the angle and power of the cannon, shooting
+ * the cannon, and resetting the game.
  */
 public class KeyHandler implements KeyListener {
 
@@ -16,11 +18,11 @@ public class KeyHandler implements KeyListener {
 
   private boolean powerDownPressed; // down arrow key, or S key
 
-  private boolean shootButtonPressed;
+  private boolean shootButtonPressed; // spacebar, or enter key
   
-  private boolean resetTyped;
+  private boolean resetTyped; // R key
 
-  // getters
+  
   public boolean getAngleCounterClockwisePressed() {
     return this.angleCounterClockwisePressed;
   }
