@@ -8,11 +8,22 @@ import spriteEssentials.*;
 
 public class Background extends Sprite {
 
+    /**
+    * Creates the game's background from a single image. Coordinates (0, 0) 
+    * are top left of the game screen. The background is stationary and is 
+    * set to solid by default.
+    * @param image the background image, which should have same proportions 
+    * and pixel height/width as the game screen
+    */
     public Background(BufferedImage image) {
         super(0, 0, image);
         this.solid = true;
     }
 
+    /** 
+     * Hit box represents the ground, which must be set so projectile 
+     * images can collide with it.
+     */
     @Override
     public HitBox getHitBox() {
         if (!isSolid()) {
