@@ -18,7 +18,9 @@ import java.util.Random;
 import spriteEssentials.SpriteList;
 import gameSprites.*;
 
-
+/**
+ * Holds game components and runs game logic for the Smoothie Operator game.
+ */
 public class GamePanel extends JPanel {
 
     // settings
@@ -43,6 +45,9 @@ public class GamePanel extends JPanel {
     private String endMessage = "";
     private boolean launchedProjectile;
 
+    /**
+     * Creates a new GamePanel object for the Smoothie Operator game.
+     */
     public GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.keyH = new KeyHandler();
@@ -57,7 +62,14 @@ public class GamePanel extends JPanel {
         this.loadSprites();
     }
 
-    // methods
+    /**
+     * Initialize the background, wall, cannon, target, powerBar and lives sprites for this game.
+     * Loads the images that will be used to instantiate projectiles into the projectileImages
+     * HashMap.
+     * 
+     * <p>Catches and prints fileIO exceptions.
+     * Does not catch any exceptions thrown by sprite constructors.
+     */
     public void loadSprites() {
         // scale images as they're read in
         AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
@@ -186,12 +198,23 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * Starts the game.
+     * 
+     * <p>Sets up the game, sets isRunning to true and starts the game loop.
+     */
     public void startGame() {
         this.isRunning = true;
         this.gameSetup();
         this.run();
     }
 
+    /**
+     * Resets components of the game.
+     * 
+     * <p>Clears endMessage and projectiles SpriteList.
+     * Resets number of lives and the position of the target.
+     */
     public void gameSetup() {
         this.endMessage = "";
         projectiles.clear();
@@ -199,6 +222,10 @@ public class GamePanel extends JPanel {
         lives.livesReset();
     }
 
+    /**
+     * Game loop.
+     * Calls update() and paintComponent() FPS times per second while the game is running.
+     */
     public void run() {
         double drawInterval = 1000000000 / FPS; // get 1/60 of a second in nanoseconds
         double delta = 0;
@@ -220,6 +247,21 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * Main game logic.
+     * 
+     * <p>Resets the game as needed, in response to keyboard input.
+     * 
+     * <p>Ends the game (either winning or losing) based on whether the target is full
+     * or the player is dead.
+     * 
+     * <p>Registers and reacts to collisions between projectiles and other solid objects.
+     * 
+     * <p>Launches projectiles in response to keyboard input.
+     * 
+     * <p>Updates all sprites with their update methods, if no projectile is flying. Updates
+     * projectiles with each call.
+     */
     public void update() {
         // Checking for restart of the game
         if (keyH.getResetTyped()) {
@@ -281,6 +323,9 @@ public class GamePanel extends JPanel {
         projectiles.update();
     }
 
+    /**
+     * Draws the screen and each component from farthest to nearest.
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
@@ -288,14 +333,14 @@ public class GamePanel extends JPanel {
         // draw components back to front
         background.draw(g2D);
         wall.draw(g2D);
-        projectiles.draw(g2D);
-        cannon.draw(g2D);
         target.draw(g2D);
         powerBar.draw(g2D);
         lives.draw(g2D);
+        projectiles.draw(g2D);
+        cannon.draw(g2D);
+
         g2D.setFont(new Font("MS Gothic", Font.PLAIN, 36));
         g2D.setColor(Color.MAGENTA);
-
         g2D.drawString(endMessage, SCREEN_WIDTH / 6, SCREEN_HEIGHT / 3);
     }
 }
