@@ -1,8 +1,10 @@
 package gameSprites;
-import spriteEssentials.*;
+
 import java.awt.image.BufferedImage;
-import main.GamePanel;
 import java.awt.Graphics2D;
+
+import main.GamePanel;
+import spriteEssentials.*;
 
 public class Background extends Sprite {
 
@@ -16,10 +18,9 @@ public class Background extends Sprite {
         if (!isSolid()) {
             return null;
         } else {
-            // return new HitBox(0, GamePanel.SCREEN_WIDTH, 
-            //     GamePanel.SCREEN_HEIGHT - (GamePanel.TILE_SIZE * GamePanel.SCALE) / 12, GamePanel.SCREEN_HEIGHT);
+            // extend beyond the bottom of the screen to catch fast objects
             return new HitBox(0, GamePanel.SCREEN_WIDTH, 
-            GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE, 5 * GamePanel.SCREEN_HEIGHT); // extend beyond bottom to catch fast objects
+                    GamePanel.SCREEN_HEIGHT - GamePanel.TILE_SIZE, 10 * GamePanel.SCREEN_HEIGHT);
         }        
     }
 

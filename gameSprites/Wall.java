@@ -1,27 +1,21 @@
 package gameSprites;
-import main.GamePanel;
-import spriteEssentials.*;
+
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
+
+import main.GamePanel;
+import spriteEssentials.*;
 
 public class Wall extends Sprite {
     
     public Wall(BufferedImage image) {
         super(GamePanel.SCREEN_WIDTH, 0, image);
+        // Adjust based on image width after super constructor so guaranteed an image at index 0
         this.x -= this.images.get(0).getWidth();
         this.solid = true;
     }
 
-    // @Override
-    // public void draw(Graphics2D g2) {
-    //     int tempX = GamePanel.SCREEN_WIDTH - images.get(0).getWidth();
-    //     int tempY = 0;
-    //     while (tempY < GamePanel.SCREEN_HEIGHT) {
-    //         g2.drawImage(images.get(0), null, tempX, tempY);
-    //         tempY += images.get(0).getHeight(); 
-    //     }
-    // }
-
+    @Override
     public HitBox getHitBox() {
         if (!isSolid()) {
             return null;
@@ -29,7 +23,8 @@ public class Wall extends Sprite {
         return new HitBox(this.x, GamePanel.SCREEN_WIDTH, this.y, GamePanel.SCREEN_HEIGHT);
     }
 
+    @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(images.get(0), null, this.getX(), this.getY());
+        g2.drawImage(images.get(0), null, this.getX(), this.getY()); // Only one image
     }
 }
