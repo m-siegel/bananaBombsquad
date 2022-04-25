@@ -45,7 +45,6 @@ public class Lives extends Sprite {
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(super.images.get(this.lives), null, super.getX(), super.getY());
-
+        g2.drawImage(images.get(this.lives), null, this.getX(), this.getY());
     }
 }

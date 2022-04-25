@@ -26,6 +26,6 @@ public class Background extends Sprite {
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(super.images.get(0), null, super.getX(), super.getY());
+        g2.drawImage(images.get(0), null, this.getX(), this.getY());
     }    
 }

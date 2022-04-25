@@ -54,7 +54,6 @@ public class PowerBar extends Sprite {
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(images.get(power), this.x, this.y, null);
-
+        g2.drawImage(images.get(this.power), this.getX(), this.getY(), null);
     }
 }
