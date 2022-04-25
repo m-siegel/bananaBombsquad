@@ -30,6 +30,9 @@ public class Projectile extends Sprite {
         this.images = this.flyingImages;
         this.x = x;
         this.y = y;
+        if (angle == 90) {
+            angle = 89; // tan(90) is undefined, so quick fix
+        }
         this.angle = angle;
         this.velocity = velocity * 5; // divide by 100 to slow it down a bit
 
