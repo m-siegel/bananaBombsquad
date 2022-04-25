@@ -1,9 +1,7 @@
 package main;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import spriteEssentials.HitBox;
-import spriteEssentials.SpriteList;
-import gameSprites.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,8 +13,12 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.util.Random;
 
+import spriteEssentials.HitBox;
+import spriteEssentials.SpriteList;
+import gameSprites.*;
 
-public class GamePanel extends JPanel implements Runnable{
+
+public class GamePanel extends JPanel {
     
     //settings
     public static final int TILE_SIZE = 48;
@@ -25,7 +27,6 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int SCREEN_HEIGHT = TILE_SIZE * SCALE * 12;
     public static final int FPS = 60;
     public static final String[] FRUIT_NAMES = {"banana", "strawberry", "orange"};
-    
     
     //instance variables
     private boolean isRunning;
@@ -217,7 +218,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.run();
     }
 
-    @Override
     public void run() {
         
         //Game loop goes here
