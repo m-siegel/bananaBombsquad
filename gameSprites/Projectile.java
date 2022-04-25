@@ -3,6 +3,8 @@ package gameSprites;
 import java.util.ArrayList;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.AffineTransformOp;
+import java.awt.geom.AffineTransform;
 
 import spriteEssentials.*;
 
@@ -75,8 +77,26 @@ public class Projectile extends Sprite {
         this.splat(0);
     }
 
-    public void splat(int rotation) { // TODO -- v2: rotate images if splattered against a wall (so
-                                      // they make more sense)
+    public void splat(int rotation) {
+        if (rotation != 0) {
+            ArrayList<BufferedImage> tempArrayList =
+                    new ArrayList<BufferedImage>(splatteredImages.size());
+
+            for (BufferedImage src : splatteredImages) {
+                int maxDim = Math.max(src.getWidth(), src.getHeight());
+                BufferedImage tempImage = new BufferedImage(maxDim, maxDim, src.getType());
+                int pivotX = src.getWidth() / 2;
+                int pivotY = src.getHeight() / 2;
+                AffineTransform transform = AffineTransform.getRotateInstance(
+                        Math.toRadians(-rotation), pivotX, pivotY);
+                AffineTransformOp rotateOp =
+                        new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
+                rotateOp.filter(src, tempImage);
+                tempArrayList.add(tempImage);
+            }
+            splatteredImages = tempArrayList;
+            this.x += splatteredImages.get(0).getWidth() / 2; // splat onto (not in front)
+        }
         this.splattered = true;
         this.imagesIndex = 0;
         this.images = splatteredImages;
