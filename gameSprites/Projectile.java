@@ -26,6 +26,22 @@ public class Projectile extends Sprite {
     private int updatesSinceFrameChange;
     private int updatesPerFrame;
 
+    /**
+     * Creates a new projectile object at coordinates x and y with given angle, velocity,
+     * flying images, and splattered images.
+     * Uses given updates per second to calculate number of updates per frame.
+     * Sets flyingList as the default set of images placed into the images ArrayList.
+     * Uses internalX, internalY, xDisplacement, and yDisplacement to calculate trajectory.
+     * Sets solid to true, keyHandler to null, and speed to 3.
+     * imagesIndex and updatesPerFrameChange begin at 0.
+     * @param x Projectile's x-coordinate
+     * @param y Projectile's y-coordinate
+     * @param angle Projectile's angle
+     * @param velocity Projectile's velocity
+     * @param flyingImages Projectile's list of images in its flying state
+     * @param splatteredImages Projectile's list of images in its splattered state
+     * @param updatesPerSec Projectile's number of updates per second
+     */
     public Projectile(int x, int y, double angle, int velocity,
             ArrayList<BufferedImage> flyingImages, ArrayList<BufferedImage> splatteredImages,
             int updatesPerSec) {
@@ -53,7 +69,7 @@ public class Projectile extends Sprite {
             angle = 89; // tan(90) is undefined, so quick fix
         }
         this.angle = angle;
-        this.velocity = velocity * 5; // divide by 100 to slow it down a bit
+        this.velocity = velocity * 5;
 
         // used to calculate flight path of projectile
         this.internalX = 0;
@@ -73,6 +89,12 @@ public class Projectile extends Sprite {
         this.splat(0);
     }
 
+    /**
+     * Rotates each of the splattered images to match the parameter rotation angle in degrees.
+     * Sets splattered to true and changes the images ArrayList and corresponding imagesIndex
+     * to use this proejctile's splattered images instead of flying images.
+     * @param rotation
+     */
     public void splat(int rotation) {
         if (rotation != 0) {
             ArrayList<BufferedImage> tempArrayList =
