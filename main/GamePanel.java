@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Font;
+import java.awt.Color;
 import java.util.HashMap;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,7 +15,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.util.Random;
 
-import spriteEssentials.HitBox;
 import spriteEssentials.SpriteList;
 import gameSprites.*;
 
@@ -229,6 +230,11 @@ public class GamePanel extends JPanel {
             return;
         }
 
+        // Checking for restart of the game
+        if (keyH.getResetTyped()) {
+            startGame();
+        }
+
         // if flying projectile, check for collisions
         if (projectiles.size() > 0 && launchedProjectile) {
             if (projectiles.get(projectiles.size() - 1).collidesWith(target)) {
@@ -286,7 +292,9 @@ public class GamePanel extends JPanel {
         target.draw(g2D);
         powerBar.draw(g2D);
         lives.draw(g2D);
+        g2D.setFont(new Font("MS Gothic", Font.PLAIN, 36));
+        g2D.setColor(Color.MAGENTA);
 
-        g2D.drawString(endMessage, 100, 100); // TODO - figure out x and y and font and color
+        g2D.drawString(endMessage, SCREEN_WIDTH / 6, SCREEN_HEIGHT / 3);
     }
 }
