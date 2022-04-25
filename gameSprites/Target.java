@@ -117,4 +117,22 @@ public class Target extends Sprite {
         resetPosition();
         resetHits();
     }
+
+    /**
+   * Returns the hit box for the Target's current location.
+   * 
+   * The length and width of the Target's hitbox are half of the
+   * image's size.
+   * 
+   * @return this Target's hit box.
+   */
+    @Override
+    public HitBox getHitBox() {
+        int leftX, rightX, topY, bottomY;
+        leftX = this.x + this.images.get(imagesIndex).getWidth() / 4;
+        rightX = this.x + this.images.get(imagesIndex).getWidth() - this.images.get(imagesIndex).getWidth() / 2;
+        topY = this.y + this.images.get(imagesIndex).getHeight() / 4;
+        bottomY = this.y + this.images.get(imagesIndex).getHeight() - this.images.get(imagesIndex).getHeight() / 2;
+        return new HitBox(leftX, rightX, topY, bottomY);
+      }
 }
