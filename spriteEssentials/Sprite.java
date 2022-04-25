@@ -8,6 +8,21 @@ import java.util.ArrayList;
 
 import main.KeyHandler;
 
+/**
+ * Represents a "sprite" on-screen and in game logic.
+ * Sprites may be static images or animated with a series of frames. Sprites may remain
+ * in one location, or may move. Sprites can be used to represent anything from a background
+ * to a player to projectiles.
+ * 
+ * <p>All Sprite objects have:
+ *   - x- and y-coordinate integers that represent their onscreen location (default to 0),
+ *   - speed integer (defaults to 0),
+ *   - solid boolean, representing whether the sprite has a solid area (defaults to false),
+ *   - an ArrayList of BufferedImages (defaults to an ArrayList of one 1x1 blank image),
+ *   - an imagesIndex, indicating which of the sprite's images is currently displayed and used
+ *     for determining the sprite's size,
+ *   - a KeyHandler (defaults to null).
+ */
 public class Sprite {
 
   // coordinates on the screen
@@ -206,8 +221,8 @@ public class Sprite {
   public void update() {}
 
   /**
-   * Draw this Sprite to the screen as a static image. This Sprite's x and y coordinates represent
-   * the top left pixel where this image is drawn.
+   * Draw this Sprite's image at the current imagesIndex to the screen.
+   * This Sprite's x and y coordinates represent the top left pixel where this image is drawn.
    *
    * @param g2 a copy of the graphics object belonging to the calling JPanel.
    */
@@ -216,8 +231,8 @@ public class Sprite {
   }
 
   /**
-   * Returns the hit box for this sprite's current location if this sprite is solid. Returns null if
-   * this Sprite is not solid.
+   * Returns the hit box for this sprite's current location if this sprite is solid.
+   * Returns null if this Sprite is not solid.
    * 
    * Defaults to the dimension coordinates of this Sprite's first image.
    * 
