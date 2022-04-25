@@ -230,6 +230,11 @@ public class GamePanel extends JPanel {
             return;
         }
 
+        // Checking for restart of the game
+        if (keyH.getResetTyped()) {
+            startGame();
+        }
+
         // if flying projectile, check for collisions
         if (projectiles.size() > 0 && launchedProjectile) {
             if (projectiles.get(projectiles.size() - 1).collidesWith(target)) {
