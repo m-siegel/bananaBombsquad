@@ -67,6 +67,7 @@ public class Cannon extends Sprite {
     if (wheel.getWidth() < Math.min(barrel.getWidth(), barrel.getHeight())) {
       throw new IllegalArgumentException("The wheel must be at least as wide as the barrel.");
     }
+
     this.x = x;
     this.y = y;
     this.speed = 1; // 1 deg per update (equals 60 deg per sec)
@@ -102,8 +103,8 @@ public class Cannon extends Sprite {
         Math.toRadians(cartesianAngle)));
     // Since (x, y) coords for projectile are in the upper left, 
     // shift this left a bit when facing North.
-    int offsetX = (int) (((GamePanel.TILE_SIZE / 2) * GamePanel.SCALE) * Math.sin(
-        Math.toRadians(cartesianAngle)));
+    int offsetX = (int) (((GamePanel.TILE_SIZE / 2) * GamePanel.SCALE)
+        * Math.sin(Math.toRadians(cartesianAngle)));
     return bellyX + spoutX - offsetX;
   }
 
@@ -117,8 +118,8 @@ public class Cannon extends Sprite {
     int spoutY = (int) ((barrelPivotY) * Math.sin(Math.toRadians(cartesianAngle)));
     // Since (x, y) coords for projectile are in the upper left, 
     // shift this up a bit when facing East.
-    int offsetY = (int) (((GamePanel.TILE_SIZE / 2) * GamePanel.SCALE) * Math.cos(
-        Math.toRadians(cartesianAngle)));
+    int offsetY = (int) (((GamePanel.TILE_SIZE / 2) * GamePanel.SCALE)
+        * Math.cos(Math.toRadians(cartesianAngle)));
     return bellyY - spoutY - offsetY;
   }
 
