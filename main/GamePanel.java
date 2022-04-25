@@ -15,7 +15,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.util.Random;
 
-import spriteEssentials.HitBox;
 import spriteEssentials.SpriteList;
 import gameSprites.*;
 
