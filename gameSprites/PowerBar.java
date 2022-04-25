@@ -8,13 +8,15 @@ import main.GamePanel;
 import main.KeyHandler;
 import spriteEssentials.*;
 
+/**
+ * Represents an power bar in the game. Changes power based on keyboard input.
+ */
 public class PowerBar extends Sprite {
 
     public static final int UPDATES_PER_FRAME = GamePanel.FPS / 10;
 
     private int maxPower;
     private int minPower;
-    private int power;
 
     public PowerBar(int x, int y, ArrayList<BufferedImage> images, KeyHandler keyH) {
         super(x, y, images, keyH);
@@ -23,22 +25,22 @@ public class PowerBar extends Sprite {
             throw new IllegalArgumentException("You need at least one image.");
         }
         this.minPower = 0;
-        this.power = maxPower / 2;
+        this.imagesIndex = maxPower / 2; // imagesIndex represents the current power
     }
 
     public int getPower() {
-        return this.power;
+        return this.imagesIndex;
     }
 
     public void increasePower() {
-        if (this.power < maxPower) {
-            this.power++;
+        if (getPower() < maxPower) {
+            this.imagesIndex++;
         }
     }
 
     public void decreasePower() {
-        if (this.power > minPower) {
-            this.power--;
+        if (getPower() > minPower) {
+            this.imagesIndex--;
         }
     }
 
@@ -54,6 +56,6 @@ public class PowerBar extends Sprite {
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(images.get(this.power), this.getX(), this.getY(), null);
+        g2.drawImage(images.get(getPower()), this.getX(), this.getY(), null);
     }
 }

@@ -6,6 +6,9 @@ import java.awt.Graphics2D;
 import main.GamePanel;
 import spriteEssentials.*;
 
+/**
+ * Represents a solid wall along the right-hand edge of the screen.
+ */
 public class Wall extends Sprite {
     
     public Wall(BufferedImage image) {
