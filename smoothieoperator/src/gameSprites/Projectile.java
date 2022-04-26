@@ -217,8 +217,8 @@ public class Projectile extends Sprite {
     }
 
     /**
-     * Returns a hitbox 1/5 of the image's width wider than the current image and 1/5 of the
-     * image's height taller than the current image.
+     * Returns a hitbox 1/2 of the width than the current image and 1/2 of the
+     * height of the current image.
      */
     @Override
     public HitBox getHitBox() {
@@ -227,7 +227,7 @@ public class Projectile extends Sprite {
         }
         int width = images.get(imagesIndex).getWidth();
         int height = images.get(imagesIndex).getHeight();
-        return new HitBox(x - (int) (width * .1), x + (int) (width * 1.1), y - (int) (height * .1),
-                y + (int) (height * 1.1));
+        return new HitBox(this.x + (int) (width * .25), this.x + (int) (width * .75), y + (int) (height * .25),
+                y + (int) (height * .75));
     }
 }
