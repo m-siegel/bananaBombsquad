@@ -8,19 +8,26 @@ import java.awt.geom.AffineTransform;
 
 import spriteEssentials.*;
 
+/**
+ * Represents a projectile onscreen and in the game logic.
+ * Given an initial location, angle, and velocity, a Projectile moves in accordance with
+ * the laws of projectile motion across the screen. Projectiles can rotate as they fly.
+ * A projectile can also "splat," displaying its "splatteredImages" and not moving.
+ */
 public class Projectile extends Sprite {
 
     // instance variables
     public static final int FPS = 30;
     public static final double GRAVITY = 9.8;
 
-    private boolean splattered;
+    // for projectile motion
+    private int x0; // initial x and y
+    private int y0;
+    private double time;
     private double angle;
     private int velocity;
-    private int internalX;
-    private int internalY;
-    private int xDisplacement;
-    private int yDisplacement;
+
+    private boolean splattered;
     private ArrayList<BufferedImage> splatteredImages;
     private ArrayList<BufferedImage> flyingImages;
     private int updatesSinceFrameChange;
@@ -65,17 +72,13 @@ public class Projectile extends Sprite {
         this.images = this.flyingImages;
         this.x = x;
         this.y = y;
-        if (angle == 90) {
-            angle = 89; // tan(90) is undefined, so quick fix
-        }
         this.angle = angle;
-        this.velocity = velocity * 5;
+        // give projectiles more power, especially relative to low velocities
+        this.velocity = (velocity + 2) * 5;
 
-        // used to calculate flight path of projectile
-        this.internalX = 0;
-        this.internalY = 0;
-        this.xDisplacement = this.x - this.internalX;
-        this.yDisplacement = this.y - this.internalY;
+        this.x0 = x;
+        this.y0 = y;
+        this.time = 0;
 
         this.solid = true;
         this.keyHandler = null;
@@ -132,20 +135,16 @@ public class Projectile extends Sprite {
         return this.velocity;
     }
 
-    public int getInternalX() {
-        return this.internalX;
+    public int getInitialX() {
+        return this.x0;
     }
 
-    public int getInternalY() {
-        return this.internalY;
+    public int getInitialY() {
+        return this.y0;
     }
 
-    public int getXDisplacement() {
-        return this.xDisplacement;
-    }
-
-    public int getYDisplacement() {
-        return this.yDisplacement;
+    public double getTime() {
+        return this.time;
     }
 
     /**
@@ -159,22 +158,30 @@ public class Projectile extends Sprite {
     }
 
     /**
-     * Updates the position of projectile by changing its x and y coordinates.
-     * Uses mathematical formula to calculate projectile's trajectory.
+     * Updates the position of projectile by changing its x and y coordinates based on laws of
+     * projectile motion.
      */
     private void updatePosition() {
-        // Find projectile position relative to start at cartesian (0, 0) internally (draw arc)
-        this.internalX += this.speed; // update x over time
-        
-        // formula in deg: y = h + (x)tan(A) - ( 9.8 * ( x^2 / (2v^2 * cos(A)* cos(A)) )
-        // h = 0
-        this.internalY = (int) ((internalX * Math.tan(Math.toRadians(angle))) 
-                - (GRAVITY * Math.pow(internalX, 2)
-                / (2 * Math.pow(velocity, 2) * Math.pow(Math.cos(Math.toRadians(angle)), 2))));
-
-        // Find actual position
-        this.x = internalX + xDisplacement;
-        this.y = yDisplacement - internalY;
+        /*
+         * On a Cartesian plane,
+         * x = x0 + V0x * t + (1/2ax t^2); acceleration is 0, so x = x0 + V0x * t.
+         * y = y0 + V0y * t + (1/2ay t^2); acceleration is gravity (-9.8),
+         * so y = y0 + V0y * t + (-4.9 t^2).
+         * 
+         * Since the window's y-axis is the opposite of the Cartesian system,
+         * we reflect the _shape_ of the parabola across the x-axis (-f(x)), without changing the
+         * value of y0: y = y0 - (V0y * t) + (4.9 t^2).
+         * 
+         * V0x = cos(theta) and V0y = sin(theta).
+         * 
+         * Finally,
+         * x = x0 + (V * cos(ang) * t)
+         * y = y0 - (V * sin(ang) * t) + ((gravity / 2) t^2))
+         */
+        this.x = (int) (this.x0 + (velocity * Math.cos(Math.toRadians(this.angle)) * this.time));
+        this.y = (int) (this.y0 - (velocity * Math.sin(Math.toRadians(this.angle)) * this.time)
+                + ((GRAVITY / 2) * this.time * this.time));
+        this.time += .1; // this method is called so quickly that we slow motion here.
     }
 
     /**
