@@ -93,6 +93,7 @@ public class Projectile extends Sprite {
         this.updatesSinceFrameChange = 0;
         this.updatesPerFrame = FPS / updatesPerSec;
         this.sounds.put(soundName, new Sound(soundFile));
+        this.addSound("/smoothieoperator/src/media/sounds/splat.wav", "splat");
     }
 
     public void splat() { // case when image is splattered on the ground
