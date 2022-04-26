@@ -50,7 +50,8 @@ public class Cannon extends Sprite {
    * @throws IllegalArgumentException if the wheel image is not square, or the wheel's width is
    *         less than the cannon's width, or if any of the reference type parameters are null.
    */
-  public Cannon(int x, int y, BufferedImage barrel, BufferedImage wheel, KeyHandler keyHandler) {
+  public Cannon(int x, int y, BufferedImage barrel, BufferedImage wheel,
+          KeyHandler keyHandler, String soundFile, String soundName) {
     if (keyHandler == null) {
       throw new IllegalArgumentException("keyHandler parameter cannot be null.");
     }
@@ -59,6 +60,12 @@ public class Cannon extends Sprite {
     }
     if (barrel == null) {
       throw new IllegalArgumentException("barrel parameter cannot be null.");
+    }
+    if (soundFile == null) {
+      throw new IllegalArgumentException("soundFile parameter cannot be null");
+    }
+    if (soundName == null) {
+      throw new IllegalArgumentException("soundName parameter cannot be null");
     }
     if (wheel.getWidth() != wheel.getHeight()) {
       throw new IllegalArgumentException("wheel image must have equal height and width");

@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import smoothieoperator.src.main.GamePanel;
+import smoothieoperator.src.main.Sound;
 import smoothieoperator.src.spriteEssentials.*;
 
 /**

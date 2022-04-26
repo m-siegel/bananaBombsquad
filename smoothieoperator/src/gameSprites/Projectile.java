@@ -7,6 +7,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.geom.AffineTransform;
 
 import smoothieoperator.src.spriteEssentials.*;
+import smoothieoperator.src.main.Sound;
 
 /**
  * Represents a projectile onscreen and in the game logic.

@@ -91,7 +91,8 @@ public class GamePanel extends JPanel {
             e.printStackTrace();
         }
         this.lives =
-                new Lives((TILE_SIZE * SCALE / 2), (TILE_SIZE * SCALE / 2), tempImages, this.keyH);
+                new Lives((TILE_SIZE * SCALE / 2), (TILE_SIZE * SCALE / 2), tempImages, 
+                this.keyH, "/smoothieoperator/src/media/sounds/loseLife.wav", "loseLife");
        
         tempImages.clear(); // will reuse
 
@@ -131,7 +132,7 @@ public class GamePanel extends JPanel {
             tempWheel = scaleOp.filter(tempWheel, null);
             this.cannon = new Cannon((TILE_SIZE * SCALE / 2 + this.powerBar.getWidth()),
                     SCREEN_HEIGHT - (TILE_SIZE * SCALE + tempCannon.getHeight()), tempCannon,
-                    tempWheel, this.keyH);
+                    tempWheel, this.keyH, "/smoothieoperator/src/media/sounds/boom.wav", "boom");
         } catch (IOException e) {
             System.out.println("Couldn't find cannon or wheel image files.");
             e.printStackTrace();
@@ -157,7 +158,8 @@ public class GamePanel extends JPanel {
             BufferedImage tempBackground = ImageIO.read(getClass().getResourceAsStream(String.
                     format("/smoothieoperator/src/media/images/background/background.png")));
             tempBackground = scaleOp.filter(tempBackground, null);
-            this.background = new Background(tempBackground);
+            this.background = new Background(
+                    tempBackground, "/smoothieoperator/src/media/sounds/slowsong.wav", "GameSong");
         } catch (IOException e) {
             System.out.println("Couldn't find background image file.");
             e.printStackTrace();

@@ -35,8 +35,8 @@ public class Sound {
     private Clip clip;
     private URL url;
 
-    public Sound(Clip clip, String filepath) {
-        if (clip == null || filepath == null) {
+    public Sound(String filepath) {
+        if (filepath == null) {
             throw new NullPointerException();
         }
         this.url = getClass().getResource(filepath);

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 
 import smoothieoperator.src.main.KeyHandler;
+import smoothieoperator.src.main.Sound;
 import smoothieoperator.src.spriteEssentials.*;
 
 /**
@@ -34,13 +35,21 @@ public class Lives extends Sprite {
     * @throws IllegalArgumentException if the amount of images in the ArrayList is less
     *         than TOTAL_LIVES + 1 (to account for image with 0 lives)
     */
-    public Lives(int x, int y, ArrayList<BufferedImage> images, KeyHandler keyH) {
+    public Lives(int x, int y, ArrayList<BufferedImage> images,
+            KeyHandler keyH, String soundFile, String soundName) {
         super(x, y, images, keyH);
         if (this.images.size() < TOTAL_LIVES + 1) {
             throw new IllegalArgumentException("Must have at least " + (TOTAL_LIVES + 1) 
                     + "images (" + TOTAL_LIVES + " lives).");
         }
+        if (soundFile == null) {
+            throw new IllegalArgumentException("soundFile cannot be null");
+        }
+        if (soundName == null) {
+            throw new IllegalArgumentException("soundName cannot be null");
+        }
         this.imagesIndex = TOTAL_LIVES;
+        this.sounds.put(soundName, new Sound(soundFile));
     }
 
     /**

@@ -220,6 +220,16 @@ public class Sprite {
     return this.solid;
   }
 
+  public void addSound(String filepath, String soundName) {
+    if (filepath == null) {
+      throw new IllegalArgumentException("filepath cannot be null");
+    }
+    if (soundName == null) {
+      throw new IllegalArgumentException("soundName cannot be null");
+    }
+    this.sounds.put(soundName, new Sound(filepath));
+  }
+
   /**
    * Decendent classes should override this to implement spacial movement or animation.
    */

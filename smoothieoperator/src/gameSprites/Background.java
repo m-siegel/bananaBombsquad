@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.awt.Graphics2D;
 
 import smoothieoperator.src.main.GamePanel;
+import smoothieoperator.src.main.Sound;
 import smoothieoperator.src.spriteEssentials.*;
+
 
 /**
  * Represents the background of the game screen. The GamePanel.TILE_SIZE section of this
@@ -24,20 +26,27 @@ public class Background extends Sprite {
     * @throws IllegalArgumentException if the image is null or if the image's dimensions
     *         are different than the screen dimensions.
     */
-    public Background(BufferedImage image) {
+    public Background(BufferedImage image, String musicFile, String songName) {
         if (image == null) {
             throw new IllegalArgumentException("image cannot be null.");
+        }
+        if (musicFile == null) {
+            throw new IllegalArgumentException("musicFile cannot be null.");
+        }
+        if (songName == null) {
+            throw new IllegalArgumentException("songName cannot be null.");
         }
         if (image.getHeight() != GamePanel.SCREEN_HEIGHT
                 || image.getWidth() != GamePanel.SCREEN_WIDTH ) {
                     throw new IllegalArgumentException(
-                            "image dimensions must match screen dimensions");
+                            "image dimensions must match screen dimensions.");
                 }
         this.x = 0;
         this.y = 0;
         this.images = new ArrayList<BufferedImage>();
         this.images.add(image);
         this.solid = true;
+        this.sounds.put(songName, new Sound(musicFile));
     }
 
     /** 
