@@ -12,23 +12,29 @@ import java.net.URL;
 
 // ideas for how to use Sound:
 // each Sprite has its own Sound (or multiple. will need to use ArrayList<Sound>):
+    // what about a HashMap<"sound name", sound file>? -- easier/clearer to access (don't have to track indices)
 // Target: splash, Cannon: boom, Projectile: whoosh and splat, Background: game music,
 // EndMessage (our newest Sprite): end music, Lives: lose a life, Powerbar: None?, Wall: None?
 // Can add methods playSound(Sound s), stopSound(Sound s), and loopSound(Sound s) to the Sprite class
+    // what if each Sprite that uses sound is instantiated with a Sound object as a parameter, then from loseLife()
+    // or whatever method, it would call the methods on it's Sound object, eg the Projectile splat() could call
+    // this.sound.playSound("splat")?
 // These methods could be called from other methods within a Sprite's class.
 // For example, Lives.loseLife() could call playSound(this.sounds.get(0))
 // So the sound would play whenever lives.loseLife() is called from GamePanel
 
 // Other notes:
 // LoadingScreen and GamePanel can each have their own instance of a Background which has its own song (and image).
+    // LOVE IT!!
 // Could make SoundEffect and Music as subclasses of Sound, but I don't know if that's really necessary,
 // since they're not that different from each other.
+    // I'd lean towards only having one Sound class, but don't feel that strongly
 public class Sound {
     
     private Clip clip;
     private URL url;
 
-    public Sound(Clip clip, String url) {
+    public Sound(Clip clip, String url) { // Could we call it filepath instead of url?
         if (clip == null || url == null) {
             throw new NullPointerException();
         }
@@ -43,6 +49,10 @@ public class Sound {
             this.clip.open(stream);
         } catch (IOException e){
             //TODO - how should these exceptions be handled?
+                // we could return false, or set some instance variable to false so we don't try
+                // playing a nonexistent clip later and don't crash the game.
+                // Or we could pass it up the chain and have GamePanel write to a file the stack
+                // traces of all the errors it catches so we could see it afterwards.
         } catch (UnsupportedAudioFileException e) {
         } catch (LineUnavailableException e) {
         }
@@ -55,5 +65,7 @@ public class Sound {
     public URL getURL() {
         return this.url;
     }
+
+    // public void play(), stop(), loop()?
     
 }
