@@ -1,4 +1,4 @@
-# Smoothie Operator
+# Smoothie Operator 🍊🍌🍓🥤
 
 Smoothie Operator is a 2D artillery game written in Java. The player shoots fruit from a cannon
 at a blender that appears in a new, random location on the right side of the screen after
