@@ -5,8 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import smoothieoperator.src.main.KeyHandler;
+import smoothieoperator.src.main.Sound;
 
 /**
  * Represents a "sprite" on-screen and in game logic. Almost every component of a game
@@ -38,6 +40,8 @@ public class Sprite {
 
   protected KeyHandler keyHandler; // So Sprite can update in response to keyboard input
 
+  protected HashMap<String, Sound> sounds;
+
   /**
    * Default constructor creates Sprite at (0, 0) with speed 0, not solid, one 1x1
    * image and a null keyHandler. This is so descendants can create any constructor they'd like.
@@ -51,6 +55,7 @@ public class Sprite {
     images.add(new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB));
     imagesIndex = 0;
     keyHandler = null;
+    sounds = new HashMap<String, Sound>();
   }
 
   /**
