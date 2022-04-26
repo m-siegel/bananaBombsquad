@@ -83,7 +83,7 @@ public class GamePanel extends JPanel {
         try {
             for (int i = 0; i < 7; i++) {
                 BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(
-                    String.format("/media/images/lives/lives-%d.png", i)));
+                    String.format("/smoothieoperator/src/media/images/lives/lives-%d.png", i)));
                 tempImages.add(scaleOp.filter(temp, null));
             }
         } catch (IOException e) {
@@ -98,8 +98,8 @@ public class GamePanel extends JPanel {
         // create powerbar
         try {
             for (int i = 0; i < 21; i++) {
-                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(
-                        String.format("/media/images/powerbar/powerbar-%d.png", i)));
+                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format
+                        ("/smoothieoperator/src/media/images/powerbar/powerbar-%d.png", i)));
                 tempImages.add(scaleOp.filter(temp, null));
             }
         } catch (IOException e) {
@@ -123,11 +123,11 @@ public class GamePanel extends JPanel {
 
         // create cannon
         try {
-            BufferedImage tempCannon = ImageIO.read(getClass()
-                    .getResourceAsStream(String.format("/media/images/cannon/main-cannon.png")));
+            BufferedImage tempCannon = ImageIO.read(getClass().getResourceAsStream(String.
+                    format("/smoothieoperator/src/media/images/cannon/main-cannon.png")));
             tempCannon = scaleOp.filter(tempCannon, null);
-            BufferedImage tempWheel = ImageIO.read(getClass()
-                    .getResourceAsStream(String.format("/media/images/cannon/wheel-size-2.png")));
+            BufferedImage tempWheel = ImageIO.read(getClass().getResourceAsStream(String.
+                    format("/smoothieoperator/src/media/images/cannon/wheel-size-2.png")));
             tempWheel = scaleOp.filter(tempWheel, null);
             this.cannon = new Cannon((TILE_SIZE * SCALE / 2 + this.powerBar.getWidth()),
                     SCREEN_HEIGHT - (TILE_SIZE * SCALE + tempCannon.getHeight()), tempCannon,
@@ -140,8 +140,8 @@ public class GamePanel extends JPanel {
         // create target
         try {
             for (int i = 1; i < 5; i++) {
-                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(
-                        String.format("/media/images/blender/blender-%d.png", i)));
+                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.
+                        format("/smoothieoperator/src/media/images/blender/blender-%d.png", i)));
                 tempImages.add(scaleOp.filter(temp, null));
             }
         } catch (IOException e) {
@@ -154,8 +154,8 @@ public class GamePanel extends JPanel {
 
         // create background
         try {
-            BufferedImage tempBackground = ImageIO.read(getClass().getResourceAsStream(
-                    String.format("/media/images/background/background.png")));
+            BufferedImage tempBackground = ImageIO.read(getClass().getResourceAsStream(String.
+                    format("/smoothieoperator/src/media/images/background/background.png")));
             tempBackground = scaleOp.filter(tempBackground, null);
             this.background = new Background(tempBackground);
         } catch (IOException e) {
@@ -165,8 +165,8 @@ public class GamePanel extends JPanel {
 
         // create wall
         try {
-            BufferedImage tempWall = ImageIO.read(
-                    getClass().getResourceAsStream(String.format("/media/images/wall/wall.png")));
+            BufferedImage tempWall = ImageIO.read(getClass().getResourceAsStream(String.
+                    format("/smoothieoperator/src/media/images/wall/wall.png")));
             tempWall = scaleOp.filter(tempWall, null);
             this.wall = new Wall(tempWall);
         } catch (IOException e) {
@@ -181,13 +181,17 @@ public class GamePanel extends JPanel {
 
             try {
                 for (int i = 1; i < 5; i++) {
-                    BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format(
-                            "/media/images/projectiles/%s/flying/%s-%d.png", fruit, fruit, i)));
+                    BufferedImage temp = ImageIO.read(getClass().
+                            getResourceAsStream(String.format
+                            ("/smoothieoperator/src/media/images/projectiles/%s/flying/%s-%d.png", 
+                            fruit, fruit, i)));
                     tempFlying.add(scaleOp.filter(temp, null));
                 }
                 for (int i = 1; i < 2; i++) {
-                    BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format(
-                     "/media/images/projectiles/%s/splattered/%s-splat-%d.png", fruit, fruit, i)));
+                    BufferedImage temp = ImageIO.read(getClass().
+                            getResourceAsStream(String.format
+                            ("/smoothieoperator/src/media/images/projectiles/%s/splattered/%s-splat-%d.png",
+                            fruit, fruit, i)));
                     tempSplattered.add(scaleOp.filter(temp, null));
                 }
             } catch (IOException e) {
