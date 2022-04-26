@@ -53,19 +53,19 @@ public class Cannon extends Sprite {
   public Cannon(int x, int y, BufferedImage barrel, BufferedImage wheel,
           KeyHandler keyHandler, String soundFile, String soundName) {
     if (keyHandler == null) {
-      throw new IllegalArgumentException("keyHandler parameter cannot be null.");
+      throw new NullPointerException("keyHandler parameter cannot be null.");
     }
     if (wheel == null) {
-      throw new IllegalArgumentException("wheel parameter cannot be null.");
+      throw new NullPointerException("wheel parameter cannot be null.");
     }
     if (barrel == null) {
-      throw new IllegalArgumentException("barrel parameter cannot be null.");
+      throw new NullPointerException("barrel parameter cannot be null.");
     }
     if (soundFile == null) {
-      throw new IllegalArgumentException("soundFile parameter cannot be null");
+      throw new NullPointerException("soundFile parameter cannot be null");
     }
     if (soundName == null) {
-      throw new IllegalArgumentException("soundName parameter cannot be null");
+      throw new NullPointerException("soundName parameter cannot be null");
     }
     if (wheel.getWidth() != wheel.getHeight()) {
       throw new IllegalArgumentException("wheel image must have equal height and width");
@@ -79,6 +79,7 @@ public class Cannon extends Sprite {
     this.speed = 1; // number of degrees per call to update()
     this.solid = false;
     this.keyHandler = keyHandler;
+    this.sounds.put(soundName, new Sound(soundFile));
 
     // barrel image should start facing North
     this.cartesianAngle = 90;

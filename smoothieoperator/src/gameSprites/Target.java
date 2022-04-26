@@ -25,12 +25,18 @@ public class Target extends Sprite {
      * 
      * @param images Image list for the target.
      */
-    public Target(ArrayList<BufferedImage> images) {
+    public Target(ArrayList<BufferedImage> images, String soundFile, String soundName) {
         if (images == null) {
             throw new NullPointerException("Cannot instantiate a target with null images.");
         }
         if (images.size() < MAX_HITS) {
             throw new IllegalArgumentException("Images must be at least " + MAX_HITS + " elementslong.");
+        }
+        if (soundFile == null) {
+            throw new NullPointerException("Cannot instantiate with null soundFile.");
+        }
+        if (soundName == null) {
+            throw new NullPointerException("Cannot instantiate with null soundName.");
         }
         this.x = getRandomXCoordinate();
         this.y = getRandomYCoordinate();
@@ -39,6 +45,7 @@ public class Target extends Sprite {
         this.solid = true;
         this.imagesIndex = 0;
         this.images = Sprite.copyBufferedImages(images);
+        this.sounds.put(soundName, new Sound(soundFile));
     }
 
     /**

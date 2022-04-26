@@ -149,7 +149,8 @@ public class GamePanel extends JPanel {
             System.out.println("Couldn't find target image files.");
             e.printStackTrace();
         }
-        this.target = new Target(tempImages);
+        this.target = new Target(tempImages,
+            "/smoothieoperator/src/media/sounds/splash.wav", "splash");
 
         tempImages.clear();
 
@@ -320,7 +321,8 @@ public class GamePanel extends JPanel {
                 projectiles.add(
                         new Projectile(cannon.getLaunchX(), cannon.getLaunchY(), cannon.getAngle(),
                                 powerBar.getPower(), projectileImages.get(fruit).get("flying"),
-                                projectileImages.get(fruit).get("splattered"), 5));
+                                projectileImages.get(fruit).get("splattered"), 5,
+                                "/smoothieoperator/src/media/sounds/whoosh.wav", "whoosh"));
                 launchedProjectile = true;
             }
             cannon.update();

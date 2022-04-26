@@ -51,7 +51,7 @@ public class Projectile extends Sprite {
      */
     public Projectile(int x, int y, double angle, int velocity,
             ArrayList<BufferedImage> flyingImages, ArrayList<BufferedImage> splatteredImages,
-            int updatesPerSec) {
+            int updatesPerSec, String soundFile, String soundName) {
         if (flyingImages == null) {
             throw new NullPointerException("Cannot instantiate with null flyingImages.");
         }
@@ -65,6 +65,12 @@ public class Projectile extends Sprite {
         if (splatteredImages.size() < 1) {
             throw new IllegalArgumentException(
                     "Cannot instantiate with an empty splatteredImages ArrayList");
+        }
+        if (soundFile == null) {
+            throw new NullPointerException("Cannot instantiate with null soundFile");
+        }
+        if (soundName == null) {
+            throw new NullPointerException("Cannot instantiate with null soundName");
         }
         this.flyingImages = Sprite.copyBufferedImages(flyingImages);
         this.splatteredImages = Sprite.copyBufferedImages(splatteredImages);
@@ -86,6 +92,7 @@ public class Projectile extends Sprite {
         this.imagesIndex = 0;
         this.updatesSinceFrameChange = 0;
         this.updatesPerFrame = FPS / updatesPerSec;
+        this.sounds.put(soundName, new Sound(soundFile));
     }
 
     public void splat() { // case when image is splattered on the ground

@@ -28,13 +28,13 @@ public class Background extends Sprite {
     */
     public Background(BufferedImage image, String musicFile, String songName) {
         if (image == null) {
-            throw new IllegalArgumentException("image cannot be null.");
+            throw new NullPointerException("image cannot be null.");
         }
         if (musicFile == null) {
-            throw new IllegalArgumentException("musicFile cannot be null.");
+            throw new NullPointerException("musicFile cannot be null.");
         }
         if (songName == null) {
-            throw new IllegalArgumentException("songName cannot be null.");
+            throw new NullPointerException("songName cannot be null.");
         }
         if (image.getHeight() != GamePanel.SCREEN_HEIGHT
                 || image.getWidth() != GamePanel.SCREEN_WIDTH ) {
