@@ -7,7 +7,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.geom.AffineTransform;
 
 import smoothieoperator.src.spriteEssentials.*;
-import smoothieoperator.src.main.Sound;
 
 /**
  * Represents a projectile onscreen and in the game logic.
@@ -51,7 +50,7 @@ public class Projectile extends Sprite {
      */
     public Projectile(int x, int y, double angle, int velocity,
             ArrayList<BufferedImage> flyingImages, ArrayList<BufferedImage> splatteredImages,
-            int updatesPerSec, String soundFile, String soundName) {
+            int updatesPerSec) {
         if (flyingImages == null) {
             throw new NullPointerException("Cannot instantiate with null flyingImages.");
         }
@@ -66,12 +65,7 @@ public class Projectile extends Sprite {
             throw new IllegalArgumentException(
                     "Cannot instantiate with an empty splatteredImages ArrayList");
         }
-        if (soundFile == null) {
-            throw new NullPointerException("Cannot instantiate with null soundFile");
-        }
-        if (soundName == null) {
-            throw new NullPointerException("Cannot instantiate with null soundName");
-        }
+
         this.flyingImages = Sprite.copyBufferedImages(flyingImages);
         this.splatteredImages = Sprite.copyBufferedImages(splatteredImages);
         this.splattered = false;
@@ -92,8 +86,9 @@ public class Projectile extends Sprite {
         this.imagesIndex = 0;
         this.updatesSinceFrameChange = 0;
         this.updatesPerFrame = FPS / updatesPerSec;
-        this.sounds.put(soundName, new Sound(soundFile));
+
         this.addSound("/smoothieoperator/src/media/sounds/splat.wav", "splat");
+        this.addSound("/smoothieoperator/src/media/sounds/whoosh.wav", "whoosh");
     }
 
     public void splat() { // case when image is splattered on the ground
@@ -129,6 +124,7 @@ public class Projectile extends Sprite {
         this.splattered = true;
         this.imagesIndex = 0;
         this.images = splatteredImages;
+        this.sounds.get("splat").playSound();
     }
 
     /**

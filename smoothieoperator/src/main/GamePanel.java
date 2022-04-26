@@ -322,8 +322,7 @@ public class GamePanel extends JPanel {
                 projectiles.add(
                         new Projectile(cannon.getLaunchX(), cannon.getLaunchY(), cannon.getAngle(),
                                 powerBar.getPower(), projectileImages.get(fruit).get("flying"),
-                                projectileImages.get(fruit).get("splattered"), 5,
-                                "/smoothieoperator/src/media/sounds/whoosh.wav", "whoosh"));
+                                projectileImages.get(fruit).get("splattered"), 5));
                 launchedProjectile = true;
             }
             cannon.update();
