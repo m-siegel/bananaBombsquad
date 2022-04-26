@@ -1,4 +1,4 @@
-package main;
+package smoothieoperator.src.main;
 
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;

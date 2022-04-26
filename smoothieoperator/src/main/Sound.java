@@ -1,4 +1,4 @@
-package main;
+package smoothieoperator.src.main;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -19,6 +19,7 @@ import java.net.URL;
     // what if each Sprite that uses sound is instantiated with a Sound object as a parameter, then from loseLife()
     // or whatever method, it would call the methods on it's Sound object, eg the Projectile splat() could call
     // this.sound.playSound("splat")?
+    // this.sounds.get("splat").playSound()
 // These methods could be called from other methods within a Sprite's class.
 // For example, Lives.loseLife() could call playSound(this.sounds.get(0))
 // So the sound would play whenever lives.loseLife() is called from GamePanel
@@ -34,11 +35,11 @@ public class Sound {
     private Clip clip;
     private URL url;
 
-    public Sound(Clip clip, String url) { // Could we call it filepath instead of url?
-        if (clip == null || url == null) {
+    public Sound(Clip clip, String filepath) {
+        if (clip == null || filepath == null) {
             throw new NullPointerException();
         }
-        this.url = getClass().getResource(url);
+        this.url = getClass().getResource(filepath);
         setFile();
     }
 
@@ -67,5 +68,17 @@ public class Sound {
     }
 
     // public void play(), stop(), loop()?
+
+    public void playSound() {
+        this.clip.start();
+    }
+
+    public void stopSound() {
+        this.clip.stop();
+    }
+
+    public void loopSound() {
+        this.clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
     
 }

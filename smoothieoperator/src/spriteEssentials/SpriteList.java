@@ -1,4 +1,4 @@
-package spriteEssentials;
+package smoothieoperator.src.spriteEssentials;
 
 import java.util.ArrayList;
 import java.awt.Graphics2D;

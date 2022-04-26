@@ -1,4 +1,4 @@
-package gameSprites;
+package smoothieoperator.src.gameSprites;
 
 import java.util.ArrayList;
 import java.awt.Graphics2D;
@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.AffineTransformOp;
 import java.awt.geom.AffineTransform;
 
-import spriteEssentials.*;
+import smoothieoperator.src.spriteEssentials.*;
 
 /**
  * Represents a projectile onscreen and in the game logic.

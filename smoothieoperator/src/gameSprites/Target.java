@@ -1,12 +1,12 @@
-package gameSprites;
+package smoothieoperator.src.gameSprites;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import main.GamePanel;
-import spriteEssentials.*;
+import smoothieoperator.src.main.GamePanel;
+import smoothieoperator.src.spriteEssentials.*;
 
 /**
  * Represents a target in the game. A target can appear in random positions onscreen. A target

@@ -1,4 +1,4 @@
-package spriteEssentials;
+package smoothieoperator.src.spriteEssentials;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.util.ArrayList;
 
-import main.KeyHandler;
+import smoothieoperator.src.main.KeyHandler;
 
 /**
  * Represents a "sprite" on-screen and in game logic. Almost every component of a game

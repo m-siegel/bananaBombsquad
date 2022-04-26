@@ -1,4 +1,4 @@
-package main;
+package smoothieoperator.src.main;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -15,8 +15,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.util.Random;
 
-import spriteEssentials.SpriteList;
-import gameSprites.*;
+import smoothieoperator.src.spriteEssentials.SpriteList;
+import smoothieoperator.src.gameSprites.*;
 
 /**
  * Holds game components and runs game logic for the Smoothie Operator game.

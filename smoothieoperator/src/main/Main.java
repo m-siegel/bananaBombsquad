@@ -1,4 +1,4 @@
-package main;
+package smoothieoperator.src.main;
 
 import javax.swing.JFrame;
 

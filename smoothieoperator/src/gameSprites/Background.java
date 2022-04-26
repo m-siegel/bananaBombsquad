@@ -1,11 +1,11 @@
-package gameSprites;
+package smoothieoperator.src.gameSprites;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.Graphics2D;
 
-import main.GamePanel;
-import spriteEssentials.*;
+import smoothieoperator.src.main.GamePanel;
+import smoothieoperator.src.spriteEssentials.*;
 
 /**
  * Represents the background of the game screen. The GamePanel.TILE_SIZE section of this

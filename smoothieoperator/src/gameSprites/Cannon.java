@@ -1,12 +1,12 @@
-package gameSprites;
+package smoothieoperator.src.gameSprites;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 
-import spriteEssentials.*;
-import main.*;
+import smoothieoperator.src.spriteEssentials.*;
+import smoothieoperator.src.main.*;
 
 /**
  * Represents a cannon in the game. A cannon consists of a barrel and a wheel.

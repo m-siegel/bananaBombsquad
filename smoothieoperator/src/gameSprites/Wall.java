@@ -1,10 +1,10 @@
-package gameSprites;
+package smoothieoperator.src.gameSprites;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 
-import main.GamePanel;
-import spriteEssentials.*;
+import smoothieoperator.src.main.GamePanel;
+import smoothieoperator.src.spriteEssentials.*;
 
 /**
  * Represents a solid wall along the righthand edge of the screen. A wall is solid, so it

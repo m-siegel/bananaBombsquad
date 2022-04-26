@@ -1,11 +1,11 @@
-package gameSprites;
+package smoothieoperator.src.gameSprites;
 
 import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 
-import main.KeyHandler;
-import spriteEssentials.*;
+import smoothieoperator.src.main.KeyHandler;
+import smoothieoperator.src.spriteEssentials.*;
 
 /**
  * Represents the amount of lives in the game. Life indicator itself does not move but

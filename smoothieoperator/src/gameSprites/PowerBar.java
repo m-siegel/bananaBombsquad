@@ -1,11 +1,11 @@
-package gameSprites;
+package smoothieoperator.src.gameSprites;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import main.KeyHandler;
-import spriteEssentials.*;
+import smoothieoperator.src.main.KeyHandler;
+import smoothieoperator.src.spriteEssentials.*;
 
 /**
  * Represents an power bar in the game. Changes power based on keyboard input.
