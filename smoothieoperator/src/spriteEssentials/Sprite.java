@@ -81,6 +81,7 @@ public class Sprite {
     }
     this.keyHandler = keyH;
     imagesIndex = 0;
+    sounds = new HashMap<String, Sound>();
   }
 
   /**

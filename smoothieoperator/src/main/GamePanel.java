@@ -92,7 +92,7 @@ public class GamePanel extends JPanel {
         }
         this.lives =
                 new Lives((TILE_SIZE * SCALE / 2), (TILE_SIZE * SCALE / 2), tempImages, 
-                this.keyH, "/smoothieoperator/src/media/sounds/loseLife.wav", "loseLife");
+                this.keyH, "/smoothieoperator/src/media/sounds/splat.wav", "loseLife");
        
         tempImages.clear(); // will reuse
 
