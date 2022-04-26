@@ -21,6 +21,7 @@ public class TitlePanel extends JPanel{
     private JButton startButton;
     private MouseHandler mouseHandler;
     private BufferedImage backgroundImage;
+    private Sound sound;
 
     /**
      * Creates a new TitlePanel with the dimensions of the GamePanel.
@@ -35,6 +36,8 @@ public class TitlePanel extends JPanel{
         loadButton();
 
         this.setDoubleBuffered(true);
+
+        this.sound = new Sound("/smoothieoperator/src/media/sounds/SmoothieTime.wav");
     }
 
     /**
@@ -76,6 +79,10 @@ public class TitlePanel extends JPanel{
         this.add(startButton);
     }
 
+    public Sound getSound() {
+        return this.sound;
+    }
+
     /**
      * Draws this panel until the button is clicked.
      */
@@ -96,6 +103,7 @@ public class TitlePanel extends JPanel{
                 repaint();
                 delta--;
             }
+            this.sound.loopSound();
         }
     }
 

@@ -253,6 +253,7 @@ public class GamePanel extends JPanel {
                 repaint();
                 delta--;
             }
+            this.background.getSound("GameSong").loopSound();
         }
     }
 

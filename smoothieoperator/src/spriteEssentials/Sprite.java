@@ -212,6 +212,10 @@ public class Sprite {
     return this.images.get(imagesIndex).getHeight();
   }
 
+  public Sound getSound(String key) {
+    return this.sounds.get(key);
+  }
+
   /**
    * Returns whether or not this Sprite has a solid region.
    * 
