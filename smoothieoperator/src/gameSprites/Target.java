@@ -154,9 +154,9 @@ public class Target extends Sprite {
         int topY;
         int bottomY;
         leftX = this.x + this.images.get(imagesIndex).getWidth() / 4;
-        rightX = this.x + this.images.get(imagesIndex).getWidth() - this.images.get(imagesIndex).getWidth() / 2;
-        topY = this.y + this.images.get(imagesIndex).getHeight() / 4;
-        bottomY = this.y + this.images.get(imagesIndex).getHeight() - this.images.get(imagesIndex).getHeight() / 2;
+        rightX = leftX + this.images.get(imagesIndex).getWidth() / 2;
+        topY = this.y;
+        bottomY = this.y + this.images.get(imagesIndex).getHeight() / 2;
         return new HitBox(leftX, rightX, topY, bottomY);
       }
 }
