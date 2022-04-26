@@ -47,6 +47,10 @@ public class KeyHandler implements KeyListener {
     return this.resetTyped;
   }
 
+  /**
+   * Invoked when a key is typed.
+   * Processes keyboard input to update resetTyped variable.
+   */
   @Override
   public void keyTyped(KeyEvent e) {
     char keyChar = e.getKeyChar();
@@ -55,6 +59,11 @@ public class KeyHandler implements KeyListener {
     }
   }
 
+  /**
+   * Invoked when a key is pressed. Processes keyboard input to set relevant
+   * variables (angleCounterClockwisePressed, angleClockwisePressed, powerUpPressed,
+   * powerDownPressed, or shootButtonPressed) to true.
+   */
   @Override
   public void keyPressed(KeyEvent e) {
     int code = e.getKeyCode();
@@ -75,6 +84,10 @@ public class KeyHandler implements KeyListener {
     }
   }
 
+  /**
+   * Invoked when a key is released. Sets instance variables corresponding
+   * to the released key to false.
+   */
   @Override
   public void keyReleased(KeyEvent e) {
     int code = e.getKeyCode();

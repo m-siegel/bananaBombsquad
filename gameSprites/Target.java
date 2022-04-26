@@ -8,6 +8,10 @@ import java.awt.image.BufferedImage;
 import main.GamePanel;
 import spriteEssentials.*;
 
+/**
+ * Represents a target in the game. A target can appear in random positions onscreen. A target
+ * is solid, so it can be hit. A target can track the number of times that it has been hit.
+ */
 public class Target extends Sprite {
 
     public static final int MAX_HITS = 3;
@@ -17,6 +21,7 @@ public class Target extends Sprite {
      * Chooses random x and y coordinates (constrained to the right side of the screen).
      * Sets speed to zero and keyHandler to null.
      * imagesIndex tracks how many times target is hit, initially 0. Images are drawn accordingly.
+     * 
      * @param images Image list for the target.
      */
     public Target(ArrayList<BufferedImage> images) {
@@ -37,6 +42,7 @@ public class Target extends Sprite {
 
     /**
      * Returns the number of hits the target has registered, as tracked by imagesIndex.
+     * 
      * @return this target's number of hits.
      */
     public int getNumberOfHits() {
@@ -46,6 +52,7 @@ public class Target extends Sprite {
     /**
      * Increments the number of times the target has been hit, as tracked by imagesIndex.
      * If the number of hits has reached the maximum of 3, it is not incremented any further.
+     * 
      * @return boolean to indicate whether the number of hits has been incremented successfully.
      */
     public boolean incrementNumberOfHits() {
@@ -58,6 +65,7 @@ public class Target extends Sprite {
 
     /**
      * Returns whether the maximum number of hits has been registered.
+     * 
      * @return boolean to indicate whether the max number of hits has been reached.
      */
     public boolean isFull() {
@@ -66,7 +74,8 @@ public class Target extends Sprite {
 
     /**
      * Returns a random x coordinate for the target's position.
-     * Ensures that the chosen x will position the target on the right side of the screen.
+     * Ensures that the chosen x will position the target on the right third of the screen.
+     * 
      * @return a random int to determine target's x-coordinate.
      */
     public int getRandomXCoordinate() {
@@ -80,6 +89,7 @@ public class Target extends Sprite {
     /**
      * Returns a random y coordinate for the target's position.
      * Ensures that the chosen y will be no greater than the screen's height.
+     * 
      * @return a random int to determine target's y coordinate.
      */
     public int getRandomYCoordinate() {
@@ -90,6 +100,9 @@ public class Target extends Sprite {
         return randomInt;
     }
 
+    /**
+     * Draws the image from the images ArrayList that corresponds to the current number of hits.
+     */
     @Override
     public void draw(Graphics2D g2) {
         g2.drawImage(images.get(getNumberOfHits()), this.x, this.y, null);
@@ -121,14 +134,17 @@ public class Target extends Sprite {
     /**
    * Returns the hit box for the Target's current location.
    * 
-   * The length and width of the Target's hitbox are half of the
+   * <p>The length and width of the Target's hitbox are half of the
    * image's size.
    * 
    * @return this Target's hit box.
    */
     @Override
     public HitBox getHitBox() {
-        int leftX, rightX, topY, bottomY;
+        int leftX;
+        int rightX;
+        int topY;
+        int bottomY;
         leftX = this.x + this.images.get(imagesIndex).getWidth() / 4;
         rightX = this.x + this.images.get(imagesIndex).getWidth() - this.images.get(imagesIndex).getWidth() / 2;
         topY = this.y + this.images.get(imagesIndex).getHeight() / 4;

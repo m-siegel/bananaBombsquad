@@ -20,6 +20,8 @@ import gameSprites.*;
 
 /**
  * Holds game components and runs game logic for the Smoothie Operator game.
+ * Instantiates game sprites and runs the game loop that updates and draws sprites,
+ * takes player input, and determines points won, lives lost, and the end of a round.
  */
 public class GamePanel extends JPanel {
 

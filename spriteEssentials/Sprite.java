@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import main.KeyHandler;
 
 /**
- * Represents a "sprite" on-screen and in game logic.
- * Sprites may be static images or animated with a series of frames. Sprites may remain
- * in one location, or may move. Sprites can be used to represent anything from a background
- * to a player to projectiles.
+ * Represents a "sprite" on-screen and in game logic. Almost every component of a game
+ * (players, NPCs, projectiles, other objects, backgrounds, etc) can be represented by
+ * a sprite object. Sprites may be static images or animated with a series of frames.
+ * Sprites may remain in one location, or may move.
  * 
  * <p>All Sprite objects have:
  *   - x- and y-coordinate integers that represent their onscreen location (default to 0),

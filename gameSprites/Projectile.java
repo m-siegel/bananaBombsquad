@@ -34,13 +34,12 @@ public class Projectile extends Sprite {
     private int updatesPerFrame;
 
     /**
-     * Creates a new projectile object at coordinates x and y with given angle, velocity,
+     * Creates a new projectile object at coordinates x and y, with given angle, velocity,
      * flying images, and splattered images.
      * Uses given updates per second to calculate number of updates per frame.
-     * Sets flyingList as the default set of images placed into the images ArrayList.
-     * Uses internalX, internalY, xDisplacement, and yDisplacement to calculate trajectory.
-     * Sets solid to true, keyHandler to null, and speed to 3.
+     * Sets flyingImages as the default set of images placed into the images ArrayList.
      * imagesIndex and updatesPerFrameChange begin at 0.
+     * 
      * @param x Projectile's x-coordinate
      * @param y Projectile's y-coordinate
      * @param angle Projectile's angle
@@ -82,7 +81,7 @@ public class Projectile extends Sprite {
 
         this.solid = true;
         this.keyHandler = null;
-        this.speed = 3;
+        this.speed = 1;
         this.imagesIndex = 0;
         this.updatesSinceFrameChange = 0;
         this.updatesPerFrame = FPS / updatesPerSec;
@@ -123,6 +122,11 @@ public class Projectile extends Sprite {
         this.images = splatteredImages;
     }
 
+    /**
+     * Returns the value of this splattered variable.
+     * 
+     * @return the value of this splattered variable.
+     */
     public boolean isSplattered() {
         return this.splattered;
     }
@@ -143,6 +147,13 @@ public class Projectile extends Sprite {
         return this.y0;
     }
 
+    /**
+     * Returns the value of this projectile's time variable. The time variable
+     * is a counter that increments with calls to update(), and it is completely
+     * different than actual measurements of time.
+     * 
+     * @return the value of the time variable.
+     */
     public double getTime() {
         return this.time;
     }
@@ -196,11 +207,19 @@ public class Projectile extends Sprite {
         }
     }
 
+    /**
+     * Draws the image at the current imagesIndex in the images ArrayList at the current (x, y)
+     * location onscreen.
+     */
     @Override
     public void draw(Graphics2D g2) {
         g2.drawImage(images.get(imagesIndex), this.x, this.y, null);
     }
 
+    /**
+     * Returns a hitbox 1/5 of the image's width wider than the current image and 1/5 of the
+     * image's height taller than the current image.
+     */
     @Override
     public HitBox getHitBox() {
         if (!isSolid()) {
