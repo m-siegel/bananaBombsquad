@@ -48,6 +48,9 @@ public class GamePanel extends JPanel {
     private String endMessage = "";
     private boolean launchedProjectile;
 
+    private boolean fatalError;
+    private String errorMessage;
+
     /**
      * Creates a new GamePanel object for the Smoothie Operator game.
      */
@@ -62,29 +65,57 @@ public class GamePanel extends JPanel {
         this.projectiles = new SpriteList();
         this.projectileImages = new HashMap<String, HashMap<String, ArrayList<BufferedImage>>>();
 
+        this.fatalError = false;
+        this.errorMessage = "";
         this.loadSprites();
     }
 
     /**
-     * Initialize the background, wall, cannon, target, powerBar and lives sprites for this game.
-     * Loads the images that will be used to instantiate projectiles into the projectileImages
-     * HashMap.
+     * Calls helper methods to initailize the background, wall, cannon,
+     * target, powerBar and lives sprites for this game.
+     * Calls helper method to load the images that will be used to instantiate projectiles
+     * into the projectileImages HashMap.
      * 
-     * <p>Catches and prints fileIO exceptions.
-     * Does not catch any exceptions thrown by sprite constructors.
+     * <p>Sets fatalError to true if any loading methods fail and appends message to errorMessage.
      */
     public void loadSprites() {
 
-        loadLives();
-        loadPowerBar();
-        loadCannon();
-        loadTarget();
-        loadBackground();
-        loadWall();
-        loadProjectileImages();
-        
+        if (!loadLives()) {
+            this.fatalError = true;
+            this.errorMessage += "loading Lives, ";
+        }
+        if (!loadPowerBar()) {
+            this.fatalError = true;
+            this.errorMessage += "loading PowerBar, ";
+        }
+        if (!loadCannon()) {
+            this.fatalError = true;
+            this.errorMessage += "loading Cannon, ";
+        }
+        if (!loadTarget()) {
+            this.fatalError = true;
+            this.errorMessage += "loading Target, ";
+        }
+        if (!loadBackground()) {
+            this.fatalError = true;
+            this.errorMessage += "loading Background, ";
+        }
+        if (!loadWall()) {
+            this.fatalError = true;
+            this.errorMessage += "loading Wall, ";
+        }
+        if (!loadProjectileImages()) {
+            this.fatalError = true;
+            this.errorMessage += "loading Projectile Images, ";
+        } 
     }
 
+    /**
+     * Loads the images for the Lives object and instantiates the Lives object. Returns
+     * true if the object is successfully instantiated. Returns false if any errors occur.
+     * 
+     * @return true if lives is instantiated; false if exceptions occur.
+     */
     private boolean loadLives() {
         // scale images as they're read in
         AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
@@ -134,6 +165,12 @@ public class GamePanel extends JPanel {
         return true;
     }
 
+    /**
+     * Loads the images for the PowerBar object and instantiates the PowerBar object. Returns
+     * true if the object is successfully instantiated. Returns false if any errors occur.
+     * 
+     * @return true if PowerBar is instantiated; false if exceptions occur.
+     */
     private boolean loadPowerBar() {
         // scale images as they're read in
         AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
@@ -189,6 +226,12 @@ public class GamePanel extends JPanel {
         return true;
     }
 
+    /**
+     * Loads the images for the Cannon object and instantiates the Cannon object. Returns
+     * true if the object is successfully instantiated. Returns false if any errors occur.
+     * 
+     * @return true if Cannon is instantiated; false if exceptions occur.
+     */
     private boolean loadCannon() {
         // scale images as they're read in
         AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
@@ -248,6 +291,12 @@ public class GamePanel extends JPanel {
         return true;
     }
 
+    /**
+     * Loads the images for the Target object and instantiates the Target object. Returns
+     * true if the object is successfully instantiated. Returns false if any errors occur.
+     * 
+     * @return true if Target is instantiated; false if exceptions occur.
+     */
     private boolean loadTarget() {
         // scale images as they're read in
         AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
@@ -296,6 +345,12 @@ public class GamePanel extends JPanel {
         return true;
     }
 
+    /**
+     * Loads the images for the Background object and instantiates the Background object. Returns
+     * true if the object is successfully instantiated. Returns false if any errors occur.
+     * 
+     * @return true if Background is instantiated; false if exceptions occur.
+     */
     private boolean loadBackground() {
         // scale images as they're read in
         AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
@@ -338,6 +393,12 @@ public class GamePanel extends JPanel {
         return true;
     }
 
+    /**
+     * Loads the images for the Wall object and instantiates the Wall object. Returns
+     * true if the object is successfully instantiated. Returns false if any errors occur.
+     * 
+     * @return true if Wall is instantiated; false if exceptions occur.
+     */
     private boolean loadWall() {
         // scale images as they're read in
         AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
@@ -378,6 +439,12 @@ public class GamePanel extends JPanel {
         return true;
     }
 
+    /**
+     * Loads the images for the Projectiles into the projectileImages HashMap. Returns
+     * false if any errors occur.
+     * 
+     * @return false if any errors occur; true otherwise.
+     */
     private boolean loadProjectileImages() {
         // scale images as they're read in
         AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
@@ -439,23 +506,29 @@ public class GamePanel extends JPanel {
 
 
     /**
-     * Starts the game.
+     * Starts the game if no fatal error has occurred.
      * 
      * <p>Sets up the game, sets isRunning to true and starts the game loop.
      */
     public void startGame() {
+        if (fatalError) {
+            return;
+        }
         this.isRunning = true;
         this.gameSetup();
         this.run();
     }
 
     /**
-     * Resets components of the game.
+     * Resets components of the game if no fatal error has occurred.
      * 
      * <p>Clears endMessage and projectiles SpriteList.
      * Resets number of lives and the position of the target.
      */
     public void gameSetup() {
+        if (fatalError) {
+            return;
+        }
         this.endMessage = "";
         projectiles.clear();
         target.reset();
@@ -464,7 +537,8 @@ public class GamePanel extends JPanel {
 
     /**
      * Game loop.
-     * Calls update() and paintComponent() FPS times per second while the game is running.
+     * Calls update() and paintComponent() FPS times per second while the game is running
+     * and no fatal error has occurred.
      */
     public void run() {
         double drawInterval = 1000000000 / FPS; // get 1/60 of a second in nanoseconds
@@ -472,7 +546,7 @@ public class GamePanel extends JPanel {
         long lastTime = System.nanoTime();
         long currentTime;
 
-        while (isRunning) {
+        while (isRunning && !fatalError) {
             // track time since last update 
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
@@ -553,11 +627,19 @@ public class GamePanel extends JPanel {
                 Random randomizer = new Random();
                 int i = randomizer.nextInt(FRUIT_NAMES.length);
                 String fruit = FRUIT_NAMES[i];
-                projectiles.add(
-                        new Projectile(cannon.getLaunchX(), cannon.getLaunchY(), cannon.getAngle(),
-                                powerBar.getPower(), projectileImages.get(fruit).get("flying"),
-                                projectileImages.get(fruit).get("splattered"), 5));
-                launchedProjectile = true;
+                try {
+                    projectiles.add(
+                            new Projectile(cannon.getLaunchX(), cannon.getLaunchY(), cannon.getAngle(),
+                                    powerBar.getPower(), projectileImages.get(fruit).get("flying"),
+                                    projectileImages.get(fruit).get("splattered"), 5));
+                    launchedProjectile = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Projectile could not be instantiated: " + fruit);
+                    e.printStackTrace();
+                    fatalError = true;
+                    errorMessage += "instantiating Projectile, ";
+                    return;
+                }
             }
             cannon.update();
             powerBar.update();
@@ -575,17 +657,35 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
 
-        // draw components back to front
-        background.draw(g2D);
-        wall.draw(g2D);
-        target.draw(g2D);
-        powerBar.draw(g2D);
-        lives.draw(g2D);
-        projectiles.draw(g2D);
-        cannon.draw(g2D);
+        if (!fatalError) {
+            // draw components back to front
+            background.draw(g2D);
+            wall.draw(g2D);
+            target.draw(g2D);
+            powerBar.draw(g2D);
+            lives.draw(g2D);
+            projectiles.draw(g2D);
+            cannon.draw(g2D);
 
-        g2D.setFont(new Font("MS Gothic", Font.PLAIN, 36));
-        g2D.setColor(Color.MAGENTA);
-        g2D.drawString(endMessage, SCREEN_WIDTH / 6, SCREEN_HEIGHT / 3);
+            g2D.setFont(new Font("MS Gothic", Font.PLAIN, 36));
+            g2D.setColor(Color.MAGENTA);
+            g2D.drawString(endMessage, SCREEN_WIDTH / 6, SCREEN_HEIGHT / 3);
+        } else {
+            // Draw error screen
+            g2D.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            g2D.setFont(new Font(Font.DIALOG, Font.PLAIN, 30));
+            g2D.setColor(Color.WHITE);
+            g2D.drawString("Uh oh...the game won't run!", TILE_SIZE, 3 * TILE_SIZE);
+            g2D.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
+            // trim off last comma and space
+            g2D.drawString("We encountered errors with: ", TILE_SIZE, 4 * TILE_SIZE);
+            g2D.drawString(errorMessage.substring(
+                    0, errorMessage.length() - 2), TILE_SIZE, 5 * TILE_SIZE);
+            g2D.drawString("We recommend downloading Smoothie Operator package again.",
+                    TILE_SIZE, SCREEN_HEIGHT - 4 * TILE_SIZE);
+            g2D.setFont(new Font(Font.DIALOG, Font.PLAIN, 30));
+            g2D.drawString("Hopefully the next run will be smoothier ;)",
+                    TILE_SIZE, SCREEN_HEIGHT - 3 * TILE_SIZE);
+        }
     }
 }
