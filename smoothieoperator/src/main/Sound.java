@@ -48,6 +48,7 @@ public class Sound {
             AudioInputStream stream = AudioSystem.getAudioInputStream(this.url);
             this.clip = AudioSystem.getClip();
             this.clip.open(stream);
+            stream.close();
         } catch (IOException e){
             //TODO - how should these exceptions be handled?
                 // we could return false, or set some instance variable to false so we don't try
