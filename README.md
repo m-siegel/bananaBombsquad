@@ -28,11 +28,11 @@ folder.
 ## Program Structure
 
 1. Our main method instantiates a GameWindowManager to open a window and begin the game.
-2. The GameWindowManager has a TitlePanel, which it displays first.
+2. The GameWindowManager has a TitlePanel, which it displays first, and a GamePanel.
 3. The TitlePanel has a Sound, a JButton and a MouseListener, and uses an image from our media
 folder. When the MouseListener registers a button click, it gives control back to the
 GameWindowManager.
-4. The GameWindowManager then displays its GamePanel and starts the GamePanel's game loop running.
+4. The GameWindowManager then displays its GamePanel and starts the GamePanel's game loop.
 5. GamePanel. A GamePanel has one each of Background, Cannon, Lives, PowerBar, Target and 
    Wall, which are all descendents of Sprite. GamePanel runs the game logic.
    1. GamePanel sets the screen dimensions for the program.
@@ -42,8 +42,8 @@ GameWindowManager.
    Sprites and displays an error screen if need be.
    3. GamePanel's run() method runs the game loop, the main game logic. It determines the frame
    rate for the game, and regularly calls sprites' update and draw methods. In the game loop, the
-   GamePanel moninotors the game's status, including whether the game is over, and displays its
-   current state. The GamePanel facilitates interactions between prites (such as checking for
+   GamePanel monitors the game's status, including whether the game is over, and displays its
+   current state. The GamePanel facilitates interactions between Sprites (such as checking for
    collisions or instantiating Projectiles based on the position of the Cannon). The game loop
    also references a KeyHandler that indicates when to restart the game based on keyboard input.
    4. Each Sprite controls what happens when GamePanel calls the Sprite's update and draw methods.
