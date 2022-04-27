@@ -74,6 +74,18 @@ public class GamePanel extends JPanel {
      * Does not catch any exceptions thrown by sprite constructors.
      */
     public void loadSprites() {
+
+        loadLives();
+        loadPowerBar();
+        loadCannon();
+        loadTarget();
+        loadBackground();
+        loadWall();
+        loadProjectileImages();
+        
+    }
+
+    private boolean loadLives() {
         // scale images as they're read in
         AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
         AffineTransformOp scaleOp =
@@ -98,6 +110,7 @@ public class GamePanel extends JPanel {
         } catch (IOException e) {
             System.out.println("Couldn't find lives image file: " + filepath);
             e.printStackTrace();
+            return false;
         } finally {
             if (inputStream != null){
                 try {
@@ -115,9 +128,21 @@ public class GamePanel extends JPanel {
         } catch (IllegalArgumentException e) {
             System.out.println("Couldn't instantiate Lives object.");
             e.printStackTrace();
+            return false;
         }
-        
-        tempImages.clear(); // will reuse
+
+        return true;
+    }
+
+    private boolean loadPowerBar() {
+        // scale images as they're read in
+        AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
+        AffineTransformOp scaleOp =
+                new AffineTransformOp(imageScale, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        ArrayList<BufferedImage> tempImages = new ArrayList<>();
+
+        String filepath = "";
+        InputStream inputStream = null;
 
         // create powerbar
         try {
@@ -134,6 +159,7 @@ public class GamePanel extends JPanel {
         } catch (IOException e) {
             System.out.println("Couldn't find power bar image file:" + filepath);
             e.printStackTrace();
+            return false;
         } finally {
             if (inputStream != null){
                 try {
@@ -154,11 +180,23 @@ public class GamePanel extends JPanel {
             e.printStackTrace();
             this.powerBar = new PowerBar((TILE_SIZE * SCALE / 2),
                     SCREEN_HEIGHT - (TILE_SIZE * SCALE / 2), tempImages, this.keyH);
+            return false;
         } catch (IllegalArgumentException e) {
             System.out.println("Couldn't instantiate PowerBar object.");
+            return false;
         }
 
-        tempImages.clear();
+        return true;
+    }
+
+    private boolean loadCannon() {
+        // scale images as they're read in
+        AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
+        AffineTransformOp scaleOp =
+                new AffineTransformOp(imageScale, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+
+        String filepath = "";
+        InputStream inputStream = null;
 
         // create cannon
         try {
@@ -183,16 +221,20 @@ public class GamePanel extends JPanel {
             
             this.cannon = new Cannon((TILE_SIZE * SCALE / 2 + this.powerBar.getWidth()),
                     SCREEN_HEIGHT - (TILE_SIZE * SCALE + tempCannon.getHeight()), tempCannon,
-                    tempWheel, this.keyH, "/smoothieoperator/src/media/sounds/boom.wav", "boom");
+                    tempWheel, this.keyH, "/smoothieoperator/src/media/sounds/boom.wav",
+                    "boom");
         } catch (IOException e) {
             System.out.println("Couldn't find cannon or wheel image files: " + filepath);
             e.printStackTrace();
+            return false;
         } catch (NullPointerException e) {
             System.out.println("Couldn't find cannon or wheel image files: " + filepath);
             e.printStackTrace();
+            return false;
         } catch (IllegalArgumentException e) {
             System.out.println("Couldn't instantiate Cannon object.");
             e.printStackTrace();
+            return false;
         } finally {
             if (inputStream != null){
                 try {
@@ -202,6 +244,19 @@ public class GamePanel extends JPanel {
                 } 
             }
         }
+
+        return true;
+    }
+
+    private boolean loadTarget() {
+        // scale images as they're read in
+        AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
+        AffineTransformOp scaleOp =
+                new AffineTransformOp(imageScale, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        ArrayList<BufferedImage> tempImages = new ArrayList<>();
+
+        String filepath = "";
+        InputStream inputStream = null;
 
         // create target
         try {
@@ -218,6 +273,7 @@ public class GamePanel extends JPanel {
         } catch (IOException e) {
             System.out.println("Couldn't find target image files: " + filepath);
             e.printStackTrace();
+            return false;
         } finally {
             if (inputStream != null){
                 try {
@@ -234,9 +290,20 @@ public class GamePanel extends JPanel {
         } catch (IllegalArgumentException e) {
             System.out.println("Couldn't instantiate Target object.");
             e.printStackTrace();
+            return false;
         }
 
-        tempImages.clear();
+        return true;
+    }
+
+    private boolean loadBackground() {
+        // scale images as they're read in
+        AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
+        AffineTransformOp scaleOp =
+                new AffineTransformOp(imageScale, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+
+        String filepath = "";
+        InputStream inputStream = null;
 
         // create background
         try {
@@ -253,9 +320,11 @@ public class GamePanel extends JPanel {
         } catch (IOException e) {
             System.out.println("Couldn't find background image file: " + filepath);
             e.printStackTrace();
+            return false;
         } catch (IllegalArgumentException e) {
             System.out.println("Couldn't instantiate Background object.");
             e.printStackTrace();
+            return false;
         } finally {
             if (inputStream != null){
                 try {
@@ -265,6 +334,18 @@ public class GamePanel extends JPanel {
                 } 
             }
         }
+
+        return true;
+    }
+
+    private boolean loadWall() {
+        // scale images as they're read in
+        AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
+        AffineTransformOp scaleOp =
+                new AffineTransformOp(imageScale, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+
+        String filepath = "";
+        InputStream inputStream = null;
 
         // create wall
         try {
@@ -279,9 +360,11 @@ public class GamePanel extends JPanel {
         } catch (IOException e) {
             System.out.println("Couldn't find wall image file: " + filepath);
             e.printStackTrace();
+            return false;
         } catch (IllegalArgumentException e) {
             System.out.println("Couldn't instantiate Wall object.");
             e.printStackTrace();
+            return false;
         } finally {
             if (inputStream != null){
                 try {
@@ -292,6 +375,18 @@ public class GamePanel extends JPanel {
             }
         }
 
+        return true;
+    }
+
+    private boolean loadProjectileImages() {
+        // scale images as they're read in
+        AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
+        AffineTransformOp scaleOp =
+                new AffineTransformOp(imageScale, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+
+        String filepath = "";
+        InputStream inputStream = null;
+
         // load projectile images
         for (String fruit : FRUIT_NAMES) {
             ArrayList<BufferedImage> tempFlying = new ArrayList<BufferedImage>();
@@ -300,7 +395,7 @@ public class GamePanel extends JPanel {
             try {
                 for (int i = 1; i < 5; i++) {
                     filepath = String.format(
-                            "/smoothieoperator/src/media/images/projectiles/%s/flying/%s-%d.png", 
+                            "/smoothieoperator/src/media/images/projectiles/%s/flying/%s-%d.png",
                             fruit, fruit, i);
                     inputStream = getClass().getResourceAsStream(filepath);
                     if (inputStream != null) {
@@ -323,12 +418,14 @@ public class GamePanel extends JPanel {
             } catch (IOException e) {
                 System.out.printf("Couldn't find %s image files.\n", fruit);
                 e.printStackTrace();
+                return false;
             } finally {
                 if (inputStream != null){
                     try {
                         inputStream.close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        return false;
                     } 
                 }
             }
@@ -336,7 +433,10 @@ public class GamePanel extends JPanel {
             projectileImages.get(fruit).put("flying", tempFlying);
             projectileImages.get(fruit).put("splattered", tempSplattered);
         }
+
+        return true;
     }
+
 
     /**
      * Starts the game.
