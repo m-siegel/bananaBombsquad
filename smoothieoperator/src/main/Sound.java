@@ -23,8 +23,8 @@ public class Sound {
      * Creates a new Sound object using the given filepath String.
      * Creates a URL using the filepath, and uses the setFile() method to 
      * create an AudioInputStream with the URL, which provides the sound input to the Clip.
-     * Throws a NullPointerException if the given filepath String is null.
      * @param filepath the name of the audio file.
+     * @throws NullPointerException if the given filepath String is null.
      * @throws IOException
      * @throws UnsupportedAudioFileException
      * @throws LineUnavailableException

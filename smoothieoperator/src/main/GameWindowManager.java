@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Represents a game window with multiple screens. Contains an title screen and
+ * Represents a game window with multiple screens. Contains a title screen and
  * a gameplay screen. Switches from the title screen to the gameplay screen.
  */
 public class GameWindowManager {

@@ -71,8 +71,8 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * Calls helper methods to initailize the background, wall, cannon,
-     * target, powerBar and lives sprites for this game.
+     * Calls helper methods to initialize the Background, Wall, Cannon,
+     * Target, PowerBar and Lives sprites for this game.
      * Calls helper method to load the images that will be used to instantiate projectiles
      * into the projectileImages HashMap.
      * 
@@ -591,7 +591,7 @@ public class GamePanel extends JPanel {
      * 
      * <p>Clears endMessage and projectiles SpriteList.
      * Resets number of lives and the position of the target.
-     * Stops the ending music.
+     * Stops the ending music and plays the in-game music.
      */
     public void gameSetup() {
         if (fatalError) {
