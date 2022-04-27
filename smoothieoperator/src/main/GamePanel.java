@@ -45,7 +45,7 @@ public class GamePanel extends JPanel {
     private Lives lives;
     private SpriteList projectiles;
     private HashMap<String, HashMap<String, ArrayList<BufferedImage>>> projectileImages;
-    private String endMessage = "";
+    private EndMessage endMessage;
     private boolean launchedProjectile;
 
     private boolean fatalError;
@@ -108,6 +108,10 @@ public class GamePanel extends JPanel {
             this.fatalError = true;
             this.errorMessage += "loading Projectile Images, ";
         } 
+        if (!loadEndMessage()) {
+            this.fatalError = true;
+            this.errorMessage += "loading End Message, ";
+        }
     }
 
     /**
@@ -394,6 +398,69 @@ public class GamePanel extends JPanel {
     }
 
     /**
+     * Loads the images for the EndMessage object and instantiates the EndMessage object. Returns
+     * true if the object is successfully instantiated. Returns false if any errors occur.
+     * 
+     * @return true if EndMessage is instantiated; false if exceptions occur.
+     */
+    private boolean loadEndMessage() {
+        // scale images as they're read in
+        AffineTransform imageScale = AffineTransform.getScaleInstance(SCALE, SCALE);
+        AffineTransformOp scaleOp =
+                new AffineTransformOp(imageScale, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+
+        String filepath = "";
+        InputStream inputStream = null;
+
+        try {
+            BufferedImage tempLosing = null;
+            BufferedImage tempWinning = null;
+
+            filepath = String.format("/smoothieoperator/src/media/images/endmessage/losing.png");
+            inputStream = getClass().getResourceAsStream(filepath);
+            if (inputStream != null) {
+                tempLosing = ImageIO.read(inputStream);
+                tempLosing = scaleOp.filter(tempLosing, null);
+                inputStream.close();
+            }
+
+            filepath = String.format("/smoothieoperator/src/media/images/endmessage/winning.png");
+            inputStream = getClass().getResourceAsStream(filepath);
+            if (inputStream != null) {
+                tempWinning = ImageIO.read(inputStream);
+                tempWinning = scaleOp.filter(tempWinning, null);
+                inputStream.close();
+            }
+            
+            this.endMessage = new EndMessage((SCREEN_WIDTH * SCALE / 2) - (tempLosing.getWidth() / 2),
+                    (SCREEN_HEIGHT * SCALE / 2) - (tempLosing.getHeight() / 2), tempLosing,
+                    tempWinning, this.keyH);
+        } catch (IOException e) {
+            System.out.println("Couldn't find end message image files: " + filepath);
+            e.printStackTrace();
+            return false;
+        } catch (NullPointerException e) {
+            System.out.println("Couldn't find end message image files: " + filepath);
+            e.printStackTrace();
+            return false;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Couldn't instantiate EndMessage object.");
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } 
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Loads the images for the Wall object and instantiates the Wall object. Returns
      * true if the object is successfully instantiated. Returns false if any errors occur.
      * 
@@ -529,7 +596,7 @@ public class GamePanel extends JPanel {
         if (fatalError) {
             return;
         }
-        this.endMessage = "";
+        endMessage.removeEndMessage();
         projectiles.clear();
         target.reset();
         lives.livesReset();
@@ -588,11 +655,13 @@ public class GamePanel extends JPanel {
 
         // Checking for the end of game
         if (lives.isDead()) {
-            endMessage = "Your efforts were fruitless.";
+            endMessage.displayEndMessage();
+            endMessage.playerWon(false);
             return;
         }
         if (target.isFull()) {
-            endMessage = "Your efforts were fruitful.";
+            endMessage.displayEndMessage();
+            endMessage.playerWon(true);
             return;
         }
 
@@ -669,10 +738,10 @@ public class GamePanel extends JPanel {
             lives.draw(g2D);
             projectiles.draw(g2D);
             cannon.draw(g2D);
+            endMessage.draw(g2D);
 
             g2D.setFont(new Font("MS Gothic", Font.PLAIN, 36));
             g2D.setColor(Color.MAGENTA);
-            g2D.drawString(endMessage, SCREEN_WIDTH / 6, SCREEN_HEIGHT / 3);
         } else {
             // Draw error screen
             g2D.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
