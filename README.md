@@ -9,7 +9,9 @@ round. Players may start a new round at any time.
 ## Usage
 If your computer is running Java 11 or later, you can download the source code to compile and run
 the program.
-1. Download the [*smoothieoperator/src*](https://github.com/m-siegel/bananaBombsquad/tree/main/smoothieoperator/src) folder.
+1. Download the 
+[*smoothieoperator/src*](https://github.com/m-siegel/bananaBombsquad/tree/main/smoothieoperator/src)
+folder.
 2. Either open the folder in an IDE (like VS Code) and run src/main/Main.java
 from there, or compile and run src/main/Main.java from the command line:
   2. a. *javac src/main/Main.java*
@@ -18,16 +20,36 @@ from there, or compile and run src/main/Main.java from the command line:
 
 If your computer is running an older version of Java, you can download the Java byte code to run
 the program.
-1. Download the [*smoothieoperator/bin*](https://github.com/m-siegel/bananaBombsquad/tree/main/smoothieoperator/bin) folder.
+1. Download the
+[*smoothieoperator/bin*](https://github.com/m-siegel/bananaBombsquad/tree/main/smoothieoperator/bin)
+folder.
 2. From the command line, run the command *java bin/main/Main*.
 
 ## Program Structure
 
 TODO
 
-## Libraries Used
+## Packages Used
 
-TODO
+The [java.awt](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/package-summary.html)
+and [javax.swing](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/package-summary.html)
+packages provide the foundation for this program. We used AWT classes to control the layout of
+panels, colors, fonts, and to enable drawing to the screen. The core components of our GUI,
+the window (a JFrame), and different title and game screens (JPanels) within it, as well as a
+button (JButton) all come from Swing. We used
+[java.awt.event](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/event/package-summary.html)
+to listen for, and process, keyboard and mouse events. 
+We read in files with
+[java.io](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/package-summary.html) and
+[javax.imageio](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/imageio/package-summary.html).
+We transformed and stored images using [java.awt.geom](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/geom/package-summary.html) 
+and 
+[java.awt.image](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/image/package-summary.html).
+We read in and played music and sound effects using
+[javax.sound.sampled](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/sound/sampled/package-summary.html).
+Finally, we got random numbers and used HashMaps and ArrayLists from
+[java.util](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/package-summary.html).
+
 
 ## Contributors
 **Code**
