@@ -27,9 +27,12 @@ public class Target extends Sprite {
      * Chooses random x and y coordinates (constrained to the right side of the screen).
      * Sets speed to zero and keyHandler to null.
      * imagesIndex tracks how many times target is hit, initially 0. Images are drawn accordingly.
+     * Creates a Sound associated with a Target.
      * 
      * @param images Image list for the target.
-     * @throws IllegalArgumentException if any of the parameters is null, if there are fewer than
+     * @param soundFile the filepath used to retrieve the audio file
+     * @param soundName the name given to the key associated with the Sound
+     * @throws IllegalArgumentException if any of the parameters are null, if there are fewer than
      *         MAX_HITS images in the images ArrayList, or if any element in the images ArrayList
      *         is null.
      */

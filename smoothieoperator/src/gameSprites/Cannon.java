@@ -41,17 +41,21 @@ public class Cannon extends Sprite {
   /**
    * Creates a stationary cannon object with the given wheel and barrel images and access
    * to the given KeyHandler. The cannon's barrel can rotate 90 degrees, but its pivot
-   * point cannon move in any direction.
+   * point cannot move in any direction.
    * 
    * The cannon image should be facing northward. The cannon's pivot point is calculated
    * to be on the vertical center line, 1/2 the image's width from the bottom of the image.
    * 
    * The wheel image should have equal width and height,
    * and be at least as wide as the barrel's width.
-   * 
+   *
+   * Creates a Sound object associated with a Cannon.
+   *  
    * @param wheel the image to draw for the wheel at the base of the cannon
    * @param barrel the barrel of the cannon to draw and rotate
    * @param keyHandler the keyHandler for the relevant JPanel to control cannon rotation
+   * @param soundFile the filepath used to retrieve the audio file
+   * @param soundName the name given to the key associated with the Sound
    * @throws IllegalArgumentException if the wheel image is not square, or the wheel's width is
    *         less than the cannon's width, or if any of the reference type parameters are null.
    */
@@ -155,6 +159,7 @@ public class Cannon extends Sprite {
 
   /**
    * Updates the rotation of the barrel and the corresponding barrelAnimationFrame.
+   * Resets the Sound so it can be played back again.
    */
   @Override
   public void update() {

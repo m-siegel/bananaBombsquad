@@ -8,7 +8,7 @@ import smoothieoperator.src.main.KeyHandler;
 import smoothieoperator.src.spriteEssentials.*;
 
 /**
- * Represents an power bar in the game. Changes power based on keyboard input.
+ * Represents a power bar in the game. Changes power based on keyboard input.
  */
 public class PowerBar extends Sprite {
 
@@ -16,7 +16,7 @@ public class PowerBar extends Sprite {
     private int minPower;
 
     /**
-     * Create a new PowerBar object in the given location (x, y) with the specified 
+     * Creates a new PowerBar object in the given location (x, y) with the specified 
      * BufferedImages for animation and KeyHandler to respond to keyboard input.
      * While a PowerBar may be instantiated with a null image or only one image, it
      * should have multiple images for the best effect.

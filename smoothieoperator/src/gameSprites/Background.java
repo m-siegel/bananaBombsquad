@@ -25,9 +25,12 @@ public class Background extends Sprite {
     * Creates the game's background from a single image. Coordinates (0, 0) 
     * are top left of the game screen. The background is stationary and is 
     * set to solid by default.
+    * Creates a Sound object associated with a Background.
     *
     * @param image the background image, which should have same proportions 
     *        and pixel height/width as the game screen
+    * @param musicFile the filepath used to retrieve the audio file
+    * @param songName the name given to the key associated with the Sound
     * @throws IllegalArgumentException if the image is null, if the image's dimensions
     *         are different than the screen dimensions, if the musicFile is null, or if
     *         the songName is null.

@@ -44,6 +44,7 @@ public class Projectile extends Sprite {
      * Uses given updates per second to calculate number of updates per frame. Updates per
      * second must be at least one.
      * Sets flyingImages as the default set of images placed into the images ArrayList.
+     * Adds the two sounds associated with a Projectile - a "whoosh" and a "splat".
      * 
      * @param x Projectile's x-coordinate
      * @param y Projectile's y-coordinate
@@ -52,7 +53,7 @@ public class Projectile extends Sprite {
      * @param flyingImages Projectile's list of images in its flying state
      * @param splatteredImages Projectile's list of images in its splattered state
      * @param updatesPerSec Projectile's number of updates per second. Must be positive.
-     * @param throws IllegalArgumentException if either ArrayList is null, contains null elements,
+     * @throws IllegalArgumentException if either ArrayList is null, contains null elements,
      *               or is empty.
      * @throws LineUnavailableException
      * @throws UnsupportedAudioFileException
@@ -135,6 +136,7 @@ public class Projectile extends Sprite {
      * Rotates each of the splattered images to match the parameter rotation angle in degrees.
      * Sets splattered to true and changes the images ArrayList and corresponding imagesIndex
      * to use this proejctile's splattered images instead of flying images.
+     * Stops the Projectile's "whoosh" sound and plays its "splat" sound.
      * @param rotation
      */
     public void splat(int rotation) {
@@ -279,7 +281,7 @@ public class Projectile extends Sprite {
     }
 
     /**
-     * Returns a hitbox 1/2 of the width than the current image and 1/2 of the
+     * Returns a hitbox 1/2 of the width of the current image and 1/2 of the
      * height of the current image.
      */
     @Override

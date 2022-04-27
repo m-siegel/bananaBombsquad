@@ -31,12 +31,15 @@ public class Lives extends Sprite {
     * Creates a stationary life indicator that starts at TOTAL_LIVES and ends at 0 lives.
     * No restrictions on where the x and y coordinates can be placed. Coordinates are the 
     * top-left corner of images.
+    * Creates a Sound object associated with the sound of losing a life.
     * 
     * @param x the x-coordinate of the life indicator object
     * @param y the y-coordinate of the life indicator object
     * @param images the ArrayList of life images - image index should correspond to
     *        the number of lives the image represents, i.e. 2 lives should be at index 2
     * @param keyH the keyHandler, which sets to null
+    * @param soundFile the filepath used to retrieve the audio file
+    * @param soundName the name given to the key associated with the Sound
     * @throws IllegalArgumentException if the amount of images in the ArrayList is less
     *         than TOTAL_LIVES + 1 (to account for image with 0 lives), or if the soundName
     *         or the soundFile is null.
