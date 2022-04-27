@@ -625,6 +625,7 @@ public class GamePanel extends JPanel {
         // if not a flying projectile, we check to see if player wants to shoot
         } else {
             if (keyH.getShootButtonPressed()) {
+                this.cannon.getSound("boom").playSound();
                 Random randomizer = new Random();
                 int i = randomizer.nextInt(FRUIT_NAMES.length);
                 String fruit = FRUIT_NAMES[i];
@@ -642,7 +643,6 @@ public class GamePanel extends JPanel {
                     return;
                 }
                 target.getSound("splash").stopSound();
-                cannon.getSound("boom").playSound();
             }
             cannon.update();
             powerBar.update();
