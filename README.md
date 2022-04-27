@@ -27,7 +27,31 @@ folder.
 
 ## Program Structure
 
-TODO
+1. Our main method instantiates a GameWindowManager to open a window and begin the game.
+2. The GameWindowManager has a TitlePanel, which it displays first.
+3. The TitlePanel has a Sound, a JButton and a MouseListener, and uses an image from our media
+folder. When the MouseListener registers a button click, it gives control back to the
+GameWindowManager.
+4. The GameWindowManager then displays its GamePanel and starts the GamePanel's game loop running.
+5. GamePanel. A GamePanel has one each of Background, Cannon, Lives, PowerBar, Target and 
+   Wall, which are all descendents of Sprite. GamePanel runs the game logic.
+   1. GamePanel sets the screen dimensions for the program.
+   2. When it's instantiated, the GamePanel reads in and processes images from the media folder,
+   and either stores them in a SpriteList (for the Projectiles), or instantiates the corresponding
+   Sprites immediately. GamePanel catches exceptions that arise from attempts to instantiate
+   Sprites and displays an error screen if need be.
+   3. GamePanel's run() method runs the game loop, the main game logic. It determines the frame
+   rate for the game, and regularly calls sprites' update and draw methods. In the game loop, the
+   GamePanel moninotors the game's status, including whether the game is over, and displays its
+   current state. The GamePanel facilitates interactions between prites (such as checking for
+   collisions or instantiating Projectiles based on the position of the Cannon). The game loop
+   also references a KeyHandler that indicates when to restart the game based on keyboard input.
+   4. Each Sprite controls what happens when GamePanel calls the Sprite's update and draw methods.
+   Sprites can change position onscreen (independently or in response to user input), can animate
+   their images (e.g. to look like they're rotating), can play Sounds (often in response to events
+   like collisions), and determine how (if at all) they can collide with other Sprites.
+7. When the user closes the window, the program ends.
+
 
 ## Packages Used
 
@@ -52,14 +76,17 @@ Finally, we got random numbers and used data structures from
 
 
 ## Contributors
-**Code**
+**Code:**
 armen-s, c-lopez, m-siegel, and t-crawley collaboratively designed and created this program.
 
-**Graphics**
+**Graphics:**
 c-lopez created the images.
 
-**Sound**
-armen-s created the sounds.
+**Music:**
+armen-s created the music.
+
+**Other sounds:**
+TODO
 
 ## Other Credits -- Learning Resources
 In addition to the documentation for each library, we found the following resources helpful:
