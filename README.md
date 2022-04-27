@@ -27,26 +27,31 @@ folder.
 
 ## Program Structure
 
-With scalability in mind, the Smoothie Operator game was mindfully created to be extended and 
-built-upon by our team, as well as other developers.
+1. Our main method instantiates a GameWindowManager to open a window and begin the game.
+2. The GameWindowManager has a TitlePanel, which it displays first.
+3. The TitlePanel has a Sound, a JButton and a MouseListener, and uses an image from our media
+folder. When the MouseListener registers a button click, it gives control back to the
+GameWindowManager.
+4. The GameWindowManager then displays its GamePanel and starts the GamePanel's game loop running.
+5. GamePanel. A GamePanel has one each of Background, Cannon, Lives, PowerBar, Target and 
+   Wall, which are all descendents of Sprite. GamePanel runs the game logic.
+   1. GamePanel sets the screen dimensions for the program.
+   2. When it's instantiated, the GamePanel reads in and processes images from the media folder,
+   and either stores them in a SpriteList (for the Projectiles), or instantiates the corresponding
+   Sprites immediately. GamePanel catches exceptions that arise from attempts to instantiate
+   Sprites and displays an error screen if need be.
+   3. GamePanel's run() method runs the game loop, the main game logic. It determines the frame
+   rate for the game, and regularly calls sprites' update and draw methods. In the game loop, the
+   GamePanel moninotors the game's status, including whether the game is over, and displays its
+   current state. The GamePanel facilitates interactions between prites (such as checking for
+   collisions or instantiating Projectiles based on the position of the Cannon). The game loop
+   also references a KeyHandler that indicates when to restart the game based on keyboard input.
+   4. Each Sprite controls what happens when GamePanel calls the Sprite's update and draw methods.
+   Sprites can change position onscreen (independently or in response to user input), can animate
+   their images (e.g. to look like they're rotating), can play Sounds (often in response to events
+   like collisions), and determine how (if at all) they can collide with other Sprites.
+7. When the user closes the window, the program ends.
 
-Our program is comprised of 4 packages:
-* gameSprites - contains the classes of the visual entities of the game
-* main - (need help with a description)
-* media - contains the image and sound files of the game
-* spriteEssentials - contains the Sprite class, the base class of every visual entity in the game
-
-Our program utilizes a GameWindowManager, a class that manages the visibility of the different
-screens a player will see. We've designed our code in a way that could handle the addition of other 
-panels like pause screens, settings screens, and loading screens.
-
-The user's first exposure to the Smoothie Operator game will be at the title screen. After clicking
-the start button, the GameWindowManager will display the GamePanel, the screen that handles displaying
-the various sprites, initiating sound effects, and estabilishing the game logic. Everything that's
-displayed on the screen is a Sprite, which is appropriately derived from the Sprite class.
-
-As the player attempts to launch fruit at the target (a blender), GamePanel constantly receives this
-information (with the help of the KeyHandler) and updates the visible sprites with the new information.
 
 ## Packages Used
 
@@ -71,14 +76,25 @@ Finally, we got random numbers and used data structures from
 
 
 ## Contributors
-**Code**
+**Code:**
 armen-s, c-lopez, m-siegel, and t-crawley collaboratively designed and created this program.
 
-**Graphics**
+**Graphics:**
 c-lopez created the images.
 
-**Sound**
-armen-s created the sounds.
+**Music:**
+armen-s created the music.
+
+**Other sounds:**
+We used the following free, opensource, or public domain sound effects:
+- [whoosh](https://mixkit.co/free-sound-effects/whoosh/)
+  - Mixkit Sound Effects Free License: "You are licensed to use the Item to create an End Product that incorporates the Item as well as other things, so that it is larger in scope and different in nature than the Item. You’re permitted to download, copy, modify, distribute and publicly perform the Sound Effect Items on any web or social media platform, in podcasts and in video games, as well as in films and presentations distributed on CDs, DVDs, via TV or radio broadcast or internet based video on demand services."
+- [boom](https://www.nps.gov/subjects/sound/sounds-cannon.htm)
+  - Public Domain
+- ["splash - swordofkings128"](https://pixabay.com/sound-effects/search/splash/)
+  - “Free for commercial use, No attribution required.” "Crediting isn't required, but linking back is greatly appreciated and allows music authors to gain exposure.”
+- [splat - "Squish Footstep Watery Grass 3"](https://www.dreamstime.com/stock-music-sound-effect/squish.html)
+  - Royalty-free license.
 
 ## Other Credits -- Learning Resources
 In addition to the documentation for each library, we found the following resources helpful:
