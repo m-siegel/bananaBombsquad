@@ -78,6 +78,10 @@ public class Sound {
         this.clip.stop();
     }
 
+    public void reset() {
+        this.clip.setFramePosition(0);
+    }
+
     public void loopSound() {
         this.clip.loop(Clip.LOOP_CONTINUOUSLY);
     }

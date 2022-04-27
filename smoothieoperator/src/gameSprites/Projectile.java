@@ -106,7 +106,7 @@ public class Projectile extends Sprite {
         this.updatesPerFrame = FPS / updatesPerSec;
 
         this.addSound("/smoothieoperator/src/media/sounds/splat.wav", "splat");
-        this.addSound("/smoothieoperator/src/media/sounds/whoosh.wav", "whoosh");
+        this.addSound("/smoothieoperator/src/media/sounds/whooshFast.wav", "whoosh");
     }
 
     public void splat() { // case when image is splattered on the ground
@@ -142,6 +142,7 @@ public class Projectile extends Sprite {
         this.splattered = true;
         this.imagesIndex = 0;
         this.images = splatteredImages;
+        this.sounds.get("whoosh").stopSound();
         this.sounds.get("splat").playSound();
     }
 
@@ -187,6 +188,7 @@ public class Projectile extends Sprite {
     public void update() {
         if (!this.isSplattered()) {
             updatePosition();
+            playWhoosh();
         }
         animateImage();
     }
@@ -227,6 +229,19 @@ public class Projectile extends Sprite {
             // update frame
             this.imagesIndex = (imagesIndex + 1) % images.size(); // cycle through images
             updatesSinceFrameChange = 0;
+        }
+    }
+
+    /**
+     * Plays whoosh sound in time with image cycle.
+     */
+    private void playWhoosh() {
+        // play in time with image revolution
+        if (updatesSinceFrameChange == 0) {
+            if (imagesIndex == 0) {
+                this.sounds.get("whoosh").reset();
+                this.sounds.get("whoosh").playSound();
+            }
         }
     }
 
