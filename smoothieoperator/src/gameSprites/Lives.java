@@ -102,7 +102,7 @@ public class Lives extends Sprite {
     }
 
     /**
-     * Draws the image from teh images ArrayList that corresponds to the current number of lives.
+     * Draws the image from the images ArrayList that corresponds to the current number of lives.
      */
     @Override
     public void draw(Graphics2D g2) {
