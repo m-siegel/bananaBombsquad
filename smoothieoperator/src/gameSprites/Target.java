@@ -27,16 +27,16 @@ public class Target extends Sprite {
      */
     public Target(ArrayList<BufferedImage> images, String soundFile, String soundName) {
         if (images == null) {
-            throw new NullPointerException("Cannot instantiate a target with null images.");
+            throw new IllegalArgumentException("Cannot instantiate a target with null images.");
         }
         if (images.size() < MAX_HITS) {
             throw new IllegalArgumentException("Images must be at least " + MAX_HITS + " elementslong.");
         }
         if (soundFile == null) {
-            throw new NullPointerException("Cannot instantiate with null soundFile.");
+            throw new IllegalArgumentException("Cannot instantiate with null soundFile.");
         }
         if (soundName == null) {
-            throw new NullPointerException("Cannot instantiate with null soundName.");
+            throw new IllegalArgumentException("Cannot instantiate with null soundName.");
         }
         this.x = getRandomXCoordinate();
         this.y = getRandomYCoordinate();

@@ -31,7 +31,7 @@ public class PowerBar extends Sprite {
         super(x, y, images, keyH);
         this.maxPower = images.size() - 1;
         if (keyH == null) {
-            throw new NullPointerException("The KeyHandler parameter cannot be null.");
+            throw new IllegalArgumentException("The KeyHandler parameter cannot be null.");
         }
         this.minPower = 0;
         this.imagesIndex = maxPower / 2; // imagesIndex represents the current power

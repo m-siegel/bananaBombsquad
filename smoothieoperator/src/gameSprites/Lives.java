@@ -43,10 +43,10 @@ public class Lives extends Sprite {
                     + "images (" + TOTAL_LIVES + " lives).");
         }
         if (soundFile == null) {
-            throw new NullPointerException("soundFile cannot be null");
+            throw new IllegalArgumentException("soundFile cannot be null");
         }
         if (soundName == null) {
-            throw new NullPointerException("soundName cannot be null");
+            throw new IllegalArgumentException("soundName cannot be null");
         }
         this.imagesIndex = TOTAL_LIVES;
         this.sounds.put(soundName, new Sound(soundFile));

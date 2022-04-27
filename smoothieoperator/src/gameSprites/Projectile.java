@@ -52,14 +52,14 @@ public class Projectile extends Sprite {
             ArrayList<BufferedImage> flyingImages, ArrayList<BufferedImage> splatteredImages,
             int updatesPerSec) {
         if (flyingImages == null) {
-            throw new NullPointerException("Cannot instantiate with null flyingImages.");
+            throw new IllegalArgumentException("Cannot instantiate with null flyingImages.");
         }
         if (flyingImages.size() < 1) {
             throw new IllegalArgumentException(
                     "Cannot instantiate with an empty flyingImages ArrayList");
         }
         if (splatteredImages == null) {
-            throw new NullPointerException("Cannot instantiate with null splatteredImage.");
+            throw new IllegalArgumentException("Cannot instantiate with null splatteredImage.");
         }
         if (splatteredImages.size() < 1) {
             throw new IllegalArgumentException(
