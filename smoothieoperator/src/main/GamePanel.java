@@ -1,6 +1,7 @@
 package smoothieoperator.src.main;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,6 +11,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -79,33 +81,68 @@ public class GamePanel extends JPanel {
                 new AffineTransformOp(imageScale, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         ArrayList<BufferedImage> tempImages = new ArrayList<>();
 
+        String filepath = "";
+        InputStream inputStream = null;
+
         // create lives
         try {
             for (int i = 0; i < 7; i++) {
-                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(
-                    String.format("/smoothieoperator/src/media/images/lives/lives-%d.png", i)));
-                tempImages.add(scaleOp.filter(temp, null));
+                filepath =
+                        String.format("/smoothieoperator/src/media/images/lives/lives-%d.png", i);
+                inputStream = getClass().getResourceAsStream(filepath);
+                if (inputStream != null) { // or risk IllegalArgumentException
+                    BufferedImage temp = ImageIO.read(inputStream);
+                    tempImages.add(scaleOp.filter(temp, null));
+                    inputStream.close();
+                }
             }
         } catch (IOException e) {
-            System.out.println("Couldn't find lives image file.");
+            System.out.println("Couldn't find lives image file: " + filepath);
             e.printStackTrace();
+        } finally {
+            if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } 
+            }
         }
-        this.lives =
+
+        try {
+            this.lives =
                 new Lives((TILE_SIZE * SCALE / 2), (TILE_SIZE * SCALE / 2), tempImages, 
                 this.keyH, "/smoothieoperator/src/media/sounds/splat.wav", "loseLife");
-       
+        } catch (IllegalArgumentException e) {
+            System.out.println("Couldn't instantiate Lives object.");
+            e.printStackTrace();
+        }
+        
         tempImages.clear(); // will reuse
 
         // create powerbar
         try {
             for (int i = 0; i < 21; i++) {
-                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.format
-                        ("/smoothieoperator/src/media/images/powerbar/powerbar-%d.png", i)));
-                tempImages.add(scaleOp.filter(temp, null));
+                filepath = String.format(
+                    "/smoothieoperator/src/media/images/powerbar/powerbar-%d.png", i);
+                inputStream = getClass().getResourceAsStream(filepath);
+                if (inputStream != null) {
+                    BufferedImage temp = ImageIO.read(inputStream);
+                    tempImages.add(scaleOp.filter(temp, null));
+                    inputStream.close();
+                }
             }
         } catch (IOException e) {
-            System.out.println("Couldn't find power bar image file.");
+            System.out.println("Couldn't find power bar image file:" + filepath);
             e.printStackTrace();
+        } finally {
+            if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } 
+            }
         }
 
         // index into tempImages safely to get correct location based on image size
@@ -114,67 +151,146 @@ public class GamePanel extends JPanel {
                     SCREEN_HEIGHT - (TILE_SIZE * SCALE / 2 + tempImages.get(0).getHeight()),
                     tempImages, this.keyH);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Couldn't find power bar image file.");
+            System.out.println("Couldn't find power bar image file: " + filepath);
             e.printStackTrace();
             this.powerBar = new PowerBar((TILE_SIZE * SCALE / 2),
                     SCREEN_HEIGHT - (TILE_SIZE * SCALE / 2), tempImages, this.keyH);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Couldn't instantiate PowerBar object.");
         }
 
         tempImages.clear();
 
         // create cannon
         try {
-            BufferedImage tempCannon = ImageIO.read(getClass().getResourceAsStream(String.
-                    format("/smoothieoperator/src/media/images/cannon/main-cannon.png")));
-            tempCannon = scaleOp.filter(tempCannon, null);
-            BufferedImage tempWheel = ImageIO.read(getClass().getResourceAsStream(String.
-                    format("/smoothieoperator/src/media/images/cannon/wheel-size-2.png")));
-            tempWheel = scaleOp.filter(tempWheel, null);
+            BufferedImage tempCannon = null;
+            BufferedImage tempWheel = null;
+
+            filepath = String.format("/smoothieoperator/src/media/images/cannon/main-cannon.png");
+            inputStream = getClass().getResourceAsStream(filepath);
+            if (inputStream != null) {
+                tempCannon = ImageIO.read(inputStream);
+                tempCannon = scaleOp.filter(tempCannon, null);
+                inputStream.close();
+            }
+
+            filepath = String.format("/smoothieoperator/src/media/images/cannon/wheel-size-2.png");
+            inputStream = getClass().getResourceAsStream(filepath);
+            if (inputStream != null) {
+                tempWheel = ImageIO.read(inputStream);
+                tempWheel = scaleOp.filter(tempWheel, null);
+                inputStream.close();
+            }
+            
             this.cannon = new Cannon((TILE_SIZE * SCALE / 2 + this.powerBar.getWidth()),
                     SCREEN_HEIGHT - (TILE_SIZE * SCALE + tempCannon.getHeight()), tempCannon,
                     tempWheel, this.keyH, "/smoothieoperator/src/media/sounds/boom.wav", "boom");
         } catch (IOException e) {
-            System.out.println("Couldn't find cannon or wheel image files.");
+            System.out.println("Couldn't find cannon or wheel image files: " + filepath);
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            System.out.println("Couldn't find cannon or wheel image files: " + filepath);
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Couldn't instantiate Cannon object.");
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } 
+            }
         }
 
         // create target
         try {
             for (int i = 1; i < 5; i++) {
-                BufferedImage temp = ImageIO.read(getClass().getResourceAsStream(String.
-                        format("/smoothieoperator/src/media/images/blender/blender-%d.png", i)));
-                tempImages.add(scaleOp.filter(temp, null));
+                filepath = String.format(
+                        "/smoothieoperator/src/media/images/blender/blender-%d.png", i);
+                inputStream = getClass().getResourceAsStream(filepath);
+                if (inputStream != null) {
+                    BufferedImage temp = ImageIO.read(inputStream);
+                    tempImages.add(scaleOp.filter(temp, null));
+                    inputStream.close();
+                }
             }
         } catch (IOException e) {
-            System.out.println("Couldn't find target image files.");
+            System.out.println("Couldn't find target image files: " + filepath);
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } 
+            }
+        }
+
+        try {
+            this.target = new Target(tempImages,
+                "/smoothieoperator/src/media/sounds/splash.wav", "splash");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Couldn't instantiate Target object.");
             e.printStackTrace();
         }
-        this.target = new Target(tempImages,
-            "/smoothieoperator/src/media/sounds/splash.wav", "splash");
 
         tempImages.clear();
 
         // create background
         try {
-            BufferedImage tempBackground = ImageIO.read(getClass().getResourceAsStream(String.
-                    format("/smoothieoperator/src/media/images/background/background.png")));
-            tempBackground = scaleOp.filter(tempBackground, null);
-            this.background = new Background(
-                    tempBackground, "/smoothieoperator/src/media/sounds/slowsong.wav", "GameSong");
+            filepath = String.
+                    format("/smoothieoperator/src/media/images/background/background.png");
+            inputStream = getClass().getResourceAsStream(filepath);
+            if (inputStream != null) {
+                BufferedImage tempBackground = ImageIO.read(inputStream);
+                inputStream.close();
+                tempBackground = scaleOp.filter(tempBackground, null);
+                this.background = new Background(tempBackground, 
+                        "/smoothieoperator/src/media/sounds/slowsong.wav", "GameSong");
+            }
         } catch (IOException e) {
-            System.out.println("Couldn't find background image file.");
+            System.out.println("Couldn't find background image file: " + filepath);
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Couldn't instantiate Background object.");
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } 
+            }
         }
 
         // create wall
         try {
-            BufferedImage tempWall = ImageIO.read(getClass().getResourceAsStream(String.
-                    format("/smoothieoperator/src/media/images/wall/wall.png")));
-            tempWall = scaleOp.filter(tempWall, null);
-            this.wall = new Wall(tempWall);
+            filepath = String.format("/smoothieoperator/src/media/images/wall/wall.png");
+            inputStream = getClass().getResourceAsStream(filepath);
+            if (inputStream != null) {
+                BufferedImage tempWall = ImageIO.read(inputStream);
+                inputStream.close();
+                tempWall = scaleOp.filter(tempWall, null);
+                this.wall = new Wall(tempWall);
+            }
         } catch (IOException e) {
-            System.out.println("Couldn't find wall image file.");
+            System.out.println("Couldn't find wall image file: " + filepath);
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Couldn't instantiate Wall object.");
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } 
+            }
         }
 
         // load projectile images
@@ -184,22 +300,38 @@ public class GamePanel extends JPanel {
 
             try {
                 for (int i = 1; i < 5; i++) {
-                    BufferedImage temp = ImageIO.read(getClass().
-                            getResourceAsStream(String.format
-                            ("/smoothieoperator/src/media/images/projectiles/%s/flying/%s-%d.png", 
-                            fruit, fruit, i)));
-                    tempFlying.add(scaleOp.filter(temp, null));
+                    filepath = String.format(
+                            "/smoothieoperator/src/media/images/projectiles/%s/flying/%s-%d.png", 
+                            fruit, fruit, i);
+                    inputStream = getClass().getResourceAsStream(filepath);
+                    if (inputStream != null) {
+                        BufferedImage temp = ImageIO.read(inputStream);
+                        tempFlying.add(scaleOp.filter(temp, null));
+                        inputStream.close();
+                    }
                 }
                 for (int i = 1; i < 2; i++) {
-                    BufferedImage temp = ImageIO.read(getClass().
-                            getResourceAsStream(String.format
-                            ("/smoothieoperator/src/media/images/projectiles/%s/splattered/%s-splat-%d.png",
-                            fruit, fruit, i)));
-                    tempSplattered.add(scaleOp.filter(temp, null));
+                    filepath = String.format(
+                            "/smoothieoperator/src/media/images/projectiles/"
+                            + "%s/splattered/%s-splat-%d.png", fruit, fruit, i);
+                    inputStream = getClass().getResourceAsStream(filepath);
+                    if (inputStream != null) {
+                        BufferedImage temp = ImageIO.read(inputStream);
+                        tempSplattered.add(scaleOp.filter(temp, null));
+                        inputStream.close();
+                    }
                 }
             } catch (IOException e) {
                 System.out.printf("Couldn't find %s image files.\n", fruit);
                 e.printStackTrace();
+            } finally {
+                if (inputStream != null){
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } 
+                }
             }
             projectileImages.put(fruit, new HashMap<String, ArrayList<BufferedImage>>());
             projectileImages.get(fruit).put("flying", tempFlying);
@@ -253,7 +385,10 @@ public class GamePanel extends JPanel {
                 repaint();
                 delta--;
             }
-            this.background.getSound("GameSong").loopSound();
+            Sound gameSong = this.background.getSound("GameSong");
+            if (gameSong != null) {
+                gameSong.loopSound();
+            }
         }
     }
 
