@@ -33,7 +33,8 @@ public class Lives extends Sprite {
     *        the number of lives the image represents, i.e. 2 lives should be at index 2
     * @param keyH the keyHandler, which sets to null
     * @throws IllegalArgumentException if the amount of images in the ArrayList is less
-    *         than TOTAL_LIVES + 1 (to account for image with 0 lives)
+    *         than TOTAL_LIVES + 1 (to account for image with 0 lives), or if the soundName
+    *         or the soundFile is null.
     */
     public Lives(int x, int y, ArrayList<BufferedImage> images,
             KeyHandler keyH, String soundFile, String soundName) {

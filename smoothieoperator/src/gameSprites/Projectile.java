@@ -36,9 +36,9 @@ public class Projectile extends Sprite {
     /**
      * Creates a new projectile object at coordinates x and y, with given angle, velocity,
      * flying images, and splattered images.
-     * Uses given updates per second to calculate number of updates per frame.
+     * Uses given updates per second to calculate number of updates per frame. Updates per
+     * second must be at least one.
      * Sets flyingImages as the default set of images placed into the images ArrayList.
-     * imagesIndex and updatesPerFrameChange begin at 0.
      * 
      * @param x Projectile's x-coordinate
      * @param y Projectile's y-coordinate
@@ -46,7 +46,9 @@ public class Projectile extends Sprite {
      * @param velocity Projectile's velocity
      * @param flyingImages Projectile's list of images in its flying state
      * @param splatteredImages Projectile's list of images in its splattered state
-     * @param updatesPerSec Projectile's number of updates per second
+     * @param updatesPerSec Projectile's number of updates per second. Must be positive.
+     * @param throws IllegalArgumentException if either ArrayList is null, contains null elements,
+     *               or is empty.
      */
     public Projectile(int x, int y, double angle, int velocity,
             ArrayList<BufferedImage> flyingImages, ArrayList<BufferedImage> splatteredImages,
@@ -58,12 +60,28 @@ public class Projectile extends Sprite {
             throw new IllegalArgumentException(
                     "Cannot instantiate with an empty flyingImages ArrayList");
         }
+        for (BufferedImage elem : flyingImages) {
+            if (elem == null) {
+                throw new IllegalArgumentException(
+                        "Cannot have a null element in the flyingImages ArrayList");
+            }
+        }
         if (splatteredImages == null) {
             throw new IllegalArgumentException("Cannot instantiate with null splatteredImage.");
         }
         if (splatteredImages.size() < 1) {
             throw new IllegalArgumentException(
                     "Cannot instantiate with an empty splatteredImages ArrayList");
+        }
+        for (BufferedImage elem : splatteredImages) {
+            if (elem == null) {
+                throw new IllegalArgumentException(
+                        "Cannot have a null element in the splatteredImages ArrayList");
+            }
+        }
+
+        if (updatesPerSec <= 0) {
+            updatesPerSec = 1;
         }
 
         this.flyingImages = Sprite.copyBufferedImages(flyingImages);

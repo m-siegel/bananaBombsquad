@@ -23,8 +23,9 @@ public class Background extends Sprite {
     *
     * @param image the background image, which should have same proportions 
     *        and pixel height/width as the game screen
-    * @throws IllegalArgumentException if the image is null or if the image's dimensions
-    *         are different than the screen dimensions.
+    * @throws IllegalArgumentException if the image is null, if the image's dimensions
+    *         are different than the screen dimensions, if the musicFile is null, or if
+    *         the songName is null.
     */
     public Background(BufferedImage image, String musicFile, String songName) {
         if (image == null) {

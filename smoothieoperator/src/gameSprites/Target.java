@@ -24,13 +24,23 @@ public class Target extends Sprite {
      * imagesIndex tracks how many times target is hit, initially 0. Images are drawn accordingly.
      * 
      * @param images Image list for the target.
+     * @throws IllegalArgumentException if any of the parameters is null, if there are fewer than
+     *         MAX_HITS images in the images ArrayList, or if any element in the images ArrayList
+     *         is null.
      */
     public Target(ArrayList<BufferedImage> images, String soundFile, String soundName) {
         if (images == null) {
             throw new IllegalArgumentException("Cannot instantiate a target with null images.");
         }
         if (images.size() < MAX_HITS) {
-            throw new IllegalArgumentException("Images must be at least " + MAX_HITS + " elementslong.");
+            throw new IllegalArgumentException(
+                    "Images must be at least " + MAX_HITS + " elementslong.");
+        }
+        for (BufferedImage elem : images) {
+            if (elem == null) {
+                throw new IllegalArgumentException(
+                        "Cannot have a null element in the images ArrayList");
+            }
         }
         if (soundFile == null) {
             throw new IllegalArgumentException("Cannot instantiate with null soundFile.");
