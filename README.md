@@ -86,7 +86,15 @@ c-lopez created the images.
 armen-s created the music.
 
 **Other sounds:**
-TODO
+We used the following free, opensource, or public domain sound effects:
+- [whoosh](https://mixkit.co/free-sound-effects/whoosh/)
+  - Mixkit Sound Effects Free License: "You are licensed to use the Item to create an End Product that incorporates the Item as well as other things, so that it is larger in scope and different in nature than the Item. You’re permitted to download, copy, modify, distribute and publicly perform the Sound Effect Items on any web or social media platform, in podcasts and in video games, as well as in films and presentations distributed on CDs, DVDs, via TV or radio broadcast or internet based video on demand services."
+- [boom](https://www.nps.gov/subjects/sound/sounds-cannon.htm)
+  - Public Domain
+- ["splash - swordofkings128"](https://pixabay.com/sound-effects/search/splash/)
+  - “Free for commercial use, No attribution required.” "Crediting isn't required, but linking back is greatly appreciated and allows music authors to gain exposure.”
+- [splat - "Squish Footstep Watery Grass 3"](https://www.dreamstime.com/stock-music-sound-effect/squish.html)
+  - Royalty-free license.
 
 ## Other Credits -- Learning Resources
 In addition to the documentation for each library, we found the following resources helpful:
