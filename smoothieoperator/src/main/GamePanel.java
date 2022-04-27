@@ -591,10 +591,21 @@ public class GamePanel extends JPanel {
      * 
      * <p>Clears endMessage and projectiles SpriteList.
      * Resets number of lives and the position of the target.
+     * Stops the ending music.
      */
     public void gameSetup() {
         if (fatalError) {
             return;
+        }
+        if (endMessage.getSound("losingSong") != null) {
+            endMessage.getSound("losingSong").stopSound();
+        }
+        if (endMessage.getSound("winningSong") != null) {
+            endMessage.getSound("winningSong").stopSound();
+        }
+        Sound gameSong = this.background.getSound("GameSong");
+        if (gameSong != null) {
+            gameSong.loopSound();
         }
         endMessage.removeEndMessage();
         projectiles.clear();
@@ -625,10 +636,6 @@ public class GamePanel extends JPanel {
                 repaint();
                 delta--;
             }
-            Sound gameSong = this.background.getSound("GameSong");
-            if (gameSong != null) {
-                gameSong.loopSound();
-            }
         }
     }
 
@@ -656,11 +663,23 @@ public class GamePanel extends JPanel {
         // Checking for the end of game
         if (lives.isDead()) {
             endMessage.displayEndMessage();
+            if (this.background.getSound("GameSong") != null) {
+                this.background.getSound("GameSong").stopSound();
+            }
+            if (endMessage.getSound("losingSong") != null) {
+                endMessage.getSound("losingSong").loopSound();
+            }
             endMessage.playerWon(false);
             return;
         }
         if (target.isFull()) {
             endMessage.displayEndMessage();
+            if (this.background.getSound("GameSong") != null) {
+                this.background.getSound("GameSong").stopSound();
+            }
+            if (endMessage.getSound("winningSong") != null) {
+                endMessage.getSound("winningSong").loopSound();
+            }
             endMessage.playerWon(true);
             return;
         }

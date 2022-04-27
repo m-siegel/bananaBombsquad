@@ -51,7 +51,9 @@ public class GameWindowManager {
         titlePanel.run();
         layout.next(deck);
         gamePanel.requestFocusInWindow();
-        titlePanel.getSound().stopSound();
+        if (titlePanel.getSound() != null) {
+            titlePanel.getSound().stopSound();
+        }
         gamePanel.startGame();
     }
 }
