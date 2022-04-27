@@ -151,6 +151,7 @@ public class Cannon extends Sprite {
     // if position is updated, then barrelPivots also needs to be updated
     updateAngle();
     matchBarrelFrameToAngle();
+    this.getSound("boom").reset();
   }
 
   /**
