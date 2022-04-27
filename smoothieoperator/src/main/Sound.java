@@ -76,6 +76,7 @@ public class Sound {
 
     public void stopSound() {
         this.clip.stop();
+        this.clip.setMicrosecondPosition(0);
     }
 
     public void loopSound() {

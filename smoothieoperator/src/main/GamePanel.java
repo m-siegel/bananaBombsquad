@@ -600,6 +600,7 @@ public class GamePanel extends JPanel {
         if (projectiles.size() > 0 && launchedProjectile) {
             if (projectiles.get(projectiles.size() - 1).collidesWith(target)) {
                 projectiles.remove(projectiles.size() - 1);
+                target.getSound("splash").playSound();
                 target.incrementNumberOfHits();
                 target.resetPosition();
                 launchedProjectile = false;
@@ -640,6 +641,8 @@ public class GamePanel extends JPanel {
                     errorMessage += "instantiating Projectile, ";
                     return;
                 }
+                target.getSound("splash").stopSound();
+                cannon.getSound("boom").playSound();
             }
             cannon.update();
             powerBar.update();
