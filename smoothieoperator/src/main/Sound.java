@@ -35,7 +35,7 @@ public class Sound {
     private Clip clip;
     private URL url;
 
-    public Sound(String filepath) {
+    public Sound(String filepath) throws IOException, UnsupportedAudioFileException, LineUnavailableException{
         if (filepath == null) {
             throw new NullPointerException();
         }
@@ -43,20 +43,23 @@ public class Sound {
         setFile();
     }
 
-    public void setFile() {
+    public void setFile() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         try {
             AudioInputStream stream = AudioSystem.getAudioInputStream(this.url);
             this.clip = AudioSystem.getClip();
             this.clip.open(stream);
             stream.close();
         } catch (IOException e){
+            System.out.println("Error retrieving sound file");
             //TODO - how should these exceptions be handled?
                 // we could return false, or set some instance variable to false so we don't try
                 // playing a nonexistent clip later and don't crash the game.
                 // Or we could pass it up the chain and have GamePanel write to a file the stack
                 // traces of all the errors it catches so we could see it afterwards.
         } catch (UnsupportedAudioFileException e) {
+            System.out.println("Error retrieving sound file");
         } catch (LineUnavailableException e) {
+            System.out.println("Error retrieving sound file");
         }
     }
 
@@ -67,8 +70,6 @@ public class Sound {
     public URL getURL() {
         return this.url;
     }
-
-    // public void play(), stop(), loop()?
 
     public void playSound() {
         this.clip.start();

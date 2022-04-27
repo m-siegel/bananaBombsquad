@@ -1,8 +1,13 @@
 package smoothieoperator.src.gameSprites;
 
 import java.util.ArrayList;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.awt.image.AffineTransformOp;
 import java.awt.geom.AffineTransform;
 
@@ -49,6 +54,9 @@ public class Projectile extends Sprite {
      * @param updatesPerSec Projectile's number of updates per second. Must be positive.
      * @param throws IllegalArgumentException if either ArrayList is null, contains null elements,
      *               or is empty.
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
      */
     public Projectile(int x, int y, double angle, int velocity,
             ArrayList<BufferedImage> flyingImages, ArrayList<BufferedImage> splatteredImages,
@@ -105,8 +113,18 @@ public class Projectile extends Sprite {
         this.updatesSinceFrameChange = 0;
         this.updatesPerFrame = FPS / updatesPerSec;
 
-        this.addSound("/smoothieoperator/src/media/sounds/splat.wav", "splat");
-        this.addSound("/smoothieoperator/src/media/sounds/whooshFast.wav", "whoosh");
+        try {
+            this.addSound("/smoothieoperator/src/media/sounds/splat.wav", "splat");
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e1) {
+            System.out.println("Error retrieving sound file");
+            e1.printStackTrace();
+        }
+        try {
+            this.addSound("/smoothieoperator/src/media/sounds/whooshFast.wav", "whoosh");
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+            System.out.println("Error retrieving sound file");
+            e.printStackTrace();
+        }
     }
 
     public void splat() { // case when image is splattered on the ground
@@ -142,8 +160,12 @@ public class Projectile extends Sprite {
         this.splattered = true;
         this.imagesIndex = 0;
         this.images = splatteredImages;
-        this.sounds.get("whoosh").stopSound();
-        this.sounds.get("splat").playSound();
+        if (this.sounds.get("whoosh") != null) {
+            this.sounds.get("whoosh").stopSound();
+        }
+        if (this.sounds.get("splat") != null) {
+            this.sounds.get("splat").playSound();
+        }
     }
 
     /**
@@ -239,8 +261,10 @@ public class Projectile extends Sprite {
         // play in time with image revolution
         if (updatesSinceFrameChange == 0) {
             if (imagesIndex == 0) {
-                this.sounds.get("whoosh").reset();
-                this.sounds.get("whoosh").playSound();
+                if (this.sounds.get("whoosh") != null) {
+                    this.sounds.get("whoosh").reset();
+                    this.sounds.get("whoosh").playSound();
+                }
             }
         }
     }

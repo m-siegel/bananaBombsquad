@@ -1,11 +1,15 @@
 package smoothieoperator.src.spriteEssentials;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import smoothieoperator.src.main.KeyHandler;
 import smoothieoperator.src.main.Sound;
@@ -233,14 +237,16 @@ public class Sprite {
    * @param soundName the String to associate with this Sound in the sounds HashMap.
    * @throws IllegalArgumentException if either parameter is null.
    */
-  public void addSound(String filepath, String soundName) {
+  public void addSound(String filepath, String soundName) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
     if (filepath == null) {
       throw new IllegalArgumentException("filepath cannot be null");
     }
     if (soundName == null) {
       throw new IllegalArgumentException("soundName cannot be null");
     }
+  
     this.sounds.put(soundName, new Sound(filepath));
+
   }
 
   /**

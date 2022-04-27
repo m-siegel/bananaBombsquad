@@ -2,8 +2,13 @@ package smoothieoperator.src.gameSprites;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import smoothieoperator.src.main.GamePanel;
 import smoothieoperator.src.main.Sound;
@@ -55,7 +60,12 @@ public class Target extends Sprite {
         this.solid = true;
         this.imagesIndex = 0;
         this.images = Sprite.copyBufferedImages(images);
-        this.sounds.put(soundName, new Sound(soundFile));
+        try {
+            this.sounds.put(soundName, new Sound(soundFile));
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+            System.out.println("Error retrieving sound file");
+            e.printStackTrace();
+        }
     }
 
     /**

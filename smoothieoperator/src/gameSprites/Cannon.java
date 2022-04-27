@@ -1,6 +1,11 @@
 package smoothieoperator.src.gameSprites;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -79,7 +84,12 @@ public class Cannon extends Sprite {
     this.speed = 1; // number of degrees per call to update()
     this.solid = false;
     this.keyHandler = keyHandler;
-    this.sounds.put(soundName, new Sound(soundFile));
+    try {
+      this.sounds.put(soundName, new Sound(soundFile));
+    } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+      System.out.println("Error retrieving sound file");
+      e.printStackTrace();
+    }
 
     // barrel image should start facing North
     this.cartesianAngle = 90;
@@ -151,7 +161,9 @@ public class Cannon extends Sprite {
     // if position is updated, then barrelPivots also needs to be updated
     updateAngle();
     matchBarrelFrameToAngle();
-    this.getSound("boom").reset();
+    if (this.getSound("boom") != null) {
+      this.getSound("boom").reset();
+    }
   }
 
   /**
