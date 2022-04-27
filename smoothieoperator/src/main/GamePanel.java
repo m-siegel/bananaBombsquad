@@ -1,7 +1,6 @@
 package smoothieoperator.src.main;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
