@@ -2,6 +2,10 @@ package smoothieoperator.src.gameSprites;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import smoothieoperator.src.main.KeyHandler;
 import smoothieoperator.src.spriteEssentials.*;
@@ -22,6 +26,18 @@ public class EndMessage extends Sprite {
         this.keyHandler = keyHandler;
         this.displayMessage = false;
         this.solid = false;
+        try {
+            this.addSound("/smoothieoperator/src/media/sounds/winning.wav", "winningSong");
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+            System.out.println("Error retrieving sound file");
+            e.printStackTrace();
+        }
+        try {
+            this.addSound("/smoothieoperator/src/media/sounds/losing.wav", "losingSong");
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+            System.out.println("Error retrieving sound file");
+            e.printStackTrace();
+        }
     }
 
     public void displayEndMessage() {
