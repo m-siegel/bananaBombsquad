@@ -27,7 +27,26 @@ folder.
 
 ## Program Structure
 
-TODO
+With scalability in mind, the Smoothie Operator game was mindfully created to be extended and 
+built-upon by our team, as well as other developers.
+
+Our program is comprised of 4 packages:
+* gameSprites - contains the classes of the visual entities of the game
+* main - (need help with a description)
+* media - contains the image and sound files of the game
+* spriteEssentials - contains the Sprite class, the base class of every visual entity in the game
+
+Our program utilizes a GameWindowManager, a class that manages the visibility of the different
+screens a player will see. We've designed our code in a way that could handle the addition of other 
+panels like pause screens, settings screens, and loading screens.
+
+The user's first exposure to the Smoothie Operator game will be at the title screen. After clicking
+the start button, the GameWindowManager will display the GamePanel, the screen that handles displaying
+the various sprites, initiating sound effects, and estabilishing the game logic. Everything that's
+displayed on the screen is a Sprite, which is appropriately derived from the Sprite class.
+
+As the player attempts to launch fruit at the target (a blender), GamePanel constantly receives this
+information (with the help of the KeyHandler) and updates the visible sprites with the new information.
 
 ## Packages Used
 
