@@ -52,6 +52,8 @@ GameWindowManager.
    like collisions), and determine how (if at all) they can collide with other Sprites.
 7. When the user closes the window, the program ends.
 
+![Class Diagram w/o Sprite and Descendents](/img/classChartWOSprite.png)
+![Class Diagram of Sprite and Descendents](/img/classChartSprite.png)
 
 ## Packages Used
 
