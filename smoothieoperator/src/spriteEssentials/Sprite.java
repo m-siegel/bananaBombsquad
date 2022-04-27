@@ -225,6 +225,14 @@ public class Sprite {
     return this.solid;
   }
 
+  /**
+   * Creates a sound from the given filepath and adds it to the sounds HashMap under the
+   * key soundName. If a sound cannot be instantiated from the given filepath, // TODO -- what does it do?
+   * 
+   * @param filepath the path to the given .wav file.
+   * @param soundName the String to associate with this Sound in the sounds HashMap.
+   * @throws IllegalArgumentException if either parameter is null.
+   */
   public void addSound(String filepath, String soundName) {
     if (filepath == null) {
       throw new IllegalArgumentException("filepath cannot be null");
