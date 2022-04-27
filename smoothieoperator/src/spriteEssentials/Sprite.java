@@ -75,7 +75,7 @@ public class Sprite {
     this.speed = speed;
     if (images == null || images.size() < 1) {
       this.images = new ArrayList<BufferedImage>();
-      this.images.add(new BufferedImage(0, 0, BufferedImage.TYPE_INT_RGB));
+      this.images.add(new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB));
     } else {
       this.images = copyBufferedImages(images);
     }
@@ -136,7 +136,7 @@ public class Sprite {
     this.y = y;
     this.speed = speed;
     if (image == null) {
-      image = new BufferedImage(0, 0, BufferedImage.TYPE_INT_RGB);
+      image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
     }
     this.images = new ArrayList<BufferedImage>();
     this.images.add(image);
