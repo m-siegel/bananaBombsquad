@@ -47,7 +47,7 @@ and
 [java.awt.image](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/image/package-summary.html).
 We read in and played music and sound effects using
 [javax.sound.sampled](https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/sound/sampled/package-summary.html).
-Finally, we got random numbers and used HashMaps and ArrayLists from
+Finally, we got random numbers and used data structures from
 [java.util](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/package-summary.html).
 
 
