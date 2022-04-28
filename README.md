@@ -33,8 +33,8 @@ folder.
 folder. When the MouseListener registers a button click, it gives control back to the
 GameWindowManager.
 4. The GameWindowManager then displays its GamePanel and starts the GamePanel's game loop.
-5. GamePanel. A GamePanel has one each of Background, Cannon, Lives, PowerBar, Target and 
-   Wall, which are all descendents of Sprite. GamePanel runs the game logic.
+5. GamePanel. A GamePanel has one each of Background, Cannon, Lives, PowerBar, Target, Wall, 
+   and EndMessage, which are all descendents of Sprite. GamePanel runs the game logic.
    1. GamePanel sets the screen dimensions for the program.
    2. When it's instantiated, the GamePanel reads in and processes images from the media folder,
    and either stores them in a SpriteList (for the Projectiles), or instantiates the corresponding
