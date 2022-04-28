@@ -434,7 +434,7 @@ public class GamePanel extends JPanel {
             
             this.endMessage = new EndMessage((SCREEN_WIDTH * SCALE / 2) - (tempLosing.getWidth() / 2),
                     (SCREEN_HEIGHT * SCALE / 2) - (tempLosing.getHeight() / 2), tempLosing,
-                    tempWinning, this.keyH);
+                    tempWinning);
         } catch (IOException e) {
             System.out.println("Couldn't find end message image files: " + filepath);
             e.printStackTrace();
