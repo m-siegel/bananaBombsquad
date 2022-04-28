@@ -7,23 +7,24 @@ import java.awt.event.MouseEvent;
  * Processes mouse clicks for use by JComponents.
  */
 public class MouseHandler extends MouseAdapter {
-  private boolean buttonPressed;
+    private boolean buttonPressed;
 
-  /**
-   * Creates a new MouseHandler with the buttonPressed variable set to false.
-   */
-  public MouseHandler() {
-    this.buttonPressed = false;
-  }
+    /**
+     * Creates a new MouseHandler with the buttonPressed variable set to false.
+     */
+    public MouseHandler() {
+        this.buttonPressed = false;
+    }
 
-  /**
-   * Sets buttonPressed to true when the mouse is clicked.
-   */
-  public void mouseClicked(MouseEvent e) {
-    this.buttonPressed = true;
-  }
+    /**
+     * Sets buttonPressed to true when the mouse is clicked.
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        this.buttonPressed = true;
+    }
 
-  public boolean getButtonPressed() {
-    return buttonPressed;
-  }
+    public boolean getButtonPressed() {
+        return buttonPressed;
+    }
 }
