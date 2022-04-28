@@ -7,9 +7,11 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import smoothieoperator.src.main.KeyHandler;
 import smoothieoperator.src.spriteEssentials.*;
 
+/**
+ * Represents the message that displays at the end of a game.
+ */
 public class EndMessage extends Sprite {
 
     private boolean displayMessage;
@@ -17,13 +19,17 @@ public class EndMessage extends Sprite {
     private BufferedImage losingImage;
     private BufferedImage winningImage;
 
-    public EndMessage(int x, int y, BufferedImage losingImage, BufferedImage winningImage, 
-            KeyHandler keyHandler) {
+    public EndMessage(int x, int y, BufferedImage losingImage, BufferedImage winningImage) {
+        if (losingImage == null) {
+            throw new IllegalArgumentException("losingImage parameter cannot be null.");
+        }
+        if (winningImage == null) {
+            throw new IllegalArgumentException("winningImage parameter cannot be null.");
+        }
         this.x = x;
         this.y = y;
         this.losingImage = losingImage;
         this.winningImage = winningImage;
-        this.keyHandler = keyHandler;
         this.displayMessage = false;
         this.solid = false;
         try {
@@ -40,12 +46,8 @@ public class EndMessage extends Sprite {
         }
     }
 
-    public void displayEndMessage() {
-        this.displayMessage = true;
-    }
-
-    public void removeEndMessage() {
-        this.displayMessage = false;
+    public void displayEndMessage(boolean display) {
+        this.displayMessage = display;
     }
 
     public void playerWon(boolean status) {

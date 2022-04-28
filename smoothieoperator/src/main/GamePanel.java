@@ -434,7 +434,7 @@ public class GamePanel extends JPanel {
             
             this.endMessage = new EndMessage((SCREEN_WIDTH * SCALE / 2) - (tempLosing.getWidth() / 2),
                     (SCREEN_HEIGHT * SCALE / 2) - (tempLosing.getHeight() / 2), tempLosing,
-                    tempWinning, this.keyH);
+                    tempWinning);
         } catch (IOException e) {
             System.out.println("Couldn't find end message image files: " + filepath);
             e.printStackTrace();
@@ -607,7 +607,7 @@ public class GamePanel extends JPanel {
         if (gameSong != null) {
             gameSong.loopSound();
         }
-        endMessage.removeEndMessage();
+        endMessage.displayEndMessage(false);
         projectiles.clear();
         target.reset();
         lives.livesReset();
@@ -662,7 +662,7 @@ public class GamePanel extends JPanel {
 
         // Checking for the end of game
         if (lives.isDead()) {
-            endMessage.displayEndMessage();
+            endMessage.displayEndMessage(true);
             if (this.background.getSound("GameSong") != null) {
                 this.background.getSound("GameSong").stopSound();
             }
@@ -673,7 +673,7 @@ public class GamePanel extends JPanel {
             return;
         }
         if (target.isFull()) {
-            endMessage.displayEndMessage();
+            endMessage.displayEndMessage(true);
             if (this.background.getSound("GameSong") != null) {
                 this.background.getSound("GameSong").stopSound();
             }
