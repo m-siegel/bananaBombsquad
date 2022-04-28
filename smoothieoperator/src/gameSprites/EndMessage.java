@@ -46,12 +46,8 @@ public class EndMessage extends Sprite {
         }
     }
 
-    public void displayEndMessage() {
-        this.displayMessage = true;
-    }
-
-    public void removeEndMessage() {
-        this.displayMessage = false;
+    public void displayEndMessage(boolean display) {
+        this.displayMessage = display;
     }
 
     public void playerWon(boolean status) {
