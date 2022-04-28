@@ -744,6 +744,7 @@ public class GamePanel extends JPanel {
     /**
      * Draws the screen and each component from farthest to nearest.
      */
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
@@ -752,10 +753,17 @@ public class GamePanel extends JPanel {
             // draw components back to front
             background.draw(g2D);
             wall.draw(g2D);
-            target.draw(g2D);
             powerBar.draw(g2D);
             lives.draw(g2D);
-            projectiles.draw(g2D);
+            // draw target on top of splattered projectiles on the ground (looks less weird)
+            if (target.getHeight() + target.getY() >= background.getHitBox().getYMin()) {
+                projectiles.draw(g2D);
+                target.draw(g2D);
+            // generally more fun to see projectiles in front of the target
+            } else {
+                target.draw(g2D);
+                projectiles.draw(g2D);
+            }
             cannon.draw(g2D);
             endMessage.draw(g2D);
 
