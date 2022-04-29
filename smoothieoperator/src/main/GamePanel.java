@@ -729,7 +729,7 @@ public class GamePanel extends JPanel {
                     || projectiles.get(projectiles.size() - 1).getY() > SCREEN_HEIGHT) {
                 projectiles.remove(projectiles.size() - 1);
                 lives.loseLife();
-                target.reset();
+                target.resetPosition();
                 launchedProjectile = false;
             }
 
