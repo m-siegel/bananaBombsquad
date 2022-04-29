@@ -231,7 +231,7 @@ public class Sprite {
 
     /**
      * Creates a sound from the given filepath and adds it to the sounds HashMap under the
-     * key soundName. If a sound cannot be instantiated from the given filepath, // TODO -- what does it do?
+     * key soundName.
      * 
      * @param filepath the path to the given .wav file.
      * @param soundName the String to associate with this Sound in the sounds HashMap.

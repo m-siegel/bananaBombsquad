@@ -772,8 +772,6 @@ public class GamePanel extends JPanel {
             cannon.draw(g2D);
             endMessage.draw(g2D);
 
-            g2D.setFont(new Font("MS Gothic", Font.PLAIN, 36));
-            g2D.setColor(Color.MAGENTA);
         } else {
             // Draw error screen
             g2D.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
