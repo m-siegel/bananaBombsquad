@@ -22,7 +22,7 @@ public class EndMessage extends Sprite {
    * The displayMessage is set to false by default and is set to true when the end of
    * the game is triggered in the GamePanel. Object is set to not solid by default.
    *
-   * Creates a Sound object associated with the winning/losing EndMessage.
+   * <p>Creates a Sound object associated with the winning/losing EndMessage.
    * 
    * @param losingImage the image to draw when the player loses the game
    * @param winningImage the image to draw when the player wins the game
@@ -54,12 +54,20 @@ public class EndMessage extends Sprite {
         }
     }
 
-    // takes a boolean for when the end/start of the game is detected
+    /**
+     * Sets the displayMessage boolean that determines whether or not this EndMessage is drawn.
+     * 
+     * @param setVisible whether or not to draw this EndMessage.
+     */
     public void displayEndMessage(boolean setVisible) {
         this.displayMessage = setVisible;
     }
 
-    // takes a boolean for whether the player won
+    /**
+     * Updates hasWon variable based on the parameter.
+     * 
+     * @param status whether or not the player has won.
+     */
     public void playerWon(boolean status) {
         if (status) {
             this.hasWon = true;
@@ -68,7 +76,9 @@ public class EndMessage extends Sprite {
         }
     }
 
-    // draws the end message only if displayMessage == true
+    /**
+     * Draws the end message only if displayMessage is true.
+     */
     @Override
     public void draw(Graphics2D g2) {
         if (displayMessage) {

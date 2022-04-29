@@ -23,6 +23,7 @@ public class Sound {
      * Creates a new Sound object using the given filepath String.
      * Creates a URL using the filepath, and uses the setFile() method to 
      * create an AudioInputStream with the URL, which provides the sound input to the Clip.
+     * 
      * @param filepath the name of the audio file.
      * @throws NullPointerException if the given filepath String is null.
      */
@@ -40,8 +41,9 @@ public class Sound {
      * Closes the stream to release any system resources it may have used. 
      */
     public void setFile() {
+        AudioInputStream stream = null;
         try {
-            AudioInputStream stream = AudioSystem.getAudioInputStream(this.url);
+            stream = AudioSystem.getAudioInputStream(this.url);
             this.clip = AudioSystem.getClip();
             this.clip.open(stream);
             stream.close();
@@ -63,6 +65,14 @@ public class Sound {
         } catch (IllegalArgumentException e) {
             System.out.println("Error retrieving sound file");
             e.printStackTrace();
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

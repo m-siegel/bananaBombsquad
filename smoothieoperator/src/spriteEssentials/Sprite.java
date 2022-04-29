@@ -17,7 +17,7 @@ import smoothieoperator.src.main.Sound;
  * a sprite object. Sprites may be static images or animated with a series of frames.
  * Sprites may remain in one location, or may move.
  * 
- * All Sprite objects have:
+ * <p>All Sprite objects have:
  *   - x- and y-coordinate integers that represent their onscreen location (default to 0),
  *   - speed integer (defaults to 0),
  *   - solid boolean, representing whether the sprite has a solid area (defaults to false),
@@ -45,7 +45,8 @@ public class Sprite {
 
     /**
     * Default constructor creates Sprite at (0, 0) with speed 0, not solid, one 1x1
-    * image and a null keyHandler. This is so descendants can create any constructor they'd like.
+    * image and a null keyHandler. Sets solid to false, imagesIndex to 0 and instantiates an
+    * empty HashMap for sounds. This is so descendants can create any constructor they'd like.
     */
     protected Sprite() {
         x = 0;
@@ -264,7 +265,7 @@ public class Sprite {
      * Returns the hit box for this sprite's current location if this Sprite is solid.
      * Returns null if this Sprite is not solid.
      * 
-     * Defaults to the dimension coordinates of this Sprite's first image.
+     * <p>Defaults to the dimension coordinates of this Sprite's first image.
      * 
      * @return this Sprite's hit box; null if this Sprite is not solid.
      */

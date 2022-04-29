@@ -18,7 +18,7 @@ public class GameWindowManager {
     /**
      * Sets up and runs the game window.
      * 
-     * Sets up a new JFrame and loads the TitlePanel and GamePanel
+     * <p>Sets up a new JFrame and loads the TitlePanel and GamePanel
      * into it. Runs the titlePanel, then switches to the gamePanel and
      * starts the game.
      * 

@@ -13,9 +13,8 @@ import smoothieoperator.src.spriteEssentials.*;
  * Represents the amount of lives in the game. Life indicator itself does not move but
  * animates through ArrayList of images after losing a life in the game or resetting. 
  * TOTAL_LIVES indicates how many lives a round has, and imagesIndex represents which 
- * image in the ArrayList that the object is at during the round. This decrements if 
- * there is no collision and resets at the end of each round. Also has an isDead() 
- * method to indicate when a player is out of lives.
+ * image in the ArrayList that the object is at during the round. The isDead() 
+ * method indicates when a player is out of lives.
  */
 public class Lives extends Sprite {
 

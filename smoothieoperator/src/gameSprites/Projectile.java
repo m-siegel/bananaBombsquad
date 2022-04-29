@@ -54,7 +54,7 @@ public class Projectile extends Sprite {
      * @param splatteredImages Projectile's list of images in its splattered state
      * @param updatesPerSec Projectile's number of updates per second. Must be positive.
      * @throws IllegalArgumentException if either ArrayList is null, contains null elements,
-     *               or is empty.
+     *         or is empty.
      * @throws LineUnavailableException
      * @throws UnsupportedAudioFileException
      * @throws IOException
@@ -135,10 +135,12 @@ public class Projectile extends Sprite {
      * Sets splattered to true and changes the images ArrayList and corresponding imagesIndex
      * to use this proejctile's splattered images instead of flying images.
      * Stops the Projectile's "whoosh" sound and plays its "splat" sound.
+     * 
      * @param rotation
      */
     public void splat(int rotation) {
         if (rotation != 0) {
+            // Rotate all splattered images
             ArrayList<BufferedImage> tempArrayList =
                     new ArrayList<BufferedImage>(splatteredImages.size());
 
@@ -289,7 +291,7 @@ public class Projectile extends Sprite {
         }
         int width = images.get(imagesIndex).getWidth();
         int height = images.get(imagesIndex).getHeight();
-        return new HitBox(this.x + (int) (width * .25), this.x + (int) (width * .75), y + (int) (height * .25),
-                y + (int) (height * .75));
+        return new HitBox(this.x + (int) (width * .25), this.x + (int) (width * .75),
+                y + (int) (height * .25), y + (int) (height * .75));
     }
 }

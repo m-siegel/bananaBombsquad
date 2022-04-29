@@ -3,6 +3,7 @@ package smoothieoperator.src.main;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
@@ -122,6 +123,9 @@ public class TitlePanel extends JPanel{
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
 
-        g2D.drawImage(backgroundImage, 0, 0, null);
+        g2D.setBackground(Color.BLACK);
+        if (backgroundImage != null) {
+            g2D.drawImage(backgroundImage, 0, 0, null);
+        }
     }
 }

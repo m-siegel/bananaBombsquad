@@ -39,13 +39,13 @@ public class Cannon extends Sprite {
      * to the given KeyHandler. The cannon's barrel can rotate 90 degrees, but its pivot
      * point cannot move in any direction.
      * 
-     * The cannon image should be facing northward. The cannon's pivot point is calculated
+     * <p>The cannon image should be facing northward. The cannon's pivot point is calculated
      * to be on the vertical center line, 1/2 the image's width from the bottom of the image.
      * 
-     * The wheel image should have equal width and height,
+     * <p>The wheel image should have equal width and height,
      * and be at least as wide as the barrel's width.
      *
-     * Creates a Sound object associated with a Cannon.
+     * <p>Creates a Sound object associated with a Cannon.
      *  
      * @param wheel the image to draw for the wheel at the base of the cannon
      * @param barrel the barrel of the cannon to draw and rotate
@@ -168,6 +168,7 @@ public class Cannon extends Sprite {
 
     /**
      * Updates cartesianAngle based on key presses.
+     * Stays between MIN_CARTESIAN_ANGLE and MAX_CARTESIAN_ANGLE, inclusive.
     */
     private void updateAngle() {
         if (keyHandler.getAngleClockwisePressed()) {

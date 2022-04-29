@@ -161,7 +161,7 @@ public class Target extends Sprite {
     * Returns the hit box for the Target's current location.
     * 
     * <p>The length and width of the Target's hitbox are half of the
-    * image's size.
+    * image's size, horizontally centered and flush with the top edge.
     * 
     * @return this Target's hit box.
      */
