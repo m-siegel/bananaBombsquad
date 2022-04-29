@@ -72,11 +72,11 @@ public class GamePanel extends JPanel {
 
     /**
      * Calls helper methods to initialize the Background, Wall, Cannon,
-     * Target, PowerBar and Lives sprites for this game.
+     * Target, PowerBar, Lives, and EndMessage sprites for this game.
      * Calls helper method to load the images that will be used to instantiate projectiles
      * into the projectileImages HashMap.
      * 
-     * <p>Sets fatalError to true if any loading methods fail and appends message to errorMessage.
+     * Sets fatalError to true if any loading methods fail and appends message to errorMessage.
      */
     public void loadSprites() {
 
@@ -185,7 +185,7 @@ public class GamePanel extends JPanel {
         String filepath = "";
         InputStream inputStream = null;
 
-        // create powerbar
+        // create powerBar
         try {
             for (int i = 0; i < 21; i++) {
                 filepath = String.format(
@@ -571,11 +571,10 @@ public class GamePanel extends JPanel {
         return true;
     }
 
-
     /**
      * Starts the game if no fatal error has occurred.
      * 
-     * <p>Sets up the game, sets isRunning to true and starts the game loop.
+     * Sets up the game, sets isRunning to true and starts the game loop.
      */
     public void startGame() {
         if (fatalError) {
@@ -642,16 +641,16 @@ public class GamePanel extends JPanel {
     /**
      * Main game logic.
      * 
-     * <p>Resets the game as needed, in response to keyboard input.
+     * Resets the game as needed, in response to keyboard input.
      * 
-     * <p>Ends the game (either winning or losing) based on whether the target is full
+     * Ends the game (either winning or losing) based on whether the target is full
      * or the player is dead.
      * 
-     * <p>Registers and reacts to collisions between projectiles and other solid objects.
+     * Registers and reacts to collisions between projectiles and other solid objects.
      * 
-     * <p>Launches projectiles in response to keyboard input.
+     * Launches projectiles in response to keyboard input.
      * 
-     * <p>Updates all sprites with their update methods, if no projectile is flying. Updates
+     * Updates all sprites with their update methods, if no projectile is flying. Updates
      * projectiles with each call.
      */
     public void update() {

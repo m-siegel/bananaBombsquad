@@ -18,7 +18,7 @@ public class GameWindowManager {
     /**
      * Sets up and runs the game window.
      * 
-     * <p>Sets up a new JFrame and loads the TitlePanel and GamePanel
+     * Sets up a new JFrame and loads the TitlePanel and GamePanel
      * into it. Runs the titlePanel, then switches to the gamePanel and
      * starts the game.
      * 
@@ -43,9 +43,9 @@ public class GameWindowManager {
         // Finish setting up window layout
         window.add(deck);
         window.setLayout(layout);
-        window.pack(); //window is sized to fit the preferred size and layouts of the gamePanel
-        window.setLocationRelativeTo(null); //sets window to appear at center of screen
-        window.setVisible(true); //allows us to see the window
+        window.pack(); // window is sized to fit the preferred size and layouts of the gamePanel
+        window.setLocationRelativeTo(null); // sets window to appear at center of screen
+        window.setVisible(true); // allows us to see the window
 
         // Run the title screen and then the game
         titlePanel.run();

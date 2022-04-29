@@ -13,7 +13,6 @@ import smoothieoperator.src.main.GamePanel;
 import smoothieoperator.src.main.Sound;
 import smoothieoperator.src.spriteEssentials.*;
 
-
 /**
  * Represents the background of the game screen. The GamePanel.TILE_SIZE section of this
  * Background along the bottom of the screen is considered solid for the purposes of collisions

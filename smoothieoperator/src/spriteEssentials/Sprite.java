@@ -20,7 +20,7 @@ import smoothieoperator.src.main.Sound;
  * a sprite object. Sprites may be static images or animated with a series of frames.
  * Sprites may remain in one location, or may move.
  * 
- * <p>All Sprite objects have:
+ * All Sprite objects have:
  *   - x- and y-coordinate integers that represent their onscreen location (default to 0),
  *   - speed integer (defaults to 0),
  *   - solid boolean, representing whether the sprite has a solid area (defaults to false),
@@ -67,11 +67,11 @@ public class Sprite {
     * images, and KeyHandler. Sets imagesIndex to 0. If the given images ArrayList is null or empty,
     * creates a new ArrayList with an invisible image.
     * 
-    * @param x Sprite's x coordinate.
-    * @param y Sprite's y coordinate.
-    * @param speed Sprite's speed.
-    * @param images Images for this sprite.
-    * @param keyH KeyHandler to control this Sprite.
+    * @param x Sprite's x coordinate
+    * @param y Sprite's y coordinate
+    * @param speed Sprite's speed
+    * @param images Images for this sprite
+    * @param keyH KeyHandler to control this Sprite
     */
     public Sprite(int x, int y, int speed, ArrayList<BufferedImage> images, KeyHandler keyH) {
         this.x = x;
@@ -92,10 +92,10 @@ public class Sprite {
     * Creates a new Sprite at the given x and y coordinates, with the given speed, ArrayList of
     * images.
     * 
-    * @param x Sprite's x coordinate.
-    * @param y Sprite's y coordinate.
-    * @param speed Sprite's speed.
-    * @param images Images for this sprite.
+    * @param x Sprite's x coordinate
+    * @param y Sprite's y coordinate
+    * @param speed Sprite's speed
+    * @param images Images for this sprite
     */
     public Sprite(int x, int y, int speed, ArrayList<BufferedImage> images) {
         this(x, y, speed, images, null);
@@ -104,10 +104,10 @@ public class Sprite {
     /**
     * Creates a new Sprite at the given x and y coordinates, ArrayList of images, and KeyHandler.
     * 
-    * @param x Sprite's x coordinate.
-    * @param y Sprite's y coordinate.
-    * @param images Images for this sprite.
-    * @param keyH KeyHandler to control this Sprite.
+    * @param x Sprite's x coordinate
+    * @param y Sprite's y coordinate
+    * @param images Images for this Sprite
+    * @param keyH KeyHandler to control this Sprite
     */
     public Sprite(int x, int y, ArrayList<BufferedImage> images, KeyHandler keyH) {
         this(x, y, 0, images, keyH);
@@ -116,9 +116,9 @@ public class Sprite {
     /**
     * Creates a new Sprite at the given x and y coordinates, and a BufferedImage images.
     * 
-    * @param x Sprite's x coordinate.
-    * @param y Sprite's y coordinate.
-    * @param image BufferedImage for this sprite.
+    * @param x Sprite's x coordinate
+    * @param y Sprite's y coordinate
+    * @param image BufferedImage for this Sprite
     */
     public Sprite(int x, int y, ArrayList<BufferedImage> images) {
         this(x, y, 0, images, null);
@@ -129,11 +129,11 @@ public class Sprite {
     * KeyHandler. Adds the given image to the images ArrayList. If the given image is null,
     * creates a 0-dimensional BufferedImage to add to the images ArrayList.
     * 
-    * @param x Sprite's x coordinate.
-    * @param y Sprite's y coordinate.
-    * @param speed Sprite's speed.
-    * @param image BufferedImage for this sprite.
-    * @param keyH KeyHandler to control this Sprite.
+    * @param x Sprite's x coordinate
+    * @param y Sprite's y coordinate
+    * @param speed Sprite's speed
+    * @param image BufferedImage for this Sprite
+    * @param keyH KeyHandler to control this Sprite
     */
     public Sprite(int x, int y, int speed, BufferedImage image, KeyHandler keyH) {
         this.x = x;
@@ -152,10 +152,10 @@ public class Sprite {
     * Creates a new Sprite at the given x and y coordinates, with the given speed, and image. Adds
     * the given image to the images ArrayList. Sets keyHandler to null.
     * 
-    * @param x Sprite's x coordinate.
-    * @param y Sprite's y coordinate.
-    * @param speed Sprite's speed.
-    * @param image BufferedImage for this sprite.
+    * @param x Sprite's x coordinate
+    * @param y Sprite's y coordinate
+    * @param speed Sprite's speed
+    * @param image BufferedImage for this Sprite
     */
     public Sprite(int x, int y, int speed, BufferedImage image) {
         this(x, y, speed, image, null);
@@ -165,10 +165,10 @@ public class Sprite {
     * Creates a new Sprite at the given x and y coordinates, and image. Adds the given image to the
     * images ArrayList. Sets speed to 0.
     * 
-    * @param x Sprite's x coordinate.
-    * @param y Sprite's y coordinate.
-    * @param image BufferedImage for this sprite.
-    * @param keyH KeyHandler to control this Sprite.
+    * @param x Sprite's x coordinate
+    * @param y Sprite's y coordinate
+    * @param image BufferedImage for this Sprite
+    * @param keyH KeyHandler to control this Sprite
     */
     public Sprite(int x, int y, BufferedImage image, KeyHandler keyH) {
         this(x, y, 0, image, keyH);
@@ -178,9 +178,9 @@ public class Sprite {
     * Creates a new Sprite at the given x and y coordinates, and BufferedImage. Adds the given image
     * to the images ArrayList. Sets speed to 0 and keyHandler to null.
     * 
-    * @param x Sprite's x coordinate.
-    * @param y Sprite's y coordinate.
-    * @param image BufferedImage for this sprite.
+    * @param x Sprite's x coordinate
+    * @param y Sprite's y coordinate
+    * @param image BufferedImage for this Sprite
     */
     public Sprite(int x, int y, BufferedImage image) {
         this(x, y, 0, image, null);
@@ -246,7 +246,6 @@ public class Sprite {
         }
     
         this.sounds.put(soundName, new Sound(filepath));
-
     }
 
     /**
@@ -265,7 +264,7 @@ public class Sprite {
     }
 
     /**
-     * Returns the hit box for this sprite's current location if this sprite is solid.
+     * Returns the hit box for this sprite's current location if this Sprite is solid.
      * Returns null if this Sprite is not solid.
      * 
      * Defaults to the dimension coordinates of this Sprite's first image.

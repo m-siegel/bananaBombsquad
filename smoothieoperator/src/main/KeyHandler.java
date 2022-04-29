@@ -11,15 +11,10 @@ import java.awt.event.KeyEvent;
 public class KeyHandler implements KeyListener {
 
     private boolean angleCounterClockwisePressed; // left arrow key, or A key
-
     private boolean angleClockwisePressed; // right arrow key, or D key
-
     private boolean powerUpPressed; // up arrow key, or W key
-
     private boolean powerDownPressed; // down arrow key, or S key
-
     private boolean shootButtonPressed; // spacebar, or enter key
-  
     private boolean resetTyped; // R key
 
   

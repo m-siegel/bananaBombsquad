@@ -164,10 +164,10 @@ public class Target extends Sprite {
         resetHits();
     }
 
-    /**
+   /**
    * Returns the hit box for the Target's current location.
    * 
-   * <p>The length and width of the Target's hitbox are half of the
+   * The length and width of the Target's hitbox are half of the
    * image's size.
    * 
    * @return this Target's hit box.
