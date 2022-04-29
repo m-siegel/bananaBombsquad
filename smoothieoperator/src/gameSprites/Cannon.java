@@ -94,7 +94,7 @@ public class Cannon extends Sprite {
             System.out.println("Error retrieving sound file");
             e.printStackTrace();
         } catch (NullPointerException e) {
-          e.printStackTrace();
+            e.printStackTrace();
         }
 
         // barrel image should start facing North
@@ -178,10 +178,10 @@ public class Cannon extends Sprite {
     */
     private void updateAngle() {
         if (keyHandler.getAngleClockwisePressed()) {
-                cartesianAngle = Math.max(cartesianAngle - speed, MIN_CARTESIAN_ANGLE);
+            cartesianAngle = Math.max(cartesianAngle - speed, MIN_CARTESIAN_ANGLE);
         }
         if (keyHandler.getAngleCounterClockwisePressed()) {
-                cartesianAngle = Math.min(cartesianAngle + speed, MAX_CARTESIAN_ANGLE);
+            cartesianAngle = Math.min(cartesianAngle + speed, MAX_CARTESIAN_ANGLE);
         }
     }
 
