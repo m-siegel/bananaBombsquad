@@ -7,23 +7,22 @@ hits the blender three times, they win the round. If the player misses six times
 round. Players may start a new round at any time.
 
 ## Usage
-If your computer is running Java 11 or later, you can download the source code to compile and run
-the program.
-1. Download the 
-[*smoothieoperator/src*](https://github.com/m-siegel/bananaBombsquad/tree/main/smoothieoperator/src)
-folder.
-2. Either open the folder in an IDE (like VS Code) and run src/main/Main.java
-from there, or compile and run src/main/Main.java from the command line:
-  2. a. *javac src/main/Main.java*
-  2. b. *java src/main/Main*
-3. Enjoy!
+1. Download the source code and Java byte code from the 
+[*smoothieoperator/src*](https://github.com/m-siegel/bananaBombsquad/tree/main/smoothieoperator/src/)
 
-If your computer is running an older version of Java, you can download the Java byte code to run
-the program.
-1. Download the
-[*smoothieoperator/bin*](https://github.com/m-siegel/bananaBombsquad/tree/main/smoothieoperator/bin)
-folder.
-2. From the command line, run the command *java bin/main/Main*.
+2. (Compile and) run the program:
+
+   A. If your computer is running Java 11 or later, you can compile and run the source code.
+   - Either open the folder in an IDE (like VS Code) and run smoothieoperator/src/main/Main.java
+from there, or
+   - Compile and run smoothieoperator/src/main/Main.java from the command line:
+     1. *javac smoothieoperator/src/main/Main.java*
+     2. *java smoothieoperator/src/main/Main*
+
+   B. If your computer is running an older version of Java, you can run the pre-compiled byte code
+from the command line: *java smoothieoperator/src/main/Main*.
+
+3. Enjoy!
 
 ## Program Structure
 
