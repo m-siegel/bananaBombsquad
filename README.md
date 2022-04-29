@@ -76,6 +76,9 @@ We read in and played music and sound effects using
 Finally, we got random numbers and used data structures from
 [java.util](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/package-summary.html).
 
+![List of libraries used](/img/LibrariesUsed1.png)
+![List of libraries used](/img/LibrariesUsed2.png)
+
 
 ## Contributors
 **Code:**
