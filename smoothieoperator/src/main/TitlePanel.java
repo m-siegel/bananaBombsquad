@@ -45,6 +45,8 @@ public class TitlePanel extends JPanel{
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             System.out.println("Error retrieving sound file");
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
@@ -111,7 +113,9 @@ public class TitlePanel extends JPanel{
                 repaint();
                 delta--;
             }
-            this.sound.loopSound();
+            if (this.sound != null) {
+                this.sound.loopSound();
+            }
         }
     }
 

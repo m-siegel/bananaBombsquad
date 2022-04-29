@@ -688,7 +688,9 @@ public class GamePanel extends JPanel {
         if (projectiles.size() > 0 && launchedProjectile) {
             if (projectiles.get(projectiles.size() - 1).collidesWith(target)) {
                 projectiles.remove(projectiles.size() - 1);
-                target.getSound("splash").playSound();
+                if (target.getSound("splash") != null) {
+                    target.getSound("splash").playSound();
+                }
                 target.incrementNumberOfHits();
                 target.resetPosition();
                 launchedProjectile = false;
@@ -713,7 +715,9 @@ public class GamePanel extends JPanel {
         // if not a flying projectile, we check to see if player wants to shoot
         } else {
             if (keyH.getShootButtonPressed()) {
-                this.cannon.getSound("boom").playSound();
+                if (this.cannon.getSound("boom") != null) {
+                    this.cannon.getSound("boom").playSound();
+                }
                 Random randomizer = new Random();
                 int i = randomizer.nextInt(FRUIT_NAMES.length);
                 String fruit = FRUIT_NAMES[i];
@@ -730,7 +734,9 @@ public class GamePanel extends JPanel {
                     errorMessage += "instantiating Projectile, ";
                     return;
                 }
-                target.getSound("splash").stopSound();
+                if (target.getSound("splash") != null) {
+                    target.getSound("splash").stopSound();
+                }
             }
             cannon.update();
             powerBar.update();

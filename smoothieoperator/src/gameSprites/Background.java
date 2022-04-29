@@ -61,6 +61,8 @@ public class Background extends Sprite {
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             System.out.println("Error retrieving sound file");
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 

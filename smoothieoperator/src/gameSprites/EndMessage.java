@@ -49,11 +49,15 @@ public class EndMessage extends Sprite {
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             System.out.println("Error retrieving sound file");
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
         try {
             this.addSound("/smoothieoperator/src/media/sounds/losing.wav", "losingSong");
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             System.out.println("Error retrieving sound file");
+            e.printStackTrace();
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }

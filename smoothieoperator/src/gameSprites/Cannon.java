@@ -93,6 +93,8 @@ public class Cannon extends Sprite {
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             System.out.println("Error retrieving sound file");
             e.printStackTrace();
+        } catch (NullPointerException e) {
+          e.printStackTrace();
         }
 
         // barrel image should start facing North
