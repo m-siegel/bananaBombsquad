@@ -32,7 +32,6 @@ public class GamePanel extends JPanel {
     public static final int SCREEN_WIDTH = TILE_SIZE * SCALE * 16;
     public static final int SCREEN_HEIGHT = TILE_SIZE * SCALE * 12;
     public static final int FPS = 60;
-    public static final String[] FRUIT_NAMES = {"banana", "strawberry", "orange"};
 
     // instance variables
     private boolean isRunning;
@@ -47,6 +46,8 @@ public class GamePanel extends JPanel {
     private HashMap<String, HashMap<String, ArrayList<BufferedImage>>> projectileImages;
     private EndMessage endMessage;
     private boolean launchedProjectile;
+    // ArrayList so it can be adjusted if a particular fruit can't be read in
+    private ArrayList<String> fruitNames;
 
     private boolean fatalError;
     private String errorMessage;
@@ -61,9 +62,13 @@ public class GamePanel extends JPanel {
         this.setDoubleBuffered(true);
         this.setFocusable(true);
         this.isRunning = false;
-        launchedProjectile = false;
+        this.launchedProjectile = false;
         this.projectiles = new SpriteList();
         this.projectileImages = new HashMap<String, HashMap<String, ArrayList<BufferedImage>>>();
+        this.fruitNames = new ArrayList<String>();
+        this.fruitNames.add("banana");
+        this.fruitNames.add("strawberry");
+        this.fruitNames.add("orange");
 
         this.fatalError = false;
         this.errorMessage = "";
@@ -76,7 +81,8 @@ public class GamePanel extends JPanel {
      * Calls helper method to load the images that will be used to instantiate projectiles
      * into the projectileImages HashMap.
      * 
-     * Sets fatalError to true if any loading methods fail and appends message to errorMessage.
+     * <p>Sets fatalError to true if any loading methods fail and appends indication of what
+     * caused the issue to errorMessage.
      */
     public void loadSprites() {
 
@@ -365,17 +371,19 @@ public class GamePanel extends JPanel {
         InputStream inputStream = null;
 
         // create background
+        BufferedImage tempBackground = null;
         try {
             filepath = String.
                     format("/smoothieoperator/src/media/images/background/background.png");
             inputStream = getClass().getResourceAsStream(filepath);
             if (inputStream != null) {
-                BufferedImage tempBackground = ImageIO.read(inputStream);
+                tempBackground = ImageIO.read(inputStream);
                 inputStream.close();
                 tempBackground = scaleOp.filter(tempBackground, null);
-                this.background = new Background(tempBackground, 
-                        "/smoothieoperator/src/media/sounds/slowsong.wav", "GameSong");
             }
+            // try to instantiate regardless of null inputStream -- constructor will throw error
+            this.background = new Background(tempBackground, 
+                        "/smoothieoperator/src/media/sounds/slowsong.wav", "GameSong");
         } catch (IOException e) {
             System.out.println("Couldn't find background image file: " + filepath);
             e.printStackTrace();
@@ -384,7 +392,7 @@ public class GamePanel extends JPanel {
             System.out.println("Couldn't instantiate Background object.");
             e.printStackTrace();
             return false;
-        } finally {
+        } finally {            
             if (inputStream != null){
                 try {
                     inputStream.close();
@@ -476,14 +484,14 @@ public class GamePanel extends JPanel {
         InputStream inputStream = null;
 
         // create wall
+        BufferedImage tempWall = null;
         try {
             filepath = String.format("/smoothieoperator/src/media/images/wall/wall.png");
             inputStream = getClass().getResourceAsStream(filepath);
             if (inputStream != null) {
-                BufferedImage tempWall = ImageIO.read(inputStream);
+                tempWall = ImageIO.read(inputStream);
                 inputStream.close();
                 tempWall = scaleOp.filter(tempWall, null);
-                this.wall = new Wall(tempWall);
             }
         } catch (IOException e) {
             System.out.println("Couldn't find wall image file: " + filepath);
@@ -494,7 +502,8 @@ public class GamePanel extends JPanel {
             e.printStackTrace();
             return false;
         } finally {
-            if (inputStream != null){
+            this.wall = new Wall(tempWall); // constructor doesn't throw error
+            if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
@@ -521,8 +530,11 @@ public class GamePanel extends JPanel {
         String filepath = "";
         InputStream inputStream = null;
 
+        // to track any fruits that whose images can't be loaded
+        ArrayList<String> missingFruit = new ArrayList<String>();
+
         // load projectile images
-        for (String fruit : FRUIT_NAMES) {
+        for (String fruit : fruitNames) {
             ArrayList<BufferedImage> tempFlying = new ArrayList<BufferedImage>();
             ArrayList<BufferedImage> tempSplattered = new ArrayList<BufferedImage>();
 
@@ -549,32 +561,42 @@ public class GamePanel extends JPanel {
                         inputStream.close();
                     }
                 }
+                if (!tempFlying.isEmpty() && !tempSplattered.isEmpty()) {
+                    projectileImages.put(fruit, new HashMap<String, ArrayList<BufferedImage>>());
+                    projectileImages.get(fruit).put("flying", tempFlying);
+                    projectileImages.get(fruit).put("splattered", tempSplattered);
+                }
             } catch (IOException e) {
+                // If one type of fruit can't be loaded, just procede to the next.
                 System.out.printf("Couldn't find %s image files.\n", fruit);
                 e.printStackTrace();
-                return false;
             } finally {
+                if (tempFlying.isEmpty() || tempSplattered.isEmpty()) {
+                    missingFruit.add(fruit); // track missing fruit
+                }
                 if (inputStream != null){
                     try {
                         inputStream.close();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        return false;
                     } 
                 }
             }
-            projectileImages.put(fruit, new HashMap<String, ArrayList<BufferedImage>>());
-            projectileImages.get(fruit).put("flying", tempFlying);
-            projectileImages.get(fruit).put("splattered", tempSplattered);
         }
 
-        return true;
+        // remove missing fruit names so they can't be chosen later
+        for (String missing : missingFruit) {
+            fruitNames.remove(missing);
+        }
+        
+        // Return true if there's a least one type of fruit images
+        return projectileImages.size() > 0;
     }
 
     /**
      * Starts the game if no fatal error has occurred.
      * 
-     * Sets up the game, sets isRunning to true and starts the game loop.
+     * <p>Sets up the game, sets isRunning to true and starts the game loop.
      */
     public void startGame() {
         if (fatalError) {
@@ -641,16 +663,16 @@ public class GamePanel extends JPanel {
     /**
      * Main game logic.
      * 
-     * Resets the game as needed, in response to keyboard input.
+     * <p>Resets the game as needed, in response to keyboard input.
      * 
-     * Ends the game (either winning or losing) based on whether the target is full
+     * <p>Ends the game (either winning or losing) based on whether the target is full
      * or the player is dead.
      * 
-     * Registers and reacts to collisions between projectiles and other solid objects.
+     * <p>Registers and reacts to collisions between projectiles and other solid objects.
      * 
-     * Launches projectiles in response to keyboard input.
+     * <p>Launches projectiles in response to keyboard input.
      * 
-     * Updates all sprites with their update methods, if no projectile is flying. Updates
+     * <p>Updates all sprites with their update methods, if no projectile is flying. Updates
      * projectiles with each call.
      */
     public void update() {
@@ -718,8 +740,8 @@ public class GamePanel extends JPanel {
                     this.cannon.getSound("boom").playSound();
                 }
                 Random randomizer = new Random();
-                int i = randomizer.nextInt(FRUIT_NAMES.length);
-                String fruit = FRUIT_NAMES[i];
+                int i = randomizer.nextInt(fruitNames.size());
+                String fruit = fruitNames.get(i);
                 try {
                     projectiles.add(
                             new Projectile(cannon.getLaunchX(), cannon.getLaunchY(), cannon.getAngle(),
