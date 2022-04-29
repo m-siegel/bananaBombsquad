@@ -7,8 +7,9 @@ hits the blender three times, they win the round. If the player misses six times
 round. Players may start a new round at any time.
 
 ## Usage
-1. Download the source code and Java byte code from the 
-[*smoothieoperator/src*](https://github.com/m-siegel/bananaBombsquad/tree/main/smoothieoperator/src/)
+1. Download the 
+[*smoothieoperator/*](https://github.com/m-siegel/bananaBombsquad/tree/main/smoothieoperator/)
+ folder to get the source code and the byte code.
 
 2. (Compile and) run the program:
 
@@ -20,7 +21,7 @@ from there, or
      2. *java smoothieoperator/src/main/Main*
 
    B. If your computer is running an older version of Java, you can run the pre-compiled byte code
-from the command line: *java smoothieoperator/src/main/Main*.
+from the command line: *java smoothieoperator/bin/main/Main*.
 
 3. Enjoy!
 
