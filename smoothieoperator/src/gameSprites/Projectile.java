@@ -116,17 +116,11 @@ public class Projectile extends Sprite {
 
         try {
             this.addSound("/smoothieoperator/src/media/sounds/splat.wav", "splat");
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e1) {
-            System.out.println("Error retrieving sound file");
-            e1.printStackTrace();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
         try {
             this.addSound("/smoothieoperator/src/media/sounds/whooshFast.wav", "whoosh");
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-            System.out.println("Error retrieving sound file");
-            e.printStackTrace();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
