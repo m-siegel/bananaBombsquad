@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import javax.imageio.ImageIO;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -42,9 +40,6 @@ public class TitlePanel extends JPanel{
 
         try {
             this.sound = new Sound("/smoothieoperator/src/media/sounds/SmoothieTime.wav");
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-            System.out.println("Error retrieving sound file");
-            e.printStackTrace();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

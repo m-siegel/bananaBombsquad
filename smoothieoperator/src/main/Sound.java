@@ -25,11 +25,8 @@ public class Sound {
      * create an AudioInputStream with the URL, which provides the sound input to the Clip.
      * @param filepath the name of the audio file.
      * @throws NullPointerException if the given filepath String is null.
-     * @throws IOException
-     * @throws UnsupportedAudioFileException
-     * @throws LineUnavailableException
      */
-    public Sound(String filepath) throws IOException, UnsupportedAudioFileException, LineUnavailableException{
+    public Sound(String filepath) {
         if (filepath == null) {
             throw new NullPointerException();
         }
@@ -41,11 +38,8 @@ public class Sound {
      * Creates an AudioInputStream which obtains the sound data from the Sound object's URL.
      * Obtains a clip for the Sound object which is opened with the data in the AudioInputStream.
      * Closes the stream to release any system resources it may have used. 
-     * @throws IOException
-     * @throws UnsupportedAudioFileException
-     * @throws LineUnavailableException
      */
-    public void setFile() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public void setFile() {
         try {
             AudioInputStream stream = AudioSystem.getAudioInputStream(this.url);
             this.clip = AudioSystem.getClip();
@@ -58,6 +52,15 @@ public class Sound {
             System.out.println("Error retrieving sound file");
             e.printStackTrace();
         } catch (LineUnavailableException e) {
+            System.out.println("Error retrieving sound file");
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            System.out.println("Error retrieving sound file");
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            System.out.println("Error retrieving sound file");
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
             System.out.println("Error retrieving sound file");
             e.printStackTrace();
         }
@@ -75,7 +78,9 @@ public class Sound {
      * Plays the sound clip associated with this Sound object.
      */
     public void playSound() {
-        this.clip.start();
+        if (this.clip != null) {
+            this.clip.start();
+        }
     }
 
     /**
@@ -85,8 +90,10 @@ public class Sound {
      * is not guaranteed.
      */
     public void stopSound() {
-        this.clip.stop();
-        this.clip.setMicrosecondPosition(0);
+        if (this.clip != null) {
+            this.clip.stop();
+            this.clip.setMicrosecondPosition(0);
+        }
     }
 
     /**
@@ -94,14 +101,17 @@ public class Sound {
      * which allows it start from the beginning the next time it is played.
      */
     public void reset() {
-        this.clip.setFramePosition(0);
+        if (this.clip != null) {
+            this.clip.setFramePosition(0);
+        }
     }
 
     /**
      * Loops the sound clip associated with this Sound object continuously.
      */
     public void loopSound() {
-        this.clip.loop(Clip.LOOP_CONTINUOUSLY);
+        if (this.clip != null) {
+            this.clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
     }
-    
 }

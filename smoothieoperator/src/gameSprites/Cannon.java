@@ -1,10 +1,6 @@
 package smoothieoperator.src.gameSprites;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -90,9 +86,6 @@ public class Cannon extends Sprite {
         this.keyHandler = keyHandler;
         try {
             this.sounds.put(soundName, new Sound(soundFile));
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-            System.out.println("Error retrieving sound file");
-            e.printStackTrace();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

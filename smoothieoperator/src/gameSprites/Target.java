@@ -3,12 +3,8 @@ package smoothieoperator.src.gameSprites;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import smoothieoperator.src.main.GamePanel;
 import smoothieoperator.src.main.Sound;
@@ -65,9 +61,6 @@ public class Target extends Sprite {
         this.images = Sprite.copyBufferedImages(images);
         try {
             this.sounds.put(soundName, new Sound(soundFile));
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-            System.out.println("Error retrieving sound file");
-            e.printStackTrace();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -164,14 +157,14 @@ public class Target extends Sprite {
         resetHits();
     }
 
-   /**
-   * Returns the hit box for the Target's current location.
-   * 
-   * The length and width of the Target's hitbox are half of the
-   * image's size.
-   * 
-   * @return this Target's hit box.
-   */
+    /**
+    * Returns the hit box for the Target's current location.
+    * 
+    * <p>The length and width of the Target's hitbox are half of the
+    * image's size.
+    * 
+    * @return this Target's hit box.
+     */
     @Override
     public HitBox getHitBox() {
         int leftX;

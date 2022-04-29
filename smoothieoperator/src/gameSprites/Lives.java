@@ -2,11 +2,7 @@ package smoothieoperator.src.gameSprites;
 
 import java.util.ArrayList;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.awt.Graphics2D;
 
 import smoothieoperator.src.main.KeyHandler;
@@ -60,9 +56,6 @@ public class Lives extends Sprite {
         this.imagesIndex = TOTAL_LIVES;
         try {
             this.sounds.put(soundName, new Sound(soundFile));
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-            System.out.println("Error retrieving sound file");
-            e.printStackTrace();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
