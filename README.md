@@ -85,7 +85,7 @@ Finally, we got random numbers and used data structures from
 armen-s, c-lopez, m-siegel, and t-crawley collaboratively designed and created this program.
 
 **Graphics:**
-c-lopez created the images.
+c-lopez created the images, with the exception of the title screen image, which m-siegel made.
 
 **Music:**
 armen-s created the music.
